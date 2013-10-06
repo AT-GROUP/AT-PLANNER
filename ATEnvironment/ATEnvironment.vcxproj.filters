@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{bc036186-a59b-4a32-9f70-3926db76ea13}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{c99c9548-008e-4f5d-af7e-921eef0b7392}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{8120ed6a-0b6a-4dc4-aa38-209bf635d684}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\project">
+      <UniqueIdentifier>{2c20a9a0-2e55-4119-b376-7c3d13dbd7c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\core">
+      <UniqueIdentifier>{3d1a1758-7c25-4f96-8f34-b8ea8361a3cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\editors">
+      <UniqueIdentifier>{2c98951a-4811-4cbf-8d99-7f8b07c2c505}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\editors\schemes_editor">
+      <UniqueIdentifier>{2971b59d-251d-4fb6-96ac-d75db7db20c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scheme">
+      <UniqueIdentifier>{b64e2b98-a3e7-4e17-90d5-c39ebfa92dba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_ATEnvironment.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AProjectExplorer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AProjectExplorer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AProjectExplorer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\APlannerWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_APlannerWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_APlannerWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AOuputWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AOuputWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AOuputWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\project\AProject.cpp">
+      <Filter>src\project</Filter>
+    </ClCompile>
+    <ClCompile Include="src\project\AProjectNode.cpp">
+      <Filter>src\project</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\AError.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\ANamedObject.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\AFile.cpp">
+      <Filter>src\core</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AQProjectTreeWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AQProjectTreeWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQProjectTreeWidget.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AQNewProjectDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AQNewProjectDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQNewProjectDialog.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AQNewFileDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AQNewFileDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AQSchemesEditor.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AQSchemesEditor.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AQNewFileDialog.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\editors\schemes_editor\AQSchemesEditor.cpp">
+      <Filter>src\editors\schemes_editor</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ATEnvironment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ATEnvironment.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ATEnvironment.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scheme\AScheme.cpp">
+      <Filter>src\scheme</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="ATEnvironment.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ATEnvironment.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AProjectExplorer.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AProjectExplorer.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\APlannerWidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\APlannerWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AOuputWidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AOuputWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AQProjectTreeWidget.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AQNewProjectDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AQNewProjectDialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AQNewFileDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\editors\schemes_editor\AQSchemesEditor.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\editors\schemes_editor\AQSchemesEditor.h">
+      <Filter>src\editors\schemes_editor</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\AQNewFileDialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\ATEnvironment.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_ATEnvironment.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_AProjectExplorer.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_APlannerWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_AOuputWidget.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\project\AProject.h">
+      <Filter>src\project</Filter>
+    </ClInclude>
+    <ClInclude Include="src\project\AProjectNode.h">
+      <Filter>src\project</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\AError.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\ANamedObject.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\AFile.h">
+      <Filter>src\core</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_AQNewProjectDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_AQNewFileDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_AQSchemesEditor.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scheme\AScheme.h">
+      <Filter>src\scheme</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ATEnvironment.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
