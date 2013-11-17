@@ -1,0 +1,1 @@
+exec /home/zexir/projects/AT-Planner-Adaper/Adapter/CPT3/cpt -o /home/zexir/projects/AT-Planner-Adaper/Adapter/CPT3/examples/tempo-sat/crewplanning-strips/p01-domain.pddl -f /home/zexir/projects/AT-Planner-Adaper/Adapter/CPT3/examples/tempo-sat/crewplanning-strips/p01.pddl -H /home/zexir/projects/AT-Planner-Adaper/Adapter/CPT3/output >> /dev/null
