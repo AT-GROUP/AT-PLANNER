@@ -24,8 +24,7 @@
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
-#include "AOuputWidget.h"
-#include "APlannerWidget.h"
+#include "AConsoleWidget.h"
 #include "AProjectExplorer.h"
 
 QT_BEGIN_NAMESPACE
@@ -38,6 +37,8 @@ public:
     QAction *actionAbout;
     QAction *actionOpen_Project;
     QAction *actionSave_Project;
+    QAction *actionNewFile;
+    QAction *actionPlugins;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
     QMdiArea *mdiArea;
@@ -46,15 +47,16 @@ public:
     QMenu *menuNew;
     QMenu *menuView;
     QMenu *menuHelp;
+    QMenu *menuTools;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
     QDockWidget *dwProjectExplorer;
     AProjectExplorer *wdgProjectExplorer;
     QVBoxLayout *verticalLayout;
-    QDockWidget *dockWidget_2;
-    APlannerWidget *dockWidgetContents_2;
     QDockWidget *dockWidget_3;
-    AOuputWidget *dockWidgetContents_3;
+    AConsoleWidget *wdgConsole;
+    QDockWidget *dockPlanner;
+    QWidget *dockWidgetContents_2;
 
     void setupUi(QMainWindow *ATEnvironmentClass)
     {
@@ -71,6 +73,10 @@ public:
         actionOpen_Project->setObjectName(QStringLiteral("actionOpen_Project"));
         actionSave_Project = new QAction(ATEnvironmentClass);
         actionSave_Project->setObjectName(QStringLiteral("actionSave_Project"));
+        actionNewFile = new QAction(ATEnvironmentClass);
+        actionNewFile->setObjectName(QStringLiteral("actionNewFile"));
+        actionPlugins = new QAction(ATEnvironmentClass);
+        actionPlugins->setObjectName(QStringLiteral("actionPlugins"));
         centralWidget = new QWidget(ATEnvironmentClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
@@ -98,6 +104,8 @@ public:
         menuView->setObjectName(QStringLiteral("menuView"));
         menuHelp = new QMenu(menuBar);
         menuHelp->setObjectName(QStringLiteral("menuHelp"));
+        menuTools = new QMenu(menuBar);
+        menuTools->setObjectName(QStringLiteral("menuTools"));
         ATEnvironmentClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(ATEnvironmentClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -117,21 +125,22 @@ public:
         verticalLayout->setContentsMargins(0, 0, 0, 0);
         dwProjectExplorer->setWidget(wdgProjectExplorer);
         ATEnvironmentClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dwProjectExplorer);
-        dockWidget_2 = new QDockWidget(ATEnvironmentClass);
-        dockWidget_2->setObjectName(QStringLiteral("dockWidget_2"));
-        dockWidgetContents_2 = new APlannerWidget();
-        dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
-        dockWidget_2->setWidget(dockWidgetContents_2);
-        ATEnvironmentClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockWidget_2);
         dockWidget_3 = new QDockWidget(ATEnvironmentClass);
         dockWidget_3->setObjectName(QStringLiteral("dockWidget_3"));
         dockWidget_3->setAllowedAreas(Qt::BottomDockWidgetArea);
-        dockWidgetContents_3 = new AOuputWidget();
-        dockWidgetContents_3->setObjectName(QStringLiteral("dockWidgetContents_3"));
-        dockWidget_3->setWidget(dockWidgetContents_3);
+        wdgConsole = new AConsoleWidget();
+        wdgConsole->setObjectName(QStringLiteral("wdgConsole"));
+        dockWidget_3->setWidget(wdgConsole);
         ATEnvironmentClass->addDockWidget(static_cast<Qt::DockWidgetArea>(8), dockWidget_3);
+        dockPlanner = new QDockWidget(ATEnvironmentClass);
+        dockPlanner->setObjectName(QStringLiteral("dockPlanner"));
+        dockWidgetContents_2 = new QWidget();
+        dockWidgetContents_2->setObjectName(QStringLiteral("dockWidgetContents_2"));
+        dockPlanner->setWidget(dockWidgetContents_2);
+        ATEnvironmentClass->addDockWidget(static_cast<Qt::DockWidgetArea>(1), dockPlanner);
 
         menuBar->addAction(menuFile->menuAction());
+        menuBar->addAction(menuTools->menuAction());
         menuBar->addAction(menuView->menuAction());
         menuBar->addAction(menuHelp->menuAction());
         menuFile->addAction(menuNew->menuAction());
@@ -140,7 +149,9 @@ public:
         menuFile->addSeparator();
         menuFile->addAction(actionExit);
         menuNew->addAction(actionNewProject);
+        menuNew->addAction(actionNewFile);
         menuHelp->addAction(actionAbout);
+        menuTools->addAction(actionPlugins);
 
         retranslateUi(ATEnvironmentClass);
 
@@ -156,13 +167,16 @@ public:
         actionAbout->setText(QApplication::translate("ATEnvironmentClass", "About", 0));
         actionOpen_Project->setText(QApplication::translate("ATEnvironmentClass", "Open Project...", 0));
         actionSave_Project->setText(QApplication::translate("ATEnvironmentClass", "Save Project", 0));
+        actionNewFile->setText(QApplication::translate("ATEnvironmentClass", "File...", 0));
+        actionPlugins->setText(QApplication::translate("ATEnvironmentClass", "Plugins", 0));
         menuFile->setTitle(QApplication::translate("ATEnvironmentClass", "File", 0));
         menuNew->setTitle(QApplication::translate("ATEnvironmentClass", "New", 0));
         menuView->setTitle(QApplication::translate("ATEnvironmentClass", "View", 0));
         menuHelp->setTitle(QApplication::translate("ATEnvironmentClass", "Help", 0));
+        menuTools->setTitle(QApplication::translate("ATEnvironmentClass", "Tools", 0));
         dwProjectExplorer->setWindowTitle(QApplication::translate("ATEnvironmentClass", "Project Explorer", 0));
-        dockWidget_2->setWindowTitle(QApplication::translate("ATEnvironmentClass", "Planner", 0));
-        dockWidget_3->setWindowTitle(QApplication::translate("ATEnvironmentClass", "Output", 0));
+        dockWidget_3->setWindowTitle(QApplication::translate("ATEnvironmentClass", "AT Console", 0));
+        dockPlanner->setWindowTitle(QApplication::translate("ATEnvironmentClass", "Planner", 0));
     } // retranslateUi
 
 };

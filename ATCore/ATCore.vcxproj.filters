@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{014fbce0-e081-48f5-b453-d8279d62dd44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\project">
+      <UniqueIdentifier>{e6444ef8-3a76-40e8-b785-9a8a3645c8d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\edfd">
+      <UniqueIdentifier>{ae0e6b90-220a-49e6-aec0-8fec548d05dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\plugin">
+      <UniqueIdentifier>{32ba8166-b19e-4440-a11f-9fc7bfefe3e2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\ATCore\AError.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\AFile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\ANamedObject.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\project\AProject.cpp">
+      <Filter>src\project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\project\AProjectNode.cpp">
+      <Filter>src\project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\edfd\AScheme.cpp">
+      <Filter>src\edfd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\ALogManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\plugin\APluginManager.cpp">
+      <Filter>src\plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\plugin\APlugin.cpp">
+      <Filter>src\plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\ACommandExecutor.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\ATCore\AError.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\AFile.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\ANamedObject.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\config.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\project\AProject.h">
+      <Filter>src\project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\project\AProjectNode.h">
+      <Filter>src\project</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\edfd\AScheme.h">
+      <Filter>src\edfd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\ASingleton.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\ALogManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\ADelegatedObject.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\plugin\APlugin.h">
+      <Filter>src\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\plugin\APluginManager.h">
+      <Filter>src\plugin</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\ACommandExecutor.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
