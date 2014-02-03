@@ -121,24 +121,6 @@
     <CustomBuild Include="ATEnvironment.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\AConsoleWidget.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\AProjectExplorer.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\AQNewFileDialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\AQNewProjectDialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\ATEnvironment.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\forms\APluginsWidget.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="..\src\ATShell\AConsoleWidget.h">
       <Filter>src</Filter>
     </CustomBuild>
@@ -162,6 +144,24 @@
     </CustomBuild>
     <CustomBuild Include="..\src\ATShell\ATEnvironment.h">
       <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\AConsoleWidget.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\AProjectExplorer.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\AQNewFileDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\AQNewProjectDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\ATEnvironment.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\forms\APluginsWidget.ui">
+      <Filter>Form Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

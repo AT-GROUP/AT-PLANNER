@@ -25,6 +25,9 @@
     <Filter Include="src\plugin">
       <UniqueIdentifier>{32ba8166-b19e-4440-a11f-9fc7bfefe3e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\architecture">
+      <UniqueIdentifier>{3f0f18e8-9cc2-460f-a4b5-7be8cb3f1943}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ATCore\AError.cpp">
@@ -56,6 +59,9 @@
     </ClCompile>
     <ClCompile Include="..\src\ATCore\ACommandExecutor.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\architecture\AArchitectureDocument.cpp">
+      <Filter>src\architecture</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,6 +103,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ATCore\ACommandExecutor.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\architecture\AArchitectureDocument.h">
+      <Filter>src\architecture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -52,6 +52,7 @@ class AT_CORE_API AEditorPlugin : public APlugin
 public:
 	virtual const Type type() const;
 	virtual void openFile(AFile * file)=0;
+	virtual const std::string documentExtension() const = 0;
 };
 
 

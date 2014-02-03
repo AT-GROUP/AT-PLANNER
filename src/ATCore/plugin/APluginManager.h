@@ -50,6 +50,7 @@ public:
 	void buildCommandIndex();
 
 	virtual AUtilityPlugin * getPluginForCommand(const std::string & cmd);
+	AEditorPlugin * editorForExtension(const std::string & ext);
 protected:
 	std::vector<ADynamicPlugin*> mPlugins[static_cast<int>(APlugin::Type::Count)];
 	std::map<std::string, AUtilityPlugin*> mCommandIndex;

@@ -63,6 +63,7 @@ public:
 
 	virtual AError init(QToolBar * tb, QMenu * menu);
 	virtual void openFile(AFile * file);
+	virtual const std::string documentExtension() const override;
 };
 
 #endif // EDFDEDITOR_H
