@@ -6,10 +6,13 @@
 #include "../config.h"
 #include "../AError.h"
 #include "APlugin.h"
-#include <windows.h>
 #include <memory>
 #include <vector>
 #include <map>
+
+#ifdef AT_OS_WINDOWS
+    #include <windows.h>
+#endif
 
 typedef APlugin * (*create_plugin_func)();
 
@@ -23,7 +26,13 @@ public:
 	const wchar_t * path() const;
 private:
 	std::wstring mLibraryPath;
-	HMODULE mDllInstance;
+    
+#ifdef AT_OS_WINDOWS
+	HMODULE mLibInstance;
+#elif defined(AT_OS_OSX)
+    void * mLibInstance;
+#endif
+    
 	create_plugin_func mFactoryFunction;
 	APlugin * mPluginInstance;
 };
@@ -42,7 +51,7 @@ public:
 
 	virtual AUtilityPlugin * getPluginForCommand(const std::string & cmd);
 protected:
-	std::vector<ADynamicPlugin*> mPlugins[APlugin::Type::Count];
+	std::vector<ADynamicPlugin*> mPlugins[static_cast<int>(APlugin::Type::Count)];
 	std::map<std::string, AUtilityPlugin*> mCommandIndex;
 };
 

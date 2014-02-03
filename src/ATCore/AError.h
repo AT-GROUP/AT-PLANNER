@@ -62,7 +62,14 @@ class AT_CORE_API AException : public std::exception
 {
 public:
 	AException(const std::string & msg)
-		:exception(msg.c_str())
+		:exception(), mText(msg)
 	{}
+    
+    virtual const char * what()
+    {
+        return mText.c_str();
+    }
+private:
+    const std::string mText;
 };
 #endif

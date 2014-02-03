@@ -128,7 +128,7 @@ void ALogManager::log_printf(const std::string & log_name, const char * _Format,
 	
 	if((log->outputType() == ALog::OutputType::ConsoleOnly) || (log->outputType() == ALog::OutputType::All))
 	{
-		printf("%s: ", log_name); 
+		printf("%s: ", log_name.c_str());
         vprintf(_Format, args);
 		DELEGATE()->logMessagePrinted(log_name, _Format, args);
 	}

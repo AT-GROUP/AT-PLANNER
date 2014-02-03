@@ -1,0 +1,353 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		164E551A189A6D4000DFDE6B /* ACommandExecutor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164E550D189A6D4000DFDE6B /* ACommandExecutor.cpp */; };
+		164E551B189A6D4000DFDE6B /* ACommandExecutor.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E550E189A6D4000DFDE6B /* ACommandExecutor.h */; };
+		164E551C189A6D4000DFDE6B /* ADelegatedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E550F189A6D4000DFDE6B /* ADelegatedObject.h */; };
+		164E551D189A6D4000DFDE6B /* AError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164E5510189A6D4000DFDE6B /* AError.cpp */; };
+		164E551E189A6D4000DFDE6B /* AError.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E5511189A6D4000DFDE6B /* AError.h */; };
+		164E551F189A6D4000DFDE6B /* AFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164E5512189A6D4000DFDE6B /* AFile.cpp */; };
+		164E5520189A6D4000DFDE6B /* AFile.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E5513189A6D4000DFDE6B /* AFile.h */; };
+		164E5521189A6D4000DFDE6B /* ALogManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164E5514189A6D4000DFDE6B /* ALogManager.cpp */; };
+		164E5522189A6D4000DFDE6B /* ALogManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E5515189A6D4000DFDE6B /* ALogManager.h */; };
+		164E5523189A6D4000DFDE6B /* ANamedObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164E5516189A6D4000DFDE6B /* ANamedObject.cpp */; };
+		164E5524189A6D4000DFDE6B /* ANamedObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E5517189A6D4000DFDE6B /* ANamedObject.h */; };
+		164E5525189A6D4000DFDE6B /* ASingleton.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E5518189A6D4000DFDE6B /* ASingleton.h */; };
+		164E5526189A6D4000DFDE6B /* config.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E5519189A6D4000DFDE6B /* config.h */; };
+		164E5534189A6D4E00DFDE6B /* AScheme.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164E5528189A6D4E00DFDE6B /* AScheme.cpp */; };
+		164E5535189A6D4E00DFDE6B /* AScheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E5529189A6D4E00DFDE6B /* AScheme.h */; };
+		164E5536189A6D4E00DFDE6B /* APlugin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164E552B189A6D4E00DFDE6B /* APlugin.cpp */; };
+		164E5537189A6D4E00DFDE6B /* APlugin.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E552C189A6D4E00DFDE6B /* APlugin.h */; };
+		164E5538189A6D4E00DFDE6B /* APluginManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164E552D189A6D4E00DFDE6B /* APluginManager.cpp */; };
+		164E5539189A6D4E00DFDE6B /* APluginManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E552E189A6D4E00DFDE6B /* APluginManager.h */; };
+		164E553A189A6D4E00DFDE6B /* AProject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164E5530189A6D4E00DFDE6B /* AProject.cpp */; };
+		164E553B189A6D4E00DFDE6B /* AProject.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E5531189A6D4E00DFDE6B /* AProject.h */; };
+		164E553C189A6D4E00DFDE6B /* AProjectNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 164E5532189A6D4E00DFDE6B /* AProjectNode.cpp */; };
+		164E553D189A6D4E00DFDE6B /* AProjectNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 164E5533189A6D4E00DFDE6B /* AProjectNode.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		164E5505189A6D0A00DFDE6B /* libATCore.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libATCore.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		164E550D189A6D4000DFDE6B /* ACommandExecutor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ACommandExecutor.cpp; path = ../../../src/ATCore/ACommandExecutor.cpp; sourceTree = "<group>"; };
+		164E550E189A6D4000DFDE6B /* ACommandExecutor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ACommandExecutor.h; path = ../../../src/ATCore/ACommandExecutor.h; sourceTree = "<group>"; };
+		164E550F189A6D4000DFDE6B /* ADelegatedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ADelegatedObject.h; path = ../../../src/ATCore/ADelegatedObject.h; sourceTree = "<group>"; };
+		164E5510189A6D4000DFDE6B /* AError.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AError.cpp; path = ../../../src/ATCore/AError.cpp; sourceTree = "<group>"; };
+		164E5511189A6D4000DFDE6B /* AError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AError.h; path = ../../../src/ATCore/AError.h; sourceTree = "<group>"; };
+		164E5512189A6D4000DFDE6B /* AFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AFile.cpp; path = ../../../src/ATCore/AFile.cpp; sourceTree = "<group>"; };
+		164E5513189A6D4000DFDE6B /* AFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AFile.h; path = ../../../src/ATCore/AFile.h; sourceTree = "<group>"; };
+		164E5514189A6D4000DFDE6B /* ALogManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ALogManager.cpp; path = ../../../src/ATCore/ALogManager.cpp; sourceTree = "<group>"; };
+		164E5515189A6D4000DFDE6B /* ALogManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ALogManager.h; path = ../../../src/ATCore/ALogManager.h; sourceTree = "<group>"; };
+		164E5516189A6D4000DFDE6B /* ANamedObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ANamedObject.cpp; path = ../../../src/ATCore/ANamedObject.cpp; sourceTree = "<group>"; };
+		164E5517189A6D4000DFDE6B /* ANamedObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ANamedObject.h; path = ../../../src/ATCore/ANamedObject.h; sourceTree = "<group>"; };
+		164E5518189A6D4000DFDE6B /* ASingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASingleton.h; path = ../../../src/ATCore/ASingleton.h; sourceTree = "<group>"; };
+		164E5519189A6D4000DFDE6B /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = ../../../src/ATCore/config.h; sourceTree = "<group>"; };
+		164E5528189A6D4E00DFDE6B /* AScheme.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AScheme.cpp; sourceTree = "<group>"; };
+		164E5529189A6D4E00DFDE6B /* AScheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AScheme.h; sourceTree = "<group>"; };
+		164E552B189A6D4E00DFDE6B /* APlugin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = APlugin.cpp; sourceTree = "<group>"; };
+		164E552C189A6D4E00DFDE6B /* APlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APlugin.h; sourceTree = "<group>"; };
+		164E552D189A6D4E00DFDE6B /* APluginManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = APluginManager.cpp; sourceTree = "<group>"; };
+		164E552E189A6D4E00DFDE6B /* APluginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APluginManager.h; sourceTree = "<group>"; };
+		164E5530189A6D4E00DFDE6B /* AProject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AProject.cpp; sourceTree = "<group>"; };
+		164E5531189A6D4E00DFDE6B /* AProject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AProject.h; sourceTree = "<group>"; };
+		164E5532189A6D4E00DFDE6B /* AProjectNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AProjectNode.cpp; sourceTree = "<group>"; };
+		164E5533189A6D4E00DFDE6B /* AProjectNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AProjectNode.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		164E5502189A6D0A00DFDE6B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		164E54FC189A6D0A00DFDE6B = {
+			isa = PBXGroup;
+			children = (
+				164E550C189A6D1F00DFDE6B /* src */,
+				164E5506189A6D0A00DFDE6B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		164E5506189A6D0A00DFDE6B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				164E5505189A6D0A00DFDE6B /* libATCore.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		164E550C189A6D1F00DFDE6B /* src */ = {
+			isa = PBXGroup;
+			children = (
+				164E5527189A6D4E00DFDE6B /* edfd */,
+				164E552A189A6D4E00DFDE6B /* plugin */,
+				164E552F189A6D4E00DFDE6B /* project */,
+				164E550D189A6D4000DFDE6B /* ACommandExecutor.cpp */,
+				164E550E189A6D4000DFDE6B /* ACommandExecutor.h */,
+				164E550F189A6D4000DFDE6B /* ADelegatedObject.h */,
+				164E5510189A6D4000DFDE6B /* AError.cpp */,
+				164E5511189A6D4000DFDE6B /* AError.h */,
+				164E5512189A6D4000DFDE6B /* AFile.cpp */,
+				164E5513189A6D4000DFDE6B /* AFile.h */,
+				164E5514189A6D4000DFDE6B /* ALogManager.cpp */,
+				164E5515189A6D4000DFDE6B /* ALogManager.h */,
+				164E5516189A6D4000DFDE6B /* ANamedObject.cpp */,
+				164E5517189A6D4000DFDE6B /* ANamedObject.h */,
+				164E5518189A6D4000DFDE6B /* ASingleton.h */,
+				164E5519189A6D4000DFDE6B /* config.h */,
+			);
+			name = src;
+			sourceTree = "<group>";
+		};
+		164E5527189A6D4E00DFDE6B /* edfd */ = {
+			isa = PBXGroup;
+			children = (
+				164E5528189A6D4E00DFDE6B /* AScheme.cpp */,
+				164E5529189A6D4E00DFDE6B /* AScheme.h */,
+			);
+			name = edfd;
+			path = ../../../src/ATCore/edfd;
+			sourceTree = "<group>";
+		};
+		164E552A189A6D4E00DFDE6B /* plugin */ = {
+			isa = PBXGroup;
+			children = (
+				164E552B189A6D4E00DFDE6B /* APlugin.cpp */,
+				164E552C189A6D4E00DFDE6B /* APlugin.h */,
+				164E552D189A6D4E00DFDE6B /* APluginManager.cpp */,
+				164E552E189A6D4E00DFDE6B /* APluginManager.h */,
+			);
+			name = plugin;
+			path = ../../../src/ATCore/plugin;
+			sourceTree = "<group>";
+		};
+		164E552F189A6D4E00DFDE6B /* project */ = {
+			isa = PBXGroup;
+			children = (
+				164E5530189A6D4E00DFDE6B /* AProject.cpp */,
+				164E5531189A6D4E00DFDE6B /* AProject.h */,
+				164E5532189A6D4E00DFDE6B /* AProjectNode.cpp */,
+				164E5533189A6D4E00DFDE6B /* AProjectNode.h */,
+			);
+			name = project;
+			path = ../../../src/ATCore/project;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		164E5503189A6D0A00DFDE6B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				164E553B189A6D4E00DFDE6B /* AProject.h in Headers */,
+				164E553D189A6D4E00DFDE6B /* AProjectNode.h in Headers */,
+				164E5535189A6D4E00DFDE6B /* AScheme.h in Headers */,
+				164E5522189A6D4000DFDE6B /* ALogManager.h in Headers */,
+				164E551B189A6D4000DFDE6B /* ACommandExecutor.h in Headers */,
+				164E551E189A6D4000DFDE6B /* AError.h in Headers */,
+				164E5520189A6D4000DFDE6B /* AFile.h in Headers */,
+				164E5537189A6D4E00DFDE6B /* APlugin.h in Headers */,
+				164E5526189A6D4000DFDE6B /* config.h in Headers */,
+				164E5525189A6D4000DFDE6B /* ASingleton.h in Headers */,
+				164E5539189A6D4E00DFDE6B /* APluginManager.h in Headers */,
+				164E551C189A6D4000DFDE6B /* ADelegatedObject.h in Headers */,
+				164E5524189A6D4000DFDE6B /* ANamedObject.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		164E5504189A6D0A00DFDE6B /* ATCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 164E5509189A6D0A00DFDE6B /* Build configuration list for PBXNativeTarget "ATCore" */;
+			buildPhases = (
+				164E5501189A6D0A00DFDE6B /* Sources */,
+				164E5502189A6D0A00DFDE6B /* Frameworks */,
+				164E5503189A6D0A00DFDE6B /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ATCore;
+			productName = ATCore;
+			productReference = 164E5505189A6D0A00DFDE6B /* libATCore.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		164E54FD189A6D0A00DFDE6B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Yuri Blokhin";
+			};
+			buildConfigurationList = 164E5500189A6D0A00DFDE6B /* Build configuration list for PBXProject "ATCore" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 164E54FC189A6D0A00DFDE6B;
+			productRefGroup = 164E5506189A6D0A00DFDE6B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				164E5504189A6D0A00DFDE6B /* ATCore */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		164E5501189A6D0A00DFDE6B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				164E5536189A6D4E00DFDE6B /* APlugin.cpp in Sources */,
+				164E553A189A6D4E00DFDE6B /* AProject.cpp in Sources */,
+				164E5534189A6D4E00DFDE6B /* AScheme.cpp in Sources */,
+				164E551D189A6D4000DFDE6B /* AError.cpp in Sources */,
+				164E551F189A6D4000DFDE6B /* AFile.cpp in Sources */,
+				164E553C189A6D4E00DFDE6B /* AProjectNode.cpp in Sources */,
+				164E5521189A6D4000DFDE6B /* ALogManager.cpp in Sources */,
+				164E551A189A6D4000DFDE6B /* ACommandExecutor.cpp in Sources */,
+				164E5538189A6D4E00DFDE6B /* APluginManager.cpp in Sources */,
+				164E5523189A6D4000DFDE6B /* ANamedObject.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		164E5507189A6D0A00DFDE6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		164E5508189A6D0A00DFDE6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		164E550A189A6D0A00DFDE6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../../../include,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		164E550B189A6D0A00DFDE6B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				EXECUTABLE_PREFIX = lib;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					../../../include,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		164E5500189A6D0A00DFDE6B /* Build configuration list for PBXProject "ATCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				164E5507189A6D0A00DFDE6B /* Debug */,
+				164E5508189A6D0A00DFDE6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		164E5509189A6D0A00DFDE6B /* Build configuration list for PBXNativeTarget "ATCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				164E550A189A6D0A00DFDE6B /* Debug */,
+				164E550B189A6D0A00DFDE6B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 164E54FD189A6D0A00DFDE6B /* Project object */;
+}
