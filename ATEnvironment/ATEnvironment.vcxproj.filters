@@ -41,16 +41,7 @@
     <ClCompile Include="GeneratedFiles\qrc_ATEnvironment.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ATEnvironment\ATApplication.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ATApplication.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ATApplication.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ATEnvironment\AConsoleWidget.cpp">
+    <ClCompile Include="..\src\ATShell\AConsoleWidget.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_AConsoleWidget.cpp">
@@ -59,52 +50,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_AConsoleWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ATEnvironment\AProjectExplorer.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_AProjectExplorer.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_AProjectExplorer.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ATEnvironment\AQNewFileDialog.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_AQNewFileDialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_AQNewFileDialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ATEnvironment\AQNewProjectDialog.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_AQNewProjectDialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_AQNewProjectDialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ATEnvironment\AQProjectTreeWidget.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_AQProjectTreeWidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_AQProjectTreeWidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ATEnvironment\ATEnvironment.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ATEnvironment.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ATEnvironment.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\ATEnvironment\main.cpp">
+    <ClCompile Include="..\src\ATShell\APluginsWidget.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_APluginsWidget.cpp">
@@ -113,34 +59,67 @@
     <ClCompile Include="GeneratedFiles\Release\moc_APluginsWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ATEnvironment\APluginsWidget.cpp">
+    <ClCompile Include="..\src\ATShell\AProjectExplorer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AProjectExplorer.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AProjectExplorer.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATShell\AQNewFileDialog.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AQNewFileDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AQNewFileDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATShell\AQNewProjectDialog.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AQNewProjectDialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AQNewProjectDialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATShell\AQProjectTreeWidget.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AQProjectTreeWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AQProjectTreeWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATShell\ATApplication.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ATApplication.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ATApplication.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATShell\ATEnvironment.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ATEnvironment.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ATEnvironment.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATShell\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="ATEnvironment.qrc">
       <Filter>Resource Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\ATApplication.h">
-      <Filter>src</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\AConsoleWidget.h">
-      <Filter>src</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\AProjectExplorer.h">
-      <Filter>src</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\AQNewFileDialog.h">
-      <Filter>src</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\AQNewProjectDialog.h">
-      <Filter>src</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\AQProjectTreeWidget.h">
-      <Filter>src</Filter>
-    </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\ATEnvironment.h">
-      <Filter>src</Filter>
     </CustomBuild>
     <CustomBuild Include="..\src\ATEnvironment\AConsoleWidget.ui">
       <Filter>Form Files</Filter>
@@ -160,7 +139,28 @@
     <CustomBuild Include="..\src\ATEnvironment\forms\APluginsWidget.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="..\src\ATEnvironment\APluginsWidget.h">
+    <CustomBuild Include="..\src\ATShell\AConsoleWidget.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\APluginsWidget.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\AProjectExplorer.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\AQNewFileDialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\AQNewProjectDialog.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\AQProjectTreeWidget.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\ATApplication.h">
+      <Filter>src</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\ATShell\ATEnvironment.h">
       <Filter>src</Filter>
     </CustomBuild>
   </ItemGroup>

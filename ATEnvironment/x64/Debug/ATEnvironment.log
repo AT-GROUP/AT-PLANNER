@@ -1,33 +1,29 @@
-﻿Build started 03.01.2014 12:04:59.
-     1>Project "D:\Projects\AT-PLANNER\ATEnvironment\ATEnvironment.vcxproj" on node 2 (Build target(s)).
-     1>Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\Projects\AT-PLANNER\x64\Debug\\ATEnvironment.exe" /NOLOGO /LIBPATH:C:\Qt\Qt5.1.1\5.1.1\msvc2012_64_opengl\lib /LIBPATH:../lib qtmaind.lib Qt5Cored.lib Qt5Guid.lib Qt5Widgetsd.lib libxml2.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"D:\Projects\AT-PLANNER\x64\Debug\ATEnvironment.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\Projects\AT-PLANNER\x64\Debug\ATEnvironment.lib" /MACHINE:X64 x64\Debug\ATEnvironment.res
-         x64\Debug\AConsoleWidget.obj
-         x64\Debug\APluginsWidget.obj
-         x64\Debug\AProjectExplorer.obj
-         x64\Debug\AQNewFileDialog.obj
-         x64\Debug\AQNewProjectDialog.obj
-         x64\Debug\AQProjectTreeWidget.obj
-         x64\Debug\ATApplication.obj
-         x64\Debug\ATEnvironment.obj
-         x64\Debug\main.obj
-         x64\Debug\moc_AConsoleWidget.obj
-         x64\Debug\moc_APluginsWidget.obj
-         x64\Debug\moc_AProjectExplorer.obj
-         x64\Debug\moc_AQNewFileDialog.obj
-         x64\Debug\moc_AQNewProjectDialog.obj
-         x64\Debug\moc_AQProjectTreeWidget.obj
-         x64\Debug\moc_ATApplication.obj
-         x64\Debug\moc_ATEnvironment.obj
-         x64\Debug\qrc_ATEnvironment.obj
-         "D:\Projects\AT-PLANNER\x64\Debug\ATCore.lib"
-         "D:\Projects\AT-PLANNER\x64\Debug\ATGUI.lib"
-         "D:\Projects\AT-PLANNER\x64\Debug\ATPlanner.lib"
-         "D:\Projects\AT-PLANNER\x64\Debug\ATVerifier.lib"
-         "D:\Projects\AT-PLANNER\x64\Debug\EDFDEditor.lib"
-         ATEnvironment.vcxproj -> D:\Projects\AT-PLANNER\x64\Debug\ATEnvironment.exe
-     1>Done Building Project "D:\Projects\AT-PLANNER\ATEnvironment\ATEnvironment.vcxproj" (Build target(s)).
+﻿Build started 03.02.2014 21:41:26.
+     1>Project "D:\Projects\AT-PLANNER\ATEnvironment\ATEnvironment.vcxproj" on node 4 (Build target(s)).
+     1>CustomBuild:
+         Uic'ing ..\src\ATEnvironment\AConsoleWidget.ui...
+         File 'D:\Projects\AT-PLANNER\src\ATEnvironment\AConsoleWidget.ui' is not valid
+         Moc'ing AConsoleWidget.h...
+         Moc'ing APluginsWidget.h...
+         Moc'ing AProjectExplorer.h...
+         Moc'ing AQNewFileDialog.h...
+         Moc'ing AQNewProjectDialog.h...
+         Moc'ing AQProjectTreeWidget.h...
+         Moc'ing ATApplication.h...
+         Moc'ing ATEnvironment.h...
+         Uic'ing ..\src\ATEnvironment\AProjectExplorer.ui...
+         File 'D:\Projects\AT-PLANNER\src\ATEnvironment\AProjectExplorer.ui' is not valid
+         Uic'ing ..\src\ATEnvironment\AQNewFileDialog.ui...
+         File 'D:\Projects\AT-PLANNER\src\ATEnvironment\AQNewFileDialog.ui' is not valid
+         Uic'ing ..\src\ATEnvironment\AQNewProjectDialog.ui...
+         File 'D:\Projects\AT-PLANNER\src\ATEnvironment\AQNewProjectDialog.ui' is not valid
+         Uic'ing ..\src\ATEnvironment\ATEnvironment.ui...
+         File 'D:\Projects\AT-PLANNER\src\ATEnvironment\ATEnvironment.ui' is not valid
+         Uic'ing ..\src\ATEnvironment\forms\APluginsWidget.ui...
+         File 'D:\Projects\AT-PLANNER\src\ATEnvironment\forms\APluginsWidget.ui' is not valid
+     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppCommon.targets(172,5): error MSB6006: "cmd.exe" exited with code 1.
+     1>Done Building Project "D:\Projects\AT-PLANNER\ATEnvironment\ATEnvironment.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:00.36
+Time Elapsed 00:00:00.88

@@ -53,7 +53,7 @@ ADynamicPlugin::~ADynamicPlugin()
 	if(mLibInstance)
 	{
 #ifdef AT_OS_WINDOWS
-        FreeLibrary(mDllInstance);
+        FreeLibrary(mLibInstance);
 #elif defined(AT_OS_OSX)
         dlclose(mLibInstance);
 #endif
