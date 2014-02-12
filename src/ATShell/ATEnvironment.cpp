@@ -8,6 +8,7 @@
 #include <ATCore/project/AProjectNode.h>
 #include <ATCore/AFile.h>
 #include <ATPlanner/ATPlanner.h>
+#include <ArchEditor/AArchEditor.h>
 //#include <EDFDEditor/EDFDEditor.h>
 #include <QtCore/QFileInfo>
 #include <QtCore/QDir>
@@ -55,6 +56,12 @@ ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 			auto wdg = new APluginsWidget(m_pApplication);
 			wdg->show();
 	});
+
+
+	//=============
+	auto arch_plugin = static_cast<AGUIEditorPlugin*>(m_pApplication->editorForExtension("arch"));
+	auto ed = arch_plugin->createMainWindow();
+	ed->showMaximized();
 }
 
 ATEnvironment::~ATEnvironment()

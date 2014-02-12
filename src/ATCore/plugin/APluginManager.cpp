@@ -3,6 +3,7 @@
 #include "APlugin.h"
 #include <string>
 #include <stdlib.h>
+#include <algorithm>
 
 #ifdef AT_OS_WINDOWS
     #include <windows.h>
@@ -53,7 +54,7 @@ ADynamicPlugin::~ADynamicPlugin()
 	if(mLibInstance)
 	{
 #ifdef AT_OS_WINDOWS
-        FreeLibrary(mDllInstance);
+        FreeLibrary(mLibInstance);
 #elif defined(AT_OS_OSX)
         dlclose(mLibInstance);
 #endif
@@ -133,4 +134,20 @@ AUtilityPlugin * APluginManager::getPluginForCommand(const std::string & cmd)
 		return nullptr;
 	else
 		return cmd_it->second;
+}
+
+AEditorPlugin * APluginManager::editorForExtension(const std::string & ext)
+{
+	auto & editors = mPlugins[static_cast<int>(APlugin::Type::Editor)];
+	auto ed_it = std::find_if(editors.begin(), editors.end(), 
+		[=](const ADynamicPlugin * plug)
+			{
+				return static_cast<AEditorPlugin*>(plug->plugin())->documentExtension() == ext;
+			}
+	);
+
+	if(ed_it != editors.end())
+		return static_cast<AEditorPlugin*>((*ed_it)->plugin());
+	else
+		return nullptr;
 }

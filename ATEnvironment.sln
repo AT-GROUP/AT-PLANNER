@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATEnvironment", "ATEnvironment\ATEnvironment.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATShell", "ATEnvironment\ATEnvironment.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATCore", "ATCore\ATCore.vcxproj", "{98073DBF-A3B0-4134-B6C8-3C67732F4FA2}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATVerifier", "AVerifier\AVerifier.vcxproj", "{362F6894-124C-49F7-A981-7DC7091128C8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ATPlanner", "ATPlanner\ATPlanner.vcxproj", "{F81840F2-34D5-4592-9A81-047C298FC260}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArchEditor", "build\MSVCPP\ArchEditor\ArchEditor.vcxproj", "{0F9B0615-1D9B-4669-BF76-7523C900A90E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -97,12 +99,25 @@ Global
 		{F81840F2-34D5-4592-9A81-047C298FC260}.Release|Win32.Build.0 = Release|Win32
 		{F81840F2-34D5-4592-9A81-047C298FC260}.Release|x64.ActiveCfg = Release|x64
 		{F81840F2-34D5-4592-9A81-047C298FC260}.Release|x64.Build.0 = Release|x64
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Debug|Win32.Build.0 = Debug|Win32
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Debug|x64.ActiveCfg = Debug|x64
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Debug|x64.Build.0 = Debug|x64
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Release|Win32.ActiveCfg = Release|Win32
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Release|Win32.Build.0 = Release|Win32
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Release|x64.ActiveCfg = Release|x64
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8A72D806-2F9A-4097-B80E-8CB89EC44120} = {A0631B1A-ADA2-4F39-9814-C1694CB0986A}
+		{0F9B0615-1D9B-4669-BF76-7523C900A90E} = {A0631B1A-ADA2-4F39-9814-C1694CB0986A}
 		{362F6894-124C-49F7-A981-7DC7091128C8} = {19834587-E99B-4041-B138-E05F9C3A8AF1}
 	EndGlobalSection
 EndGlobal

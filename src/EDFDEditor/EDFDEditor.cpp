@@ -61,3 +61,8 @@ QWidget * EDFDEditorPlugin::createMainWindow()
 {
 	return new EDFDEditor();
 }
+
+const std::string EDFDEditorPlugin::documentExtension() const
+{
+	return "edfd";
+}
