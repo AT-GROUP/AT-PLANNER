@@ -2,17 +2,19 @@
 #include <QGraphicsEllipseItem>
 #include <QMessageBox>
 #include "aworkspacewidget.h"
-#include "DFDElement.h"
+#include "DFDGraphicsElement.h"
 #include "ADrawWidget.h"
-#include "DFDConnection.h"
+#include "DFDGraphicsConnection.h"
 #include <QtWidgets/QInputDialog>
 
 ////////////////////////////////  Scene  //////////////////////////////////////
 
+using namespace std;
+
 AWorkspaceScene::AWorkspaceScene(QWidget *parent)
     : QGraphicsScene(parent)
 {
-		connecting = false;
+	connecting = false;
 }
 
 bool AWorkspaceScene::CheckConnectingStatusS()
@@ -27,7 +29,7 @@ void AWorkspaceScene::SetConnectingStatus(bool status)
 	connecting = status;
 }
 
-void AWorkspaceScene::AddConnection(DFDConnection *conn)
+void AWorkspaceScene::AddConnection(DFDGraphicsConnection *conn)
 {
 	this->addItem(conn);
 }
@@ -54,10 +56,10 @@ DFDGraphicsElement * AWorkspaceScene::GetActiveItem()
 AWorkspaceWidget::AWorkspaceWidget(QWidget *parent)
     : QGraphicsView(parent)
 {
-	e = 0;
+/*	e = 0;
 	f = 0;
     s = 0;
-	nf = 0;
+	nf = 0;*/
 
 	Ascene = new AWorkspaceScene();
 	Ascene->setItemIndexMethod(QGraphicsScene::NoIndex);
@@ -88,9 +90,9 @@ AWorkspaceWidget::AWorkspaceWidget(QWidget *parent)
 	item2->setPos(m_p->x(),m_p->y());
 	Ascene->addItem(item3);
 
-	DFDConnection *conn1 = new DFDConnection(item2,item1);
+	DFDGraphicsConnection *conn1 = new DFDGraphicsConnection(item2,item1);
 	Ascene->addItem(conn1);*/
-	/*DFDConnection *conn2 = new DFDConnection(item2,item3);
+	/*DFDGraphicsConnection *conn2 = new DFDGraphicsConnection(item2,item3);
 	Ascene->addItem(conn2);*/
 
 }
@@ -111,65 +113,57 @@ void AWorkspaceWidget::dropEvent(QDropEvent *event)
 	//////////////////  отладка  /////////////////////
 
 	QPoint m_p = event->pos();
+	APoint ap(m_p.x(), m_p.y());
 
 	if(event->source()->objectName() == "listWidget")               
     {
+		shared_ptr<DFDElement> new_el(nullptr);
+		DFDGraphicsElement * new_gr_el(nullptr);
+
 		if (event->mimeData()->text() == "Test1")
 		{
 			QString sse;
-			sse.setNum(e);
+			sse.setNum(4);
 			sse = "entity " + sse;
-			DFDEntity *ent = new DFDEntity(sse,sse,&m_p);
-			QString con_name = QInputDialog::getText(0, "Input entity name", "Name:", QLineEdit::Normal, ent->GetName());
-			ent->SetName(con_name);
-			e_M[e] = *ent;
-			DFDGraphicsEntity *item = new DFDGraphicsEntity(ent, Ascene);
-			item->setPos(e_M[e].Mouse_pos->x(),e_M[e].Mouse_pos->y());
-			Ascene->addItem(item);
-			e++;
+			new_el.reset(new DFDEntity(sse.toStdString(), sse.toStdString(), ap));
+			QString con_name = QInputDialog::getText(0, "Input entity name", "Name:", QLineEdit::Normal, QString::fromStdString(new_el->name()));
+			new_el->setName(con_name.toStdString());
+			
+			new_gr_el = new DFDGraphicsEntity(static_pointer_cast<DFDEntity>(new_el), Ascene);
 		}
 		if (event->mimeData()->text() == "Test2")
 		{
-
 			QString sse;
-			sse.setNum(f);
+			sse.setNum(5);
 			sse = "function " + sse;
-			DFDFunction *fun = new DFDFunction(sse,sse,&m_p);
-			QString con_name = QInputDialog::getText(0, "Input function name", "Name:", QLineEdit::Normal, fun->GetName());
-			fun->SetName(con_name);
-			f_M[f] = *fun;
-			DFDGraphicsFuntion *item = new DFDGraphicsFuntion(fun, Ascene);
-			item->setPos(f_M[f].Mouse_pos->x(),f_M[f].Mouse_pos->y());
-			Ascene->addItem(item);
-			f++;
+			new_el.reset(new DFDFunction(sse.toStdString(), sse.toStdString(),ap));
+			QString con_name = QInputDialog::getText(0, "Input function name", "Name:", QLineEdit::Normal, QString::fromStdString(new_el->name()));
+			new_el->setName(con_name.toStdString());
+			
+			new_gr_el = new DFDGraphicsFuntion(static_pointer_cast<DFDFunction>(new_el), Ascene);
 		}
 		if (event->mimeData()->text() == "Test3")
 		{
 			QString sse;
-			sse.setNum(s);
+			sse.setNum(3);
 			sse = "storage " + sse;
-			DFDStorage *stor = new DFDStorage(sse,sse,&m_p);
-			QString con_name = QInputDialog::getText(0, "Input storage name", "Name:", QLineEdit::Normal, stor->GetName());
-			stor->SetName(con_name);
-			s_M[s] = *stor;
-			DFDGraphicsStorage *item = new DFDGraphicsStorage(stor, Ascene);
-			item->setPos(s_M[s].Mouse_pos->x(),s_M[s].Mouse_pos->y());
-			Ascene->addItem(item);
-			s++;
+			new_el.reset(new DFDStorage(sse.toStdString(), sse.toStdString(), ap));
+			QString con_name = QInputDialog::getText(0, "Input storage name", "Name:", QLineEdit::Normal, QString::fromStdString(new_el->name()));
+			new_el->setName(con_name.toStdString());
+
+			new_gr_el = new DFDGraphicsStorage(static_pointer_cast<DFDStorage>(new_el), Ascene);
+
 		}
 		if (event->mimeData()->text() == "Test4")
 		{
 			QString sse;
-			sse.setNum(nf);
+			sse.setNum(6);
 			sse = "nffunction " + sse;
-			DFDNFFunction *nfun = new DFDNFFunction(sse,sse,&m_p);
-			QString con_name = QInputDialog::getText(0, "Input nffunction name", "Name:", QLineEdit::Normal, nfun->GetName());
-			nfun->SetName(con_name);
-			nf_M[nf] = *nfun;
-			DFDGraphicsNFFuntion *item = new DFDGraphicsNFFuntion(nfun, Ascene);
-			item->setPos(nf_M[nf].Mouse_pos->x(),nf_M[nf].Mouse_pos->y());
-			Ascene->addItem(item);
-			nf++;
+			new_el.reset(new DFDNFFunction(sse.toStdString(), sse.toStdString(), ap));
+			QString con_name = QInputDialog::getText(0, "Input nffunction name", "Name:", QLineEdit::Normal, QString::fromStdString(new_el->name()));
+			new_el->setName(con_name.toStdString());
+
+			new_gr_el = new DFDGraphicsNFFuntion(static_pointer_cast<DFDNFFunction>(new_el), Ascene);
 		}
 		if (event->mimeData()->text() == "Test5")
 		{
@@ -182,6 +176,17 @@ void AWorkspaceWidget::dropEvent(QDropEvent *event)
 			gr->setPos(event->pos());
 			Ascene->addItem(gr);
 			//gr->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
+		}
+
+		if(new_el)
+			m_pDoc->addElement(new_el);
+
+		if(new_gr_el)
+		{
+			new_gr_el->setPos(new_el->Mouse_pos.x(), new_el->Mouse_pos.y());
+			Ascene->addItem(new_gr_el);
+
+			QObject::connect(new_gr_el, &DFDGraphicsElement::newConnectionRequested, this, &AWorkspaceWidget::createConnection);
 		}
     }
     event->acceptProposedAction();
@@ -197,4 +202,14 @@ void AWorkspaceWidget::dragMoveEvent(QDragMoveEvent *event)
 	event->acceptProposedAction();
 }
 
+void AWorkspaceWidget::createConnection(DFDGraphicsElement * src, DFDGraphicsElement * dest)
+{
+	QString con_name = QInputDialog::getText(0, "Input connection name", "Name:", QLineEdit::Normal, "");
 
+	shared_ptr<DFDConnection> conn(new DFDConnection(con_name.toStdString(), src->object(), dest->object()));
+	m_pDoc->addConnection(conn);
+
+	DFDGraphicsConnection *gconn = new DFDGraphicsConnection(conn, src, dest);
+	Ascene->AddConnection(gconn);
+	Ascene->SetConnectingStatus(false);
+}

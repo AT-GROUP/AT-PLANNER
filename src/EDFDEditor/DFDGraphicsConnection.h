@@ -1,14 +1,13 @@
 #pragma once
 #include <QGraphicsItem>
+#include <ATCore/edfd/DFDConnection.h>
 
 class DFDGraphicsElement;
 
-class DFDConnection :
-	public QGraphicsItem
+class DFDGraphicsConnection : public QGraphicsItem
 {
 public:
-
-	DFDConnection(DFDGraphicsElement *sourseElement, DFDGraphicsElement *destElement);
+	DFDGraphicsConnection(const std::shared_ptr<DFDConnection> & conn, DFDGraphicsElement *sourseElement, DFDGraphicsElement *destElement);
 
 	DFDGraphicsElement *sourseElement() const;
 	DFDGraphicsElement *destElement() const;
@@ -28,5 +27,7 @@ private:
     QPointF sourcePoint;
     QPointF destPoint;
     qreal arrowSize;
+
+	std::shared_ptr<DFDConnection> m_pConnection;
 };
 

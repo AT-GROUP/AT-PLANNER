@@ -41,12 +41,24 @@
     <ClInclude Include="..\src\EDFDEditor\edfdeditor_global.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\EDFDEditor\DFDGraphicsConnection.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\src\EDFDEditor\EDFDEditor.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="..\src\EDFDEditor\EDFDEditor.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\EDFDEditor\ADrawWidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\EDFDEditor\AWorkspaceWidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="..\src\EDFDEditor\DFDGraphicsElement.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -59,6 +71,36 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_EDFDEditor.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EDFDEditor\ADrawWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ADrawWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ADrawWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EDFDEditor\AWorkspaceWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_AWorkspaceWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_AWorkspaceWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_DFDGraphicsElement.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_DFDGraphicsElement.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EDFDEditor\DFDGraphicsElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EDFDEditor\DFDGraphicsConnection.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

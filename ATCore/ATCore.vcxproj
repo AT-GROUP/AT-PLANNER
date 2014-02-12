@@ -73,6 +73,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>../include;../include/iconv;../include/libxml</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>AT_CORE_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -100,6 +101,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -114,6 +116,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -123,20 +126,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ATCore\ACommandExecutor.cpp" />
+    <ClCompile Include="..\src\ATCore\ADocument.cpp" />
     <ClCompile Include="..\src\ATCore\AError.cpp" />
     <ClCompile Include="..\src\ATCore\AFile.cpp" />
     <ClCompile Include="..\src\ATCore\ALogManager.cpp" />
     <ClCompile Include="..\src\ATCore\ANamedObject.cpp" />
     <ClCompile Include="..\src\ATCore\architecture\AArchitectureDocument.cpp" />
-    <ClCompile Include="..\src\ATCore\edfd\AScheme.cpp" />
+    <ClCompile Include="..\src\ATCore\edfd\DFDConnection.cpp" />
+    <ClCompile Include="..\src\ATCore\edfd\DFDElement.cpp" />
+    <ClCompile Include="..\src\ATCore\edfd\EDFDDocument.cpp" />
     <ClCompile Include="..\src\ATCore\plugin\APlugin.cpp" />
     <ClCompile Include="..\src\ATCore\plugin\APluginManager.cpp" />
     <ClCompile Include="..\src\ATCore\project\AProject.cpp" />
     <ClCompile Include="..\src\ATCore\project\AProjectNode.cpp" />
+    <ClCompile Include="..\src\ATCore\utils\helpers.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ATCore\ACommandExecutor.h" />
     <ClInclude Include="..\src\ATCore\ADelegatedObject.h" />
+    <ClInclude Include="..\src\ATCore\ADocument.h" />
     <ClInclude Include="..\src\ATCore\AError.h" />
     <ClInclude Include="..\src\ATCore\AFile.h" />
     <ClInclude Include="..\src\ATCore\ALogManager.h" />
@@ -144,11 +152,14 @@
     <ClInclude Include="..\src\ATCore\architecture\AArchitectureDocument.h" />
     <ClInclude Include="..\src\ATCore\ASingleton.h" />
     <ClInclude Include="..\src\ATCore\config.h" />
-    <ClInclude Include="..\src\ATCore\edfd\AScheme.h" />
+    <ClInclude Include="..\src\ATCore\edfd\DFDConnection.h" />
+    <ClInclude Include="..\src\ATCore\edfd\DFDElement.h" />
+    <ClInclude Include="..\src\ATCore\edfd\EDFDDocument.h" />
     <ClInclude Include="..\src\ATCore\plugin\APlugin.h" />
     <ClInclude Include="..\src\ATCore\plugin\APluginManager.h" />
     <ClInclude Include="..\src\ATCore\project\AProject.h" />
     <ClInclude Include="..\src\ATCore\project\AProjectNode.h" />
+    <ClInclude Include="..\src\ATCore\utils\helpers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

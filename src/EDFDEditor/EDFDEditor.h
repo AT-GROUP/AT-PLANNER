@@ -7,9 +7,11 @@
 #include <ATGUI/AEditor.h>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QGraphicsItemGroup>
+#include <QtWidgets/QMainWindow>
+#include <memory>
 
-
-class AFile;
+class EDFDDocument;
+/*
 namespace BlockScheme
 {
 	class AScheme;
@@ -25,9 +27,9 @@ namespace BlockScheme
 	private:
 		BlockScheme::ABlock * m_pBlock;
 	};
-};
+};*/
 
-class EDFDEDITOR_EXPORT EDFDEditor : public QWidget
+class EDFDEDITOR_EXPORT EDFDEditor : public QMainWindow
 {
 	Q_OBJECT
 
@@ -35,15 +37,18 @@ public:
 	EDFDEditor(QWidget *parent = 0);
 	~EDFDEditor();
 
-	
-
 	void updateScene();
-	
+
+public slots:
+    void newFile();
+    void Save();
+    void SaveAs();
+    void Load();
+
 private:
 	Ui::EDFDEditor ui;
 
-	BlockScheme::AScheme * m_pScheme;
-	AFile * m_pFile;
+	std::shared_ptr<EDFDDocument> m_pCurrentDocument;
 };
 
 class EDFDEditorPlugin : public AGUIEditorPlugin

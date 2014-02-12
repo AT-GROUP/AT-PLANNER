@@ -1,12 +1,13 @@
 #include <QPainter>
 #include <QtCore/qmath.h>
-#include "DFDConnection.h"
-#include "DFDElement.h"
+#include "DFDGraphicsConnection.h"
+#include "DFDGraphicsElement.h"
 
 static const double Pi = 3.14159265358979323846264338327950288419717;
 static double TwoPi = 2.0 * Pi;
 
-DFDConnection::DFDConnection(DFDGraphicsElement *sourseElement, DFDGraphicsElement *destElement): arrowSize(10)
+DFDGraphicsConnection::DFDGraphicsConnection(const std::shared_ptr<DFDConnection> & conn, DFDGraphicsElement *sourseElement, DFDGraphicsElement *destElement)
+	: m_pConnection(conn), arrowSize(10)
 {
 
 	text = new QGraphicsTextItem(this);
@@ -19,22 +20,22 @@ DFDConnection::DFDConnection(DFDGraphicsElement *sourseElement, DFDGraphicsEleme
 	text->setPlainText("connection");
 }
 
-void DFDConnection::changeText(QString str)
+void DFDGraphicsConnection::changeText(QString str)
 {
 	text->setPlainText(str);
 }
 
-DFDGraphicsElement *DFDConnection::sourseElement() const
+DFDGraphicsElement *DFDGraphicsConnection::sourseElement() const
 {
     return source;
 }
 
-DFDGraphicsElement *DFDConnection::destElement() const
+DFDGraphicsElement *DFDGraphicsConnection::destElement() const
 {
     return dest;
 }
 
-void DFDConnection::adjust()
+void DFDGraphicsConnection::adjust()
 {
     if (!source || !dest)
         return;
@@ -92,7 +93,7 @@ void DFDConnection::adjust()
     }
 }
 
-QRectF DFDConnection::boundingRect() const
+QRectF DFDGraphicsConnection::boundingRect() const
 {
     if (!source || !dest)
         return QRectF();
@@ -106,7 +107,7 @@ QRectF DFDConnection::boundingRect() const
         .adjusted(-extra, -extra, extra, extra);
 }
 
-void DFDConnection::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void DFDGraphicsConnection::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     if (!source || !dest)
         return;
@@ -132,42 +133,3 @@ void DFDConnection::paint(QPainter *painter, const QStyleOptionGraphicsItem *, Q
     painter->setBrush(Qt::black);
     painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
 }
-
-//////////////////////////// old code ////////////////////////////////////
-
-/*
-
-		if (line.dx() <0 && line.dy() <0)
-		{
-		QPointF edgeOffset((line.dx() * 10) / length, (line.dy() * 10) / length);
-		QPointF edgeOffsetS(-40,-10);
-		QPointF edgeOffsetD(-40,-10);
-        sourcePoint = line.p1() + edgeOffset + edgeOffsetS;
-        destPoint = line.p2() - edgeOffset - edgeOffsetD;
-		}
-		if (line.dx() <0 && line.dy() >0)
-		{
-		QPointF edgeOffset((line.dx() * 10) / length, (line.dy() * 10) / length);
-		QPointF edgeOffsetS(-40,10);
-		QPointF edgeOffsetD(-40,10);
-        sourcePoint = line.p1() + edgeOffset + edgeOffsetS;
-        destPoint = line.p2() - edgeOffset - edgeOffsetD;
-		}
-		if (line.dx() >0 && line.dy() <0)
-		{
-		QPointF edgeOffset((line.dx() * 10) / length, (line.dy() * 10) / length);
-		QPointF edgeOffsetS(40,-10);
-		QPointF edgeOffsetD(40,-10);
-        sourcePoint = line.p1() + edgeOffset + edgeOffsetS;
-        destPoint = line.p2() - edgeOffset - edgeOffsetD;
-		}
-		if (line.dx() >0 && line.dy() >0)
-		{
-		QPointF edgeOffset((line.dx() * 10) / length, (line.dy() * 10) / length);
-		QPointF edgeOffsetS(40,10);
-		QPointF edgeOffsetD(40,10);
-        sourcePoint = line.p1() + edgeOffset + edgeOffsetS;
-        destPoint = line.p2() - edgeOffset - edgeOffsetD;
-		}
-
-*/

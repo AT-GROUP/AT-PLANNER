@@ -1,6 +1,6 @@
 
-#ifndef ATEnvironment_APlugin_h
-#define ATEnvironment_APlugin_h
+#ifndef ATCore_APlugin_h
+#define ATCore_APlugin_h
 
 #include "../config.h"
 #include "../AError.h"

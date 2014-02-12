@@ -1,8 +1,11 @@
 #ifndef ADRAWWIDGET_H
 #define ADRAWWIDGET_H
 
-#include <QListWidget>
-#include <QtWidgets>
+#include <QtWidgets/QListWidget>
+#include <QtGui/QDrag>
+#include <QtGui/QMouseEvent>
+#include <QtCore/QMimeData>
+//#include <QtWidgets>
 
 class ADrawWidget : public QListWidget
 {

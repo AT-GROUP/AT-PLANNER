@@ -59,8 +59,12 @@ ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 
 
 	//=============
-	auto arch_plugin = static_cast<AGUIEditorPlugin*>(m_pApplication->editorForExtension("arch"));
+	/*auto arch_plugin = static_cast<AGUIEditorPlugin*>(m_pApplication->editorForExtension("arch"));
 	auto ed = arch_plugin->createMainWindow();
+	ed->showMaximized();*/
+
+	auto edfd_plugin = static_cast<AGUIEditorPlugin*>(m_pApplication->editorForExtension("edfd"));
+	auto ed = edfd_plugin->createMainWindow();
 	ed->showMaximized();
 }
 
