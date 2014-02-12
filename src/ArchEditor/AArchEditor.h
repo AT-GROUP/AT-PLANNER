@@ -1,10 +1,10 @@
 #ifndef AARCHEDITOR_H
 #define AARCHEDITOR_H
 
-#include <QtWidgets/QWidget>
 #include "ui_AArchEditor.h"
 #include <ATGUI/AEditor.h>
-
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QItemDelegate>
 
 class ArchEditorPlugin : public AGUIEditorPlugin
 {
@@ -27,6 +27,20 @@ public:
 	virtual const std::string documentExtension() const override;
 };
 
+
+class SheetDelegate: public QItemDelegate
+{
+    Q_OBJECT
+public:
+    SheetDelegate(QTreeView *view, QWidget *parent);
+
+    virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+    virtual QSize sizeHint(const QStyleOptionViewItem &opt, const QModelIndex &index) const;
+
+private:
+    QTreeView *m_view;
+};
+
 class AArchEditor : public QWidget
 {
 	Q_OBJECT
@@ -34,7 +48,7 @@ class AArchEditor : public QWidget
 public:
 	AArchEditor(QWidget *parent = 0);
 	~AArchEditor();
-
+	void loadAvalibleElements();
 private:
 	Ui::AArchEditor ui;
 };
