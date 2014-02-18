@@ -1,15 +1,15 @@
 
-#ifndef ATEnvironment_USProject_h
-#define ATEnvironment_USProject_h
+#ifndef ATCore_AProject_h
+#define ATCore_AProject_h
 
-#include "../core/ANamedObject.h"
+#include "../ANamedObject.h"
 #include <string>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 
 class ARootProjectNode;
 
-class AProject : public ANamedObject
+class AT_CORE_API AProject : public ANamedObject
 {
 public:
 	AProject(const char * project_name, const char * project_dir);

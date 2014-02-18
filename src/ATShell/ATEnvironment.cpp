@@ -1,10 +1,14 @@
 #include "ATEnvironment.h"
-#include "project/AProject.h"
+
 #include "AQNewProjectDialog.h"
 #include "AQNewFileDialog.h"
-#include "project/AProjectNode.h"
-#include "core/AFile.h"
-#include "editors/schemes_editor/AQSchemesEditor.h"
+#include "ATApplication.h"
+#include "APluginsWidget.h"
+#include <ATCore/project/AProject.h>
+#include <ATCore/project/AProjectNode.h>
+#include <ATCore/AFile.h>
+#include <ATGUI/AEditor.h>
+//#include "editors/schemes_editor/AQSchemesEditor.h"
 #include <QtCore/QFileInfo>
 #include <QtCore/QDir>
 #include <QtWidgets/QMdiSubWindow>
@@ -50,8 +54,8 @@ void ATEnvironment::parseDocument(xmlNodePtr _ptr, AProjectNode *  _node)
 	}
 }
 
-ATEnvironment::ATEnvironment(QWidget *parent)
-	: QMainWindow(parent), m_pProject(0)
+ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
+	: QMainWindow(parent), m_pProject(0), m_pApplication(app)
 {
 	ui.setupUi(this);
 
@@ -63,6 +67,9 @@ ATEnvironment::ATEnvironment(QWidget *parent)
 	connect(ui.actionSave_Project, &QAction::triggered, this, &ATEnvironment::saveRecentChanges);
 	connect(ui.actionOpen_Project, &QAction::triggered, this, &ATEnvironment::openProject);
 
+	//Create planner widget
+	auto planner_wdg = m_pApplication->planner()->createInfoWidget();
+	ui.dockPlanner->setWidget((QWidget*)planner_wdg);
 	/*
 	Create switching menus in View menu.
 	*/
@@ -75,7 +82,30 @@ ATEnvironment::ATEnvironment(QWidget *parent)
 
 	//Setup project explorer links
 	connect(ui.wdgProjectExplorer, &AProjectExplorer::createNewFileRequested, this, &ATEnvironment::createNewFile);
-	connect(ui.wdgProjectExplorer, &AProjectExplorer::openFileRequested, this, &ATEnvironment::openFile);
+	connect(ui.wdgProjectExplorer, &AProjectExplorer::openFileRequested, [=](AFile * file){openFile(file);});
+
+	//connect(ui.actionNewFile, &QAction::triggered, [=](){openFile("test");});
+
+	//mEditorsFactory.insert(pair<AFile::Type, AAbstractEditorInitializer*>(AFile::Type::ExtendedDFD, new AEditorInitializer<EDFDEditor>()));
+
+	ui.wdgConsole->setDelegate(m_pApplication);
+
+	connect(ui.actionPlugins, &QAction::triggered, [=]()
+		{
+			auto wdg = new APluginsWidget(m_pApplication);
+			wdg->show();
+	});
+
+
+	//=============
+	/*auto arch_plugin = static_cast<AGUIEditorPlugin*>(m_pApplication->editorForExtension("arch"));
+	auto ed = arch_plugin->createMainWindow();
+	ed->showMaximized();*/
+
+	auto edfd_plugin = static_cast<AGUIEditorPlugin*>(m_pApplication->editorForExtension("edfd"));
+	auto ed = edfd_plugin->createMainWindow();
+	ed->showMaximized();
+
 }
 
 ATEnvironment::~ATEnvironment()
@@ -159,7 +189,7 @@ void ATEnvironment::openFile(AFile * file)
 	QMdiSubWindow * mdi_sub_wind = new QMdiSubWindow();
 	
 
-	AQSchemesEditor * editor = new AQSchemesEditor();
+/*	AQSchemesEditor * editor = new AQSchemesEditor();
 	mdi_sub_wind->layout()->addWidget(editor);
 	//editor->show();
 	mdi_sub_wind->show();
@@ -167,7 +197,7 @@ void ATEnvironment::openFile(AFile * file)
 	ui.mdiArea->addSubWindow(mdi_sub_wind);
 	ui.mdiArea->setActiveSubWindow(mdi_sub_wind);
 
-	editor->openFile(file);
+	editor->openFile(file);*/
 }
 
 void ATEnvironment::saveRecentChanges()

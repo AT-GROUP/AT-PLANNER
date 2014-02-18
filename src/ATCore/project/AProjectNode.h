@@ -1,15 +1,15 @@
 
-#ifndef ATEnvironment_USProjectNode_h
-#define ATEnvironment_USProjectNode_h
+#ifndef ATCore_AProjectNode_h
+#define ATCore_AProjectNode_h
 
-#include "../core/ANamedObject.h"
+#include "../ANamedObject.h"
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <vector>
 
 class AFile;
 
-class AProjectNode : public ANamedObject
+class AT_CORE_API AProjectNode : public ANamedObject
 {
 	friend class AQProjectTreeWidget;
 public:
@@ -36,7 +36,7 @@ private:
 /*
 Group is folder.
 */
-class AGroupProjectNode : public AProjectNode
+class AT_CORE_API AGroupProjectNode : public AProjectNode
 {
 public:
 	AGroupProjectNode(const char * name);
@@ -46,7 +46,7 @@ public:
 /*
 Node for project.
 */
-class ARootProjectNode : public AGroupProjectNode
+class AT_CORE_API ARootProjectNode : public AGroupProjectNode
 {
 public:
 	ARootProjectNode(const char * project_name);
@@ -57,7 +57,7 @@ public:
 Node for file.
 */
 
-class AFileProjectNode : public AGroupProjectNode
+class AT_CORE_API AFileProjectNode : public AGroupProjectNode
 {
 public:	
 	AFileProjectNode(AFile * file = 0);

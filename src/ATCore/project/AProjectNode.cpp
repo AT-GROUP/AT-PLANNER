@@ -1,6 +1,6 @@
 #include "AProjectNode.h"
-#include "../core/AFile.h"
-#define xml_for_each_child (root, iterator) for(xmlNode * iterator = root->children; iterator; iterator = iterator->next) if (iterator->type == XML_ELEMENT_NODE)
+#include "../AFile.h"
+#include "../utils/helpers.h"
 
 AProjectNode::AProjectNode(const char * _name)
 	:ANamedObject(_name)
@@ -90,7 +90,7 @@ void AProjectNode::deserialize(xmlNodePtr xml_ptr)
 
 AProjectNode * AProjectNode::createAndDeserialize(xmlNode * xml_node)
 {
-	const char * _node_type = (const char*) xmlGetProp(xml_node, "type");
+	const char * _node_type = (const char*) xmlGetProp(xml_node, (xmlChar*)"type");
 	AProjectNode * new_node = nullptr;
 	if(!strcmp(_node_type, "file"))
 	{

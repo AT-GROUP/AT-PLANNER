@@ -20,7 +20,7 @@
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ATEnvironment_t {
     QByteArrayData data[11];
-    char stringdata[125];
+    char stringdata[133];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,15 +36,15 @@ QT_MOC_LITERAL(3, 32, 13),
 QT_MOC_LITERAL(4, 46, 14),
 QT_MOC_LITERAL(5, 61, 19),
 QT_MOC_LITERAL(6, 81, 8),
-QT_MOC_LITERAL(7, 90, 11),
-QT_MOC_LITERAL(8, 102, 9),
-QT_MOC_LITERAL(9, 112, 6),
-QT_MOC_LITERAL(10, 119, 4)
+QT_MOC_LITERAL(7, 90, 6),
+QT_MOC_LITERAL(8, 97, 4),
+QT_MOC_LITERAL(9, 102, 17),
+QT_MOC_LITERAL(10, 120, 11)
     },
     "ATEnvironment\0createNewProject\0\0"
     "createNewFile\0AQProjectNode*\0"
-    "project_parent_node\0openFile\0std::string\0"
-    "file_name\0AFile*\0file\0"
+    "project_parent_node\0openFile\0AFile*\0"
+    "file\0saveRecentChanges\0openProject\0"
 };
 #undef QT_MOC_LITERAL
 
@@ -54,7 +54,7 @@ static const uint qt_meta_data_ATEnvironment[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -62,16 +62,18 @@ static const uint qt_meta_data_ATEnvironment[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    0,   34,    2, 0x0a,
-       3,    1,   35,    2, 0x0a,
-       6,    1,   38,    2, 0x0a,
-       6,    1,   41,    2, 0x0a,
+       1,    0,   39,    2, 0x0a,
+       3,    1,   40,    2, 0x0a,
+       6,    1,   43,    2, 0x0a,
+       9,    0,   46,    2, 0x0a,
+      10,    0,   47,    2, 0x0a,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void, 0x80000000 | 4,    5,
     QMetaType::Void, 0x80000000 | 7,    8,
-    QMetaType::Void, 0x80000000 | 9,   10,
+    QMetaType::Void,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -83,8 +85,9 @@ void ATEnvironment::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         switch (_id) {
         case 0: _t->createNewProject(); break;
         case 1: _t->createNewFile((*reinterpret_cast< AQProjectNode*(*)>(_a[1]))); break;
-        case 2: _t->openFile((*reinterpret_cast< const std::string(*)>(_a[1]))); break;
-        case 3: _t->openFile((*reinterpret_cast< AFile*(*)>(_a[1]))); break;
+        case 2: _t->openFile((*reinterpret_cast< AFile*(*)>(_a[1]))); break;
+        case 3: _t->saveRecentChanges(); break;
+        case 4: _t->openProject(); break;
         default: ;
         }
     }
@@ -115,13 +118,13 @@ int ATEnvironment::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 5)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 5;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 4)
+        if (_id < 5)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }

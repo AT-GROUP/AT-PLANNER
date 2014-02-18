@@ -2,6 +2,7 @@
 #define AQPROJECTTREEWIDGET_H
 
 #include <QTreeWidget>
+#include <ATCore/project/AProjectNode.h>
 
 class AProjectNode;
 class ARootProjectNode;
@@ -12,7 +13,7 @@ class AQProjectNode : public QTreeWidgetItem
 {
 public:
 	AQProjectNode(AProjectNode * project_node, QTreeWidgetItem * parent);
-	int type();
+	AProjectNode::Type type() const;
 	AProjectNode * projectNode();
 	void updateIcon();
 private:

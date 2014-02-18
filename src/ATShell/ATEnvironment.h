@@ -9,13 +9,14 @@
 
 class AProject;
 class AGroupProjectNode;
+class ATApplication;
 
 class ATEnvironment : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	ATEnvironment(QWidget *parent = 0);
+	ATEnvironment(ATApplication * app, QWidget *parent = 0);
 	virtual ~ATEnvironment();
 	
 	/*
@@ -45,6 +46,7 @@ public slots:
 private:
 	Ui::ATEnvironmentClass ui;
 	AProject * m_pProject;
+	ATApplication * m_pApplication;
 };
 
 #endif // ATENVIRONMENT_H

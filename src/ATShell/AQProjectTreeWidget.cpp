@@ -14,7 +14,7 @@ AQProjectNode::AQProjectNode(AProjectNode * project_node, QTreeWidgetItem * pare
 	updateIcon();
 }
 
-int AQProjectNode::type()
+AProjectNode::Type AQProjectNode::type() const
 {
 	return m_pProjectNode->type();
 }
@@ -109,7 +109,7 @@ void AQProjectTreeWidget::showContextMenu(const QPoint &pos)
 	{
 		bool item_specific_actions = false;
 
-		if(selected_item->type() == AProjectNode::File)
+		if(selected_item->type() == AProjectNode::Type::File)
 		{
 			AFile * file = ((AFileProjectNode*)selected_item->projectNode())->file();
 			QAction * actionOpen = new QAction(QIcon(":/SurveyViewer/resources/icons/project_tree/open_file.ico"), "Open", this);
@@ -150,7 +150,7 @@ void AQProjectTreeWidget::showContextMenu(const QPoint &pos)
 		connect(actionRename, &QAction::triggered, this, &AQProjectTreeWidget::onRenameItemClicked);
 
 		//Remove action only if not root
-		if(selected_item->type() != AProjectNode::ProjectRoot)
+		if(selected_item->type() != AProjectNode::Type::ProjectRoot)
 		{
 			QAction * actionRemove = new QAction(QIcon(":/SurveyViewer/resources/icons/project_tree/remove.ico"), "Remove", this);
 			contextMenu.addAction(actionRemove);
