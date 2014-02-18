@@ -138,6 +138,7 @@
     <ClCompile Include="..\src\ATCore\plugin\APlugin.cpp" />
     <ClCompile Include="..\src\ATCore\plugin\APluginManager.cpp" />
     <ClCompile Include="..\src\ATCore\project\AProject.cpp" />
+    <ClCompile Include="..\src\ATCore\project\AProjectManager.cpp" />
     <ClCompile Include="..\src\ATCore\project\AProjectNode.cpp" />
     <ClCompile Include="..\src\ATCore\utils\helpers.cpp" />
   </ItemGroup>
@@ -158,6 +159,7 @@
     <ClInclude Include="..\src\ATCore\plugin\APlugin.h" />
     <ClInclude Include="..\src\ATCore\plugin\APluginManager.h" />
     <ClInclude Include="..\src\ATCore\project\AProject.h" />
+    <ClInclude Include="..\src\ATCore\project\AProjectManager.h" />
     <ClInclude Include="..\src\ATCore\project\AProjectNode.h" />
     <ClInclude Include="..\src\ATCore\utils\helpers.h" />
   </ItemGroup>

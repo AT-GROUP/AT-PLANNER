@@ -78,6 +78,9 @@
     <ClCompile Include="..\src\ATCore\edfd\DFDElement.cpp">
       <Filter>src\edfd</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ATCore\project\AProjectManager.cpp">
+      <Filter>src\project</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ATCore\AError.h">
@@ -133,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ATCore\edfd\DFDElement.h">
       <Filter>src\edfd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\project\AProjectManager.h">
+      <Filter>src\project</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

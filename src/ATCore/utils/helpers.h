@@ -7,6 +7,8 @@
 
 struct _xmlNode;
 
+AT_CORE_API void split_file_path(const std::string & path, std::string & dir, std::string & fname);
+
 //LIBXML
 
 AT_CORE_API _xmlNode * child_for_path(_xmlNode * root_node, const std::string & path);

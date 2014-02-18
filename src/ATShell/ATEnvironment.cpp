@@ -13,6 +13,7 @@
 #include <QtCore/QDir>
 #include <QtWidgets/QMdiSubWindow>
 #include <QtWidgets/QFileDialog>
+#include <QtWidgets/QMessageBox>
 #include <QDialog>
 
 /*void parseDoc(xmlNodePtr ptr, AProjectNode *  _node)
@@ -55,7 +56,7 @@ void ATEnvironment::parseDocument(xmlNodePtr _ptr, AProjectNode *  _node)
 }
 
 ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
-	: QMainWindow(parent), m_pProject(0), m_pApplication(app)
+	: QMainWindow(parent), AProjectManager(), m_pApplication(app)
 {
 	ui.setupUi(this);
 
@@ -64,7 +65,11 @@ ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 	*/
 	connect(ui.actionExit, &QAction::triggered, this, &ATEnvironment::close);
 	connect(ui.actionNewProject, &QAction::triggered, this, &ATEnvironment::createNewProject);
-	connect(ui.actionSave_Project, &QAction::triggered, this, &ATEnvironment::saveRecentChanges);
+	connect(ui.actionSave_Project, &QAction::triggered, [=]()
+			{
+				saveProject();
+			}
+		);
 	connect(ui.actionOpen_Project, &QAction::triggered, this, &ATEnvironment::openProject);
 
 	//Create planner widget
@@ -118,24 +123,38 @@ void ATEnvironment::displayProject(AProject * _project)
 	if(_project)
 		ui.wdgProjectExplorer->loadProjectTree(_project->rootNode());
 
-
-	delete m_pProject;
-	m_pProject = _project;
-
-	updateWindowTitle();
+	QString file_name = project() ? QFileInfo(project()->name()).fileName() : "No File";
+	setWindowTitle(QString("%1 - ATEnvironment").arg(file_name));
 }
 
 int ATEnvironment::closeProject()
 {
-	if(m_pProject)
-	{
-		//Ask to save changes
+	int res = 0;
 
-		displayProject(0);
-		return 0;
+	if(project())
+	{
+		if(project()->hasUnsavedChanges())
+		{
+			int ret = QMessageBox::warning(this, tr("Save chanhes"),
+									tr("The project has been modified.\n"
+									   "Do you want to save your changes?"),
+									QMessageBox::Save | QMessageBox::Discard
+									| QMessageBox::Cancel,
+									QMessageBox::Save);
+
+		
+			if(ret == QMessageBox::Cancel)
+				return 1;
+			else if(ret == QMessageBox::Save)
+			{
+				saveProject();
+			}
+		}
+		res = AProjectManager::closeProject();
 	}
-	else
-		return 0;
+	
+
+	return res;
 }
 
 void ATEnvironment::createNewProject()
@@ -151,9 +170,8 @@ void ATEnvironment::createNewProject()
 
 			QString project_dir = prj_dlg.projectDir() + "/" + prj_dlg.projectName();
 
-			AProject * project = new AProject(prj_dlg.projectName().toStdString().c_str(), project_dir.toStdString().c_str());
-			project->save();
-			displayProject(project);
+			auto res = createProject(project_dir.toStdString());
+			displayProject(res);
 		}
 	}
 }
@@ -176,11 +194,6 @@ void ATEnvironment::createNewFile(AQProjectNode * project_parent_node)
 	}
 }
 
-void ATEnvironment::updateWindowTitle()
-{
-	QString file_name = m_pProject ? QFileInfo(m_pProject->name()).fileName() : "No File";
-	setWindowTitle(QString("%1 - ATEnvironment").arg(file_name));
-}
 
 void ATEnvironment::openFile(AFile * file)
 {
@@ -200,49 +213,15 @@ void ATEnvironment::openFile(AFile * file)
 	editor->openFile(file);*/
 }
 
-void ATEnvironment::saveRecentChanges()
-{
-	m_pProject->saveChanges();
-}
-
 void ATEnvironment::openProject()
 {
-
-	closeProject();
-
-	QString file_name = QFileDialog::getOpenFileName(this, tr("Open File"),
+	QString file_name = QFileDialog::getOpenFileName(this, tr("Open project"),
                                                  "D:",
                                                  tr("AT Project Files (*.atprj);; All Files (*)"));
 
-	//xmlNodePtr _parent, _child;
-
-
-	xmlDocPtr doc = xmlParseFile(file_name.toStdString().c_str());
-	xmlNodePtr cur = xmlDocGetRootElement(doc);
-
-	//ÄÎÁÀÂÈÒÜ ÏÐÎÂÅÐÊÓ ÍÀ ÑÎÎÒÂÅÒÑÒÂÈÅ ÔÎÐÌÀÒÀ
-
-
-//	char* real_project_name = '\0';
-//	char* _project_dir = "";
-	
-/*	const char * _project_name = (const char*) cur->name;
-	int _size = strlen(_project_name);
-	strncpy(real_project_name,_project_name,_size-4);
-	real_project_name[_size-4] = '\0';  */
-
-
-//	_project_name = strncat(_project_name, (const char*) cur->name, strlen((const char*) cur->name) - 4);
-//	_project_dir = strncat(_project_dir, file_name.toStdString().c_str(), strlen(file_name.toStdString().c_str())-strlen((const char*) cur->name));
-
-	const char* _node_name = (const char*) cur->name;
-
-	AProject* project = new AProject    //(_project_name,_project_dir);
-		(_node_name,file_name.toStdString().c_str());
-	
-
-	project->openProject(cur);//(cur,project->rootNode());
-	//parseDocument(cur,project->rootNode());
-
-	displayProject(project);
+	auto res = AProjectManager::openProject(file_name.toStdString());
+	if(res)
+		displayProject(res);
+	else
+		QMessageBox::warning(this, tr("Error"), tr("Unable to open given project."), QMessageBox::Ok);
 }

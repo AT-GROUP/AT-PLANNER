@@ -14,7 +14,7 @@ class AT_CORE_API AProjectNode : public ANamedObject
 	friend class AQProjectTreeWidget;
 public:
 	enum class Type  {ProjectRoot, File, BuildingElement, Group, Count} ;
-	AProjectNode(const char * _name);
+	AProjectNode(const std::string & _name);
 	virtual Type type()=0;
 	void addChild(AProjectNode * child);
 	void removeChild(AProjectNode * child);
@@ -39,7 +39,7 @@ Group is folder.
 class AT_CORE_API AGroupProjectNode : public AProjectNode
 {
 public:
-	AGroupProjectNode(const char * name);
+	AGroupProjectNode(const std::string & name);
 	virtual AProjectNode::Type type();
 };
 
@@ -49,7 +49,7 @@ Node for project.
 class AT_CORE_API ARootProjectNode : public AGroupProjectNode
 {
 public:
-	ARootProjectNode(const char * project_name);
+	ARootProjectNode(const std::string & project_name);
 	virtual AProjectNode::Type type();
 };
 

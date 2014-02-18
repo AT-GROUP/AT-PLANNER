@@ -12,21 +12,27 @@ class ARootProjectNode;
 class AT_CORE_API AProject : public ANamedObject
 {
 public:
-	AProject(const char * project_name, const char * project_dir);
+	AProject(const std::string & project_name = "", const std::string & project_dir = "");
 	ARootProjectNode * rootNode();
 	
 	/*
-	Saves project and all it's files.
+	Saves and load project and all it's files.
 	*/
-	void save();
-	void saveChanges();
-	void openProject(xmlNodePtr doc);
+	void serialize(xmlNodePtr root_node) const;
+	void deserialize(xmlNodePtr root_node);
 
 	/*
 	Returns project dir. Useful for creating new files to
 	get target dir.
 	*/
-	std::string projectDir();
+	std::string projectDir() const;
+	void setProjectDir(const std::string & dir);
+
+	/*
+	Returns true if something has unsaved chanes.
+	*/
+	bool hasUnsavedChanges() const;
+
 private:
 	ARootProjectNode * m_pRootNode;
 	//AProjectNode * m_pProject;

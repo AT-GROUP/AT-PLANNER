@@ -4,6 +4,14 @@
 
 using namespace std;
 
+void split_file_path(const std::string & path, std::string & dir, std::string & fname)
+{
+	size_t found;
+	found = path.find_last_of("/\\");
+	dir = path.substr(0,found);
+	fname  = path.substr(found+1);
+}
+
 _xmlNode * child_for_path(_xmlNode * root_node, const std::string & path)
 {
 	if(path.empty())

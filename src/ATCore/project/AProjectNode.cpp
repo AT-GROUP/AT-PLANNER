@@ -2,7 +2,7 @@
 #include "../AFile.h"
 #include "../utils/helpers.h"
 
-AProjectNode::AProjectNode(const char * _name)
+AProjectNode::AProjectNode(const std::string & _name)
 	:ANamedObject(_name)
 {
 
@@ -186,7 +186,7 @@ void AProjectNode::deserialize(xmlNode * node, USBuilding * building)
 }
 */
 //================AGroupProjectNode=====================
-AGroupProjectNode::AGroupProjectNode(const char * _name)
+AGroupProjectNode::AGroupProjectNode(const std::string & _name)
 	:AProjectNode(_name)
 {
 
@@ -200,7 +200,7 @@ AProjectNode::Type AGroupProjectNode::type()
 
 
 //==============ARootProjectNode=================
-ARootProjectNode::ARootProjectNode(const char * project_name)
+ARootProjectNode::ARootProjectNode(const std::string & project_name)
 	:AGroupProjectNode(project_name)
 {
 

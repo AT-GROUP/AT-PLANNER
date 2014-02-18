@@ -1,6 +1,7 @@
 #ifndef ATENVIRONMENT_H
 #define ATENVIRONMENT_H
 
+#include <ATCore/project/AProjectManager.h>
 #include <QtWidgets/QMainWindow>
 #include "ui_ATEnvironment.h"
 #include <libxml/tree.h>
@@ -11,7 +12,7 @@ class AProject;
 class AGroupProjectNode;
 class ATApplication;
 
-class ATEnvironment : public QMainWindow
+class ATEnvironment : public QMainWindow, public AProjectManager
 {
 	Q_OBJECT
 
@@ -29,23 +30,17 @@ public:
 	Closes current project. Returns 0 if after execution
 	no project is displayed.
 	*/
-	int closeProject();
+	virtual int closeProject() override;
 
 	void parseDocument(xmlNodePtr _ptr, AProjectNode * _node);
 
-	/*
-	Updates window title due to currently loaded project.
-	*/
-	void updateWindowTitle();
 public slots:
 	void createNewProject();
 	void createNewFile(AQProjectNode * project_parent_node);
 	void openFile(AFile * file);
-	void saveRecentChanges();
 	void openProject();
 private:
 	Ui::ATEnvironmentClass ui;
-	AProject * m_pProject;
 	ATApplication * m_pApplication;
 };
 
