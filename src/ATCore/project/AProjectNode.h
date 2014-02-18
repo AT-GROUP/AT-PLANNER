@@ -2,24 +2,33 @@
 #ifndef ATEnvironment_USProjectNode_h
 #define ATEnvironment_USProjectNode_h
 
-#include "../ANamedObject.h"
+#include "../core/ANamedObject.h"
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <vector>
 
 class AFile;
 
-class AT_CORE_API AProjectNode : public ANamedObject
+class AProjectNode : public ANamedObject
 {
 	friend class AQProjectTreeWidget;
 public:
-	enum {ProjectRoot, File, BuildingElement, Group, Count} Type;
+	enum class Type  {ProjectRoot, File, BuildingElement, Group, Count} ;
 	AProjectNode(const char * _name);
-	virtual int type()=0;
+	virtual Type type()=0;
 	void addChild(AProjectNode * child);
 	void removeChild(AProjectNode * child);
+	std::vector<AProjectNode*> & getChild();
+	/*std::vector<AProjectNode*> getChild(int _i);
+	std::vector<AProjectNode*> getChild(int _i,int _j);
+	std::vector<AProjectNode*> getChild(int _i,int _j, int _k);*/
+	AProjectNode* getChild(int _i);
 	//virtual xmlNode * serialize(xmlNode * parent_node, USBuilding * building);
 	//virtual void deserialize(xmlNode * node, USBuilding * building);
+	virtual void serialize(xmlNode * xml_node) const;
+	virtual void deserialize(xmlNodePtr xml_ptr);
+
+	static AProjectNode * createAndDeserialize(xmlNode * project_node);
 private:
 	std::vector<AProjectNode*> mChildren;
 };
@@ -27,38 +36,39 @@ private:
 /*
 Group is folder.
 */
-class AT_CORE_API AGroupProjectNode : public AProjectNode
+class AGroupProjectNode : public AProjectNode
 {
 public:
 	AGroupProjectNode(const char * name);
-	virtual int type();
+	virtual AProjectNode::Type type();
 };
 
 /*
 Node for project.
 */
-class AT_CORE_API ARootProjectNode : public AGroupProjectNode
+class ARootProjectNode : public AGroupProjectNode
 {
 public:
 	ARootProjectNode(const char * project_name);
-	virtual int type();
+	virtual AProjectNode::Type type();
 };
 
 /*
 Node for file.
 */
 
-class AT_CORE_API AFileProjectNode : public AGroupProjectNode
+class AFileProjectNode : public AGroupProjectNode
 {
-public:
+public:	
 	AFileProjectNode(AFile * file = 0);
-	virtual int type();
-	//virtual xmlNode * serialize(xmlNode * parent_node, USBuilding * building);
+	virtual AProjectNode::Type type();
+	//virtual xmlNode * serialize(xmlNode * parent_node, USBuilding * building);			
 	//virtual void deserialize(xmlNode * node, USBuilding * building);
 	AFile * file();
+	virtual void serialize (xmlNode* xml_node);
 private:
 	AFile * m_pFile;
 };
-
+				
 
 #endif

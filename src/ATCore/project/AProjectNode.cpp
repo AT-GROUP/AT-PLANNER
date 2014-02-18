@@ -1,5 +1,6 @@
 #include "AProjectNode.h"
-#include "../AFile.h"
+#include "../core/AFile.h"
+#define xml_for_each_child (root, iterator) for(xmlNode * iterator = root->children; iterator; iterator = iterator->next) if (iterator->type == XML_ELEMENT_NODE)
 
 AProjectNode::AProjectNode(const char * _name)
 	:ANamedObject(_name)
@@ -20,6 +21,125 @@ void AProjectNode::removeChild(AProjectNode * child)
 		mChildren.erase(i);
 	}
 }
+
+std::vector<AProjectNode*> & AProjectNode::getChild()
+{
+	return mChildren;
+}
+
+AProjectNode* AProjectNode::getChild(int _i)
+{
+	try {
+		return mChildren.at(_i);
+	}
+	catch (std::out_of_range &) {
+		return NULL;
+
+	};
+
+}
+
+void AProjectNode::serialize(xmlNode * xml_node) const
+{
+	xmlNodeSetContent(xml_node, BAD_CAST "");
+
+	for(auto c : mChildren)
+	{
+		
+		xmlNodePtr child_node = xmlNewNode(NULL, BAD_CAST c->name());
+		xmlAddChild(xml_node, child_node);
+
+		
+		if (c->type() == AProjectNode::Type::File)
+			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "file");
+		else
+		{
+			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "group");
+		};
+		
+		c->serialize(child_node);
+	}
+}
+
+
+void AProjectNode::deserialize(xmlNodePtr xml_ptr)
+{
+	xml_for_each_child(xml_ptr, child)
+	{
+		struct _xmlAttr * _prop = xml_ptr->properties;
+		const xmlChar * _prop_type = xmlGetProp(xml_ptr, _prop->name);
+		const char * _node_type = (const char*) _prop_type;
+		/*if (strcmp(_node_type,"file")==0) 
+		{
+			AFile * new_file = new AFile((const char*) xml_ptr->name);
+			AFileProjectNode * new_node = new AFileProjectNode(new_file);
+			addChild(new_node);
+			new_node->deserialize(xml_ptr);			
+		}
+		else 
+		{
+			AGroupProjectNode * new_node = new AGroupProjectNode((const char*) xml_ptr->name);
+			addChild(new_node);
+			new_node->deserialize(xml_ptr);
+		}*/
+		AProjectNode * new_node = createAndDeserialize(child);
+		addChild(new_node);
+	}
+}
+
+
+AProjectNode * AProjectNode::createAndDeserialize(xmlNode * xml_node)
+{
+	const char * _node_type = (const char*) xmlGetProp(xml_node, "type");
+	AProjectNode * new_node = nullptr;
+	if(!strcmp(_node_type, "file"))
+	{
+		new_node = new AFileProjectNode(0);
+	}
+	else if(!strcmp(_node_type, "group"))
+	{
+		new_node = new AGroupProjectNode(0);
+	}
+
+	new_node->deserialize(xml_node);
+
+	return new_node;
+}
+
+
+/*void AProjectNode::deserialize(xmlNodePtr xml_ptr)
+{
+	xml_ptr = xml_ptr->xmlChildrenNode;
+	//int _i = 0;
+	while (xml_ptr != NULL)
+	{	
+
+// #define xml_for_each_child (root, iterator) for(xmlNode * iterator = root->children; iterator; iterator = iterator->next) if (iterator->type == XML_ELEMENT_NODE)
+		if (xml_ptr->type == XML_ELEMENT_NODE)
+		{
+			struct _xmlAttr * _prop = xml_ptr->properties;
+			const xmlChar * _prop_type = xmlGetProp(xml_ptr, _prop->name);
+			const char * _node_type = (const char*) _prop_type;
+			if (strcmp(_node_type,"file")==0) 
+			{
+				AFile * new_file = new AFile((const char*) xml_ptr->name);
+				AFileProjectNode * new_node = new AFileProjectNode(new_file);
+				addChild(new_node);
+				new_node->deserialize(xml_ptr);			
+			}
+			else 
+			{
+				AGroupProjectNode * new_node = new AGroupProjectNode((const char*) xml_ptr->name);
+				addChild(new_node);
+				new_node->deserialize(xml_ptr);
+			}
+
+		}
+		xml_ptr = xml_ptr->next;
+		//++_i;
+	}
+}*/
+
 /*
 xmlNode * AProjectNode::serialize(xmlNode * parent_node, USBuilding * building)
 {
@@ -72,9 +192,10 @@ AGroupProjectNode::AGroupProjectNode(const char * _name)
 
 }
 
-int AGroupProjectNode::type()
+AProjectNode::Type AGroupProjectNode::type()
 {
-	return AProjectNode::Group;
+
+	return AProjectNode::Type::Group;
 }
 
 
@@ -85,9 +206,9 @@ ARootProjectNode::ARootProjectNode(const char * project_name)
 
 }
 
-int ARootProjectNode::type()
+AProjectNode::Type ARootProjectNode::type()
 {
-	return AProjectNode::ProjectRoot;
+	return AProjectNode::Type::ProjectRoot;
 }
 
 //==============AFileProjectNodede=================
@@ -99,11 +220,12 @@ AFileProjectNode::AFileProjectNode(AFile * _file)
 		setName(_file->name());
 		m_pFile = _file;
 	}
+
 }
 
-int AFileProjectNode::type()
+AProjectNode::Type AFileProjectNode::type()
 {
-	return AProjectNode::File;
+	return AProjectNode::Type::File;
 }
 /*
 xmlNode * AFileProjectNodede::serialize(xmlNode * parent_node, USBuilding * building)
@@ -131,4 +253,9 @@ void AFileProjectNodede::deserialize(xmlNode * node, USBuilding * building)
 AFile * AFileProjectNode::file()
 {
 	return m_pFile;
+}
+
+void AFileProjectNode::serialize(xmlNode* xml_node)
+{
+	
 }
