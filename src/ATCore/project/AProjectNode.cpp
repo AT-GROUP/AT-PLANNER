@@ -98,6 +98,14 @@ AProjectNode * AProjectNode::createAndDeserialize(xmlNode * xml_node)
 	return new_node;
 }
 
+void AProjectNode::getDocumentNodesWithExtension(std::vector<const ADocumentProjectNode*> & docs, const std::string & ext) const
+{
+	for(auto c : mChildren)
+	{
+		c->getDocumentNodesWithExtension(docs, ext);
+	}
+}
+
 //================AGroupProjectNode=====================
 AGroupProjectNode::AGroupProjectNode(const std::string & _name)
 	:AProjectNode(_name), mExpanded(true)
@@ -201,4 +209,20 @@ ADocument * ADocumentProjectNode::file()
 void ADocumentProjectNode::serialize(xmlNode* xml_node)
 {
 	
+}
+
+void ADocumentProjectNode::getDocumentNodesWithExtension(std::vector<const ADocumentProjectNode*> & docs, const std::string & ext) const
+{
+	if(extension() == ext)
+		docs.push_back(this);
+
+	AProjectNode::getDocumentNodesWithExtension(docs, ext);
+}
+
+std::string ADocumentProjectNode::extension() const
+{
+	auto dot_pos = name().find_last_of(".");
+	string res = name().substr(dot_pos + 1, name().length() - dot_pos);
+
+	return res;
 }

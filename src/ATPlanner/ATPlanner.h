@@ -8,6 +8,8 @@
 class APlannerWidget;
 class ATPlanner;
 class APlan;
+class AProject;
+class APluginManager;
 
 class AT_PLANNER_API AIPlannerDelegate
 {
@@ -18,7 +20,7 @@ public:
 class AT_PLANNER_API ATPlanner : public ADelegatedObject<AIPlannerDelegate>
 {
 public:
-	ATPlanner();
+	ATPlanner(APluginManager * plugin_mgr);
 	~ATPlanner();
 
 	/*
@@ -28,9 +30,18 @@ public:
 	APlannerWidget * createInfoWidget();
 
 	AError rebuildPlan();
+
+	void loadProject(AProject * project);
+
+	/*
+	Builds generalized plan based on EDFD hierarchy.
+	*/
+	AError buildGeneralizedPlan();
 private:
 	APlan * m_pCurrentPlan;
 	APlannerWidget * m_pPlannerWidget;
+	AProject * m_pProject;
+	APluginManager * m_pPluginManager;
 };
 
 #endif // ATPLANNER_H

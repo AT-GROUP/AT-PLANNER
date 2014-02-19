@@ -4,11 +4,15 @@
 
 #include "../ANamedObject.h"
 #include "../AError.h"
+#include "../edfd/EDFDDocument.h"
 #include <string>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
+#include <memory>
+#include <vector>
 
 class ARootProjectNode;
+class ADocumentProjectNode;
 
 class AT_CORE_API AProject : public ANamedObject
 {
@@ -37,6 +41,16 @@ public:
 	Returns true if something has unsaved chanes.
 	*/
 	bool hasUnsavedChanges() const;
+
+	/*
+	Collects all documents with given extension into give container.
+	*/
+	void documentsWithExtension(std::vector<const ADocumentProjectNode*> & doc_nodes, const std::string & ext) const;
+
+	/*
+	Performs EDFD detalization, creates new document and returns it.
+	*/
+	std::shared_ptr<EDFDDocument> commonEDFD(AError * err = nullptr) const;
 
 private:
 	ARootProjectNode * m_pRootNode;

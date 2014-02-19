@@ -3,8 +3,8 @@
 #define ATCore_DFDConnection_h
 
 #include "../config.h"
-#include "DFDElement.h"
 #include "../ANamedObject.h"
+#include "DFDElement.h"
 #include <memory>
 
 class AT_CORE_API DFDConnection : public ANamedObject

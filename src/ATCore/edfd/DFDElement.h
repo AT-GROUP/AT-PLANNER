@@ -4,15 +4,16 @@
 
 #include "../config.h"
 #include "../ANamedObject.h"
+//#include "EDFDDocument.h"
 
 #include <string>
 #include <vector>
+#include <memory>
 
-//class DFDConnection;
-//class AWorkspaceScene;
 
 /////////////////////// object layer ////////////////////////////////////
 
+class EDFDDocument;
 struct AT_CORE_API APoint
 {
 	int mX, mY;
@@ -55,10 +56,7 @@ public:
 
 	APoint Mouse_pos;
 
-	DFDElement(const std::string & _name = "", const std::string & comment = "", const APoint & m_p = APoint())
-		:ANamedObject(_name), mComment(comment), Mouse_pos(m_p)
-	{
-	}
+	DFDElement(const std::string & _name = "", const std::string & comment = "", const APoint & m_p = APoint());
 
 /*	std::string GetName()
 	{
@@ -93,8 +91,17 @@ public:
 	//virtual void serialize(xmlNode * xml_node) const;
 	//virtual void deserialize(xmlNodePtr xml_ptr);
 
+	bool isDetalized() const;
 private:
 	std::vector<DFDElement*> mChildren;
+
+public:
+	struct
+	{
+		bool used;
+		std::string document_name;
+		std::shared_ptr<EDFDDocument> document;
+	} mDetalization;
 };
 
 

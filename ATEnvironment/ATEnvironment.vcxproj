@@ -269,6 +269,9 @@
     <ProjectReference Include="..\EDFDEditor\EDFDEditor.vcxproj">
       <Project>{8a72d806-2f9a-4097-b80e-8cb89ec44120}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\LAMAAdapter\LAMAAdapter.vcxproj">
+      <Project>{e6e6fa59-d182-4b0f-80bd-e43200fbf8e6}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="..\src\ATShell\AConsoleWidget.h">

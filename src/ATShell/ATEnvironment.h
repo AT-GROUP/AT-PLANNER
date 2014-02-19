@@ -38,7 +38,7 @@ private:
 	AGUIEditorInstance * m_pEditorInstance;
 };
 
-class ATEnvironment : public QMainWindow, public AProjectManager
+class ATEnvironment : public QMainWindow, public AProjectManager, public AEditorDelegate
 {
 	Q_OBJECT
 
@@ -61,6 +61,9 @@ public:
 	//void parseDocument(xmlNodePtr _ptr, AProjectNode * _node);
 	
 	void closeMdiWindow(ATMdiWindow * mdi_wnd, ADocumentProjectNode * doc_node);
+
+	//AEditorDelegate implementation
+	virtual void documentChanged(const std::shared_ptr<ADocument> & doc) override;
 public slots:
 	void createNewProject();
 	void createNewFile(AQProjectNode * project_parent_node);

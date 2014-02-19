@@ -78,6 +78,8 @@ void ATEnvironment::displayProject(AProject * _project)
 
 	QString file_name = project() ? QFileInfo(QString::fromStdString(project()->name())).fileName() : "No File";
 	setWindowTitle(QString("%1 - ATEnvironment").arg(file_name));
+
+	m_pApplication->planner()->loadProject(_project);
 }
 
 int ATEnvironment::closeProject()
@@ -191,6 +193,7 @@ void ATEnvironment::openNodeDocument(ADocumentProjectNode * doc_node)
 
 		auto gui_plug = static_cast<AGUIEditorPlugin*>(ed_plug);
 		auto ed_wdg = static_cast<AGUIEditorInstance*>(gui_plug->createEditorInstance());
+		ed_wdg->setDelegate(this);
 	
 		auto mdi_sub_wind = new ATMdiWindow(ed_wdg);
 	
@@ -223,4 +226,10 @@ void ATEnvironment::closeMdiWindow(ATMdiWindow * mdi_wnd, ADocumentProjectNode *
 
 	auto oi = mOpenedDocs.find(doc_node);
 	mOpenedDocs.erase(oi);
+}
+
+void ATEnvironment::documentChanged(const std::shared_ptr<ADocument> & doc)
+{
+	if(doc->type() == ADocument::Type::EDFD)
+		m_pApplication->planner()->buildGeneralizedPlan();
 }

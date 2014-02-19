@@ -66,3 +66,8 @@ AError ADocument::loadFromFile(const std::string & file_path)
 	return res;
 }
 
+
+ADocument::Type ADocument::type() const
+{
+	return ADocument::Type::NotSystem;
+}

@@ -10,7 +10,7 @@
 using namespace std;
 
 ATApplication::ATApplication(int argc, char *argv[])
-	:QApplication(argc, argv), ACommandExecutor(), m_pPlanner(new ATPlanner())
+	:QApplication(argc, argv), ACommandExecutor(), m_pPlanner(new ATPlanner(this))
 {
 	searchAndLoadPlugins();
 

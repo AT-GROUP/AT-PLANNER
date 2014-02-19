@@ -1,6 +1,20 @@
 
 #include "DFDElement.h"
 #include "DFDConnection.h"
+#include <algorithm>
+
+using namespace std;
+
+DFDElement::DFDElement(const std::string & _name, const std::string & comment, const APoint & m_p)
+	:ANamedObject(_name), mComment(comment), Mouse_pos(m_p)
+{
+	mDetalization.used = false;
+}
+
+bool DFDElement::isDetalized() const
+{
+	return mDetalization.used;
+}
 
 //======================DFDEntity===============================
 DFDEntity::DFDEntity(const std::string & _name, const std::string & comment, const APoint & m_p)

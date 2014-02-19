@@ -19,7 +19,7 @@ class ADocument;
 class AT_CORE_API APlugin
 {
 public:
-	enum class Type {Utility, Editor, Count};
+	enum class Type {Utility, Editor, Adapter, Count};
 
 	virtual const std::string name() = 0;
 	virtual const std::string description() = 0;
@@ -43,6 +43,15 @@ public:
 	virtual AError executeCommand(const std::string & script, std::string & answer)=0;
 };
 
+/*
+Plugin for PDDL-planners integration.
+*/
+class AT_CORE_API AAdapterPlugin : public APlugin
+{
+public:
+	virtual const Type type() const;
+	virtual void buildGeneralizedPlan() = 0;
+};
 
 /*
 Editor plugins are used to create/editing/viewing project files.
@@ -77,6 +86,12 @@ public:
 	virtual AEditorInstance * createEditorInstance() = 0;
 };
 
+class AEditorDelegate
+{
+public:
+	virtual void documentChanged(const std::shared_ptr<ADocument> & doc) = 0;
+};
+
 class AT_CORE_API AEditorInstance
 {
 public:
@@ -87,10 +102,12 @@ public:
 	void openDocument(const std::shared_ptr<ADocument> & document);
 	const std::shared_ptr<ADocument> & document() const;
 	void saveCurrentDocument();
+	void setDelegate(AEditorDelegate * _delegate);
 	virtual void showDocument() = 0;
 private:
 	AEditorPlugin * m_pPlugin;
 	std::shared_ptr<ADocument> m_pDocument;
+	AEditorDelegate * m_pDelegate;
 };
 
 #endif

@@ -79,3 +79,51 @@ bool AProject::hasUnsavedChanges() const
 {
 	return true;
 }
+
+void AProject::documentsWithExtension(std::vector<const ADocumentProjectNode*> & doc_nodes, const std::string & ext) const
+{
+	m_pRootNode->getDocumentNodesWithExtension(doc_nodes, ext);
+}
+
+std::shared_ptr<EDFDDocument> AProject::commonEDFD(AError * err) const
+{
+	//Get all EDFD document nodes
+	vector<const ADocumentProjectNode*> edfd_nodes;
+	documentsWithExtension(edfd_nodes, "edfd");
+
+	//Load documents into RAM
+	vector<shared_ptr<EDFDDocument>> edfd_docs;
+	for(auto doc_node : edfd_nodes)
+	{
+		shared_ptr<EDFDDocument> new_doc(new EDFDDocument());
+		new_doc->loadFromFile(mProjectDir + "/" + doc_node->name());
+		edfd_docs.push_back(new_doc);
+	}
+
+	//Build detalization links
+	for(auto & doc : edfd_docs)
+	{
+		if(doc->isDetalized())
+			doc->buildDetalizationLinks(edfd_docs);
+	}
+
+	//Find top-level diagramm - the one left is it
+
+	//Check that it is unique
+	return edfd_docs[0];	///!!!!!!!!!!!!!!!!!!!
+	if(edfd_docs.size() > 1)
+	{
+		if(err)
+			*err = AError(AT_ERROR_PROJECT_DATA, "More than one EDFD diagramm are top-level, must be only one.");
+		return nullptr;
+	}
+
+	//Perform detalization
+
+	shared_ptr<EDFDDocument> detailed_doc;
+
+	if(err)
+		*err = AError();
+
+	return detailed_doc;
+}

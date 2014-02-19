@@ -8,6 +8,11 @@ const APlugin::Type AUtilityPlugin::type() const
 	return APlugin::Type::Utility;
 }
 
+const APlugin::Type AAdapterPlugin::type() const
+{
+	return APlugin::Type::Adapter;
+}
+
 const APlugin::Type AEditorPlugin::type() const
 {
 	return APlugin::Type::Editor;
@@ -22,7 +27,7 @@ ADocument * AEditorPlugin::openFile(const std::string & directory, const std::st
 }
 
 AEditorInstance::AEditorInstance(AEditorPlugin * _plug)
-	:m_pPlugin(_plug), m_pDocument(nullptr)
+	:m_pPlugin(_plug), m_pDocument(nullptr), m_pDelegate(nullptr)
 {
 
 }
@@ -56,4 +61,12 @@ void AEditorInstance::saveCurrentDocument()
 		return;
 
 	m_pDocument->save();
+	
+	if(m_pDelegate)
+		m_pDelegate->documentChanged(m_pDocument);
+}
+
+void AEditorInstance::setDelegate(AEditorDelegate * _delegate)
+{
+	m_pDelegate = _delegate;
 }

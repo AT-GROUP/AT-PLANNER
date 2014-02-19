@@ -4,11 +4,12 @@
 
 #include "../ANamedObject.h"
 #include "../AError.h"
+#include "../ADocument.h"
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <vector>
 
-class ADocument;
+class ADocumentProjectNode;
 
 class AT_CORE_API AProjectNode : public ANamedObject
 {
@@ -30,6 +31,8 @@ public:
 	virtual AError deserialize(xmlNodePtr xml_ptr);
 
 	static AProjectNode * createAndDeserialize(xmlNode * project_node);
+
+	virtual void getDocumentNodesWithExtension(std::vector<const ADocumentProjectNode*> & docs, const std::string & ext) const;
 private:
 	std::vector<AProjectNode*> mChildren;
 };
@@ -73,6 +76,10 @@ public:
 	//virtual AError deserialize(xmlNodePtr xml_ptr) override;
 	ADocument * file();
 	virtual void serialize (xmlNode* xml_node);
+	virtual void getDocumentNodesWithExtension(std::vector<const ADocumentProjectNode*> & docs, const std::string & ext) const;
+
+	//Returns suffix from node name
+	std::string extension() const;
 private:
 	ADocument * m_pFile;
 };

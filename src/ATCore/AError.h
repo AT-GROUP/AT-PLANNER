@@ -30,6 +30,7 @@ enum
 	AT_ERROR_NOT_FOUND,
 	AT_ERROR_FILE_OLD_FORMAT,
 	AT_ERROR_NO_ACTIVE_PROJECT,
+	AT_ERROR_PROJECT_DATA,
 	AT_ERROR_UNKNOWN,
 	AT_ERROR_OK	//If everything is OK
 };
@@ -55,7 +56,7 @@ public:
 private:
 	static void criticalErrorOccured(const char * text);
 
-	const std::string mText;
+	std::string mText;
 	int mErrorCode;
 };
 
