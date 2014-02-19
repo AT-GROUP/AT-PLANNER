@@ -11,7 +11,7 @@ class AT_CORE_API ANamedObject
 public:
 	ANamedObject(const std::string & _name = "");
 	void setName(const std::string & _name);
-	const char * name();
+	const std::string & name() const;
 	bool nameIs(const char * _name);
 private:
 	std::string m_pName;

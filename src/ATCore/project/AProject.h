@@ -3,6 +3,7 @@
 #define ATCore_AProject_h
 
 #include "../ANamedObject.h"
+#include "../AError.h"
 #include <string>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
@@ -19,7 +20,7 @@ public:
 	Saves and load project and all it's files.
 	*/
 	void serialize(xmlNodePtr root_node) const;
-	void deserialize(xmlNodePtr root_node);
+	AError deserialize(xmlNodePtr root_node);
 
 	/*
 	Returns project dir. Useful for creating new files to
@@ -27,6 +28,10 @@ public:
 	*/
 	std::string projectDir() const;
 	void setProjectDir(const std::string & dir);
+
+
+	const std::string & fileName() const;
+	void setFileName(std::string & f_name);
 
 	/*
 	Returns true if something has unsaved chanes.

@@ -13,7 +13,7 @@
 #define AT_CREATE_PLUGIN_FN create_plugin_instance
 #define AT_CREATE_PLUGIN_FNNAME FUNCTION_NAME(create_plugin_instance)
 
-class AFile;
+class ADocument;
 
 class AT_CORE_API APlugin
 {
@@ -51,8 +51,15 @@ class AT_CORE_API AEditorPlugin : public APlugin
 {
 public:
 	virtual const Type type() const;
-	virtual void openFile(AFile * file)=0;
+	virtual void openFile(ADocument * file)=0;
 	virtual const std::string documentExtension() const = 0;
+	virtual const std::string documentDescription() const = 0;
+	
+	/*
+	Creates document of it's type in given folder. Filename must contain
+	extension.
+	*/
+	virtual ADocument * createFile(const std::string & directory, const std::string & filename) = 0;
 };
 
 

@@ -64,11 +64,19 @@ public:
 		return "Base AT Editor for editing Extended DFD diagrams.";
 	}
 
+	virtual const std::string documentDescription() const
+	{
+		return "Extended Data Flow Diagramm";
+	}
+
+	virtual const std::string documentExtension() const override;
+
 	virtual QWidget * createMainWindow();
 
 	virtual AError init(QToolBar * tb, QMenu * menu);
-	virtual void openFile(AFile * file);
-	virtual const std::string documentExtension() const override;
+	virtual void openFile(ADocument * file);
+	
+	virtual ADocument * createFile(const std::string & directory, const std::string & filename) override;
 };
 
 #endif // EDFDEDITOR_H

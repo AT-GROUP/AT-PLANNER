@@ -7,7 +7,6 @@
 class AProjectNode;
 class ARootProjectNode;
 class AGroupProjectNode;
-class AFile;
 
 class AQProjectNode : public QTreeWidgetItem
 {
@@ -35,9 +34,10 @@ private slots:
 	void onRenameItemClicked();
 	void onAddGroupItemClicked();
 	void onRemoveItemClicked();
+	void changeItemName(QTreeWidgetItem *item, int column);
 signals:
 	void createNewFileRequested(AQProjectNode * project_parent_node);
-	void openFileRequested(AFile * file);
+	void openNodeFileRequested(ADocumentProjectNode * doc_node);
 private:
 	AQProjectNode * m_pCurrentSelection;
 	ARootProjectNode * m_pProjectRoot;

@@ -32,13 +32,13 @@ public:
 	*/
 	virtual int closeProject() override;
 
-	void parseDocument(xmlNodePtr _ptr, AProjectNode * _node);
+	//void parseDocument(xmlNodePtr _ptr, AProjectNode * _node);
 
 public slots:
 	void createNewProject();
 	void createNewFile(AQProjectNode * project_parent_node);
-	void openFile(AFile * file);
 	void openProject();
+	void openNodeDocument(ADocumentProjectNode * doc_node);
 private:
 	Ui::ATEnvironmentClass ui;
 	ATApplication * m_pApplication;

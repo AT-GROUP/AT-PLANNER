@@ -1,5 +1,6 @@
 #include "AProject.h"
 #include "AProjectNode.h"
+#include "../utils/helpers.h"
 //#include "dll/libxml2"
 
 using namespace std;
@@ -43,17 +44,35 @@ void AProject::setProjectDir(const std::string & dir)
 	mProjectDir = dir;
 }
 
-void AProject::serialize(xmlNodePtr root_node) const
+const std::string & AProject::fileName() const
 {
-	//Serialize project tree
-	m_pRootNode->serialize(root_node);
-
-	//Save all changed referenced files
+	return mProjectFileName;
 }
 
-void AProject::deserialize(xmlNodePtr root_node)
+void AProject::setFileName(std::string & f_name)
 {
-	m_pRootNode->deserialize(root_node);
+	mProjectFileName = f_name;
+}
+
+void AProject::serialize(xmlNodePtr root_node) const
+{
+	//Project name
+	xmlNewProp(root_node, BAD_CAST "name" , BAD_CAST name().c_str());
+
+	//Serialize project tree and save all changed referenced files
+	xmlNode * project_tree_node = xmlNewChild(root_node, NULL, BAD_CAST "project_root_node", BAD_CAST "");
+	m_pRootNode->serialize(project_tree_node);
+}
+
+AError AProject::deserialize(xmlNodePtr root_node)
+{
+	auto cproject_name = xml_prop(root_node, "name");
+	setName(string(cproject_name));
+
+	xmlNode * project_tree_node = child_for_path(root_node, "project_root_node");
+	m_pRootNode->deserialize(project_tree_node);
+
+	return AError();
 }
 
 bool AProject::hasUnsavedChanges() const

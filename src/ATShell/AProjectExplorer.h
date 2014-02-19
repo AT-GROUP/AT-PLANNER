@@ -18,7 +18,7 @@ public:
 	void loadProjectTree(ARootProjectNode * root_node);
 signals:
 	void createNewFileRequested(AQProjectNode * project_parent_node);
-	void openFileRequested(AFile * file);
+	void openNodeFileRequested(ADocumentProjectNode * file);
 private:
 	Ui::AProjectExplorer ui;
 };

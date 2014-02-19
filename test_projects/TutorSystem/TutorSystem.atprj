@@ -1,4 +1,11 @@
 <?xml version="1.0"?>
-<TutorSystem.atprj>
-  <new_group type="group"/>
-</TutorSystem.atprj>
+<at_project name="TutorIES">
+  <project_root_node type="0" name="TutorIES" expanded="1">
+    <node type="3" name="EDFD" expanded="1">
+      <node type="1" name="main.edfd" expanded="1"/>
+    </node>
+    <node type="3" name="Architecture" expanded="1"/>
+    <node type="3" name="KB" expanded="1"/>
+    <node type="3" name="DB" expanded="1"/>
+  </project_root_node>
+</at_project>

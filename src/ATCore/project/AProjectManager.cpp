@@ -38,8 +38,11 @@ AProject * AProjectManager::createProject(const std::string & project_path)
 	return m_pProject;
 }
 
-void AProjectManager::saveProject() const
+AError AProjectManager::saveProject() const
 {
+	if(!project())
+		return AError(AT_ERROR_NO_ACTIVE_PROJECT);
+
 	//Create XML-structure of project file
 	xmlDocPtr doc = xmlNewDoc(BAD_CAST XML_DEFAULT_VERSION);
     xmlNodePtr root_node = xmlNewNode(NULL, BAD_CAST "at_project");
@@ -50,11 +53,13 @@ void AProjectManager::saveProject() const
 	project()->serialize(root_node);
 
 	//Write it
-	xmlSetDocCompressMode(doc, 9);
+	xmlSetDocCompressMode(doc, 0);
 
-	string project_file_path = project()->projectDir() + "/" + project()->name();
+	string project_file_path = project()->projectDir() + "/" + project()->fileName();
 	xmlSaveFormatFile(project_file_path.c_str(), doc, 1);
     xmlFreeDoc(doc);
+
+	return AError();
 }
 
 AProject * AProjectManager::openProject(const std::string & path)
@@ -62,7 +67,6 @@ AProject * AProjectManager::openProject(const std::string & path)
 	if(closeProject())
 		return nullptr;
 
-	m_pProject = new AProject();
 
 	xmlDocPtr doc = xmlParseFile(path.c_str());
 	if(!doc)
@@ -73,11 +77,15 @@ AProject * AProjectManager::openProject(const std::string & path)
 	string dir_path, fname;
 	split_file_path(path, dir_path, fname);
 
-	m_pProject->setName(fname);
+	m_pProject = new AProject();
+
+	m_pProject->setFileName(fname);
 	m_pProject->setProjectDir(dir_path);
 
 	m_pProject->deserialize(cur);
 
 	xmlFreeDoc(doc);
 	xmlCleanupParser();
+
+	return m_pProject;
 }

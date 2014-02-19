@@ -3,11 +3,12 @@
 #define ATCore_AProjectNode_h
 
 #include "../ANamedObject.h"
+#include "../AError.h"
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <vector>
 
-class AFile;
+class ADocument;
 
 class AT_CORE_API AProjectNode : public ANamedObject
 {
@@ -15,7 +16,7 @@ class AT_CORE_API AProjectNode : public ANamedObject
 public:
 	enum class Type  {ProjectRoot, File, BuildingElement, Group, Count} ;
 	AProjectNode(const std::string & _name);
-	virtual Type type()=0;
+	virtual Type type() const=0;
 	void addChild(AProjectNode * child);
 	void removeChild(AProjectNode * child);
 	std::vector<AProjectNode*> & getChild();
@@ -26,7 +27,7 @@ public:
 	//virtual xmlNode * serialize(xmlNode * parent_node, USBuilding * building);
 	//virtual void deserialize(xmlNode * node, USBuilding * building);
 	virtual void serialize(xmlNode * xml_node) const;
-	virtual void deserialize(xmlNodePtr xml_ptr);
+	virtual AError deserialize(xmlNodePtr xml_ptr);
 
 	static AProjectNode * createAndDeserialize(xmlNode * project_node);
 private:
@@ -40,7 +41,13 @@ class AT_CORE_API AGroupProjectNode : public AProjectNode
 {
 public:
 	AGroupProjectNode(const std::string & name);
-	virtual AProjectNode::Type type();
+	virtual AProjectNode::Type type() const;
+	void setExpanded(bool expanded);
+	bool expanded() const;
+	virtual void serialize(xmlNode * xml_node) const override;
+	virtual AError deserialize(xmlNodePtr xml_ptr) override;
+private:
+	bool mExpanded;
 };
 
 /*
@@ -50,24 +57,24 @@ class AT_CORE_API ARootProjectNode : public AGroupProjectNode
 {
 public:
 	ARootProjectNode(const std::string & project_name);
-	virtual AProjectNode::Type type();
+	virtual AProjectNode::Type type() const;
 };
 
 /*
 Node for file.
 */
 
-class AT_CORE_API AFileProjectNode : public AGroupProjectNode
+class AT_CORE_API ADocumentProjectNode : public AGroupProjectNode
 {
 public:	
-	AFileProjectNode(AFile * file = 0);
-	virtual AProjectNode::Type type();
-	//virtual xmlNode * serialize(xmlNode * parent_node, USBuilding * building);			
-	//virtual void deserialize(xmlNode * node, USBuilding * building);
-	AFile * file();
+	ADocumentProjectNode(ADocument * file = 0);
+	virtual AProjectNode::Type type() const;
+	virtual void serialize(xmlNode * parent_node) const override;
+	//virtual AError deserialize(xmlNodePtr xml_ptr) override;
+	ADocument * file();
 	virtual void serialize (xmlNode* xml_node);
 private:
-	AFile * m_pFile;
+	ADocument * m_pFile;
 };
 				
 

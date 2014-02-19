@@ -6,7 +6,8 @@
 #include "APluginsWidget.h"
 #include <ATCore/project/AProject.h>
 #include <ATCore/project/AProjectNode.h>
-#include <ATCore/AFile.h>
+#include <ATCore/ADocument.h>
+#include <ATCore/ADocument.h>
 #include <ATGUI/AEditor.h>
 //#include "editors/schemes_editor/AQSchemesEditor.h"
 #include <QtCore/QFileInfo>
@@ -35,7 +36,7 @@
 	}
 }*/
 
-
+/*
 void ATEnvironment::parseDocument(xmlNodePtr _ptr, AProjectNode *  _node)
 {
 	_ptr = _ptr->xmlChildrenNode;
@@ -45,15 +46,15 @@ void ATEnvironment::parseDocument(xmlNodePtr _ptr, AProjectNode *  _node)
 
 		if (_i&1)
 		{
-			AFile * new_file = new AFile((const char*) _ptr->name);
-			AFileProjectNode * new_node = new AFileProjectNode(new_file);
+			ADocument * new_file = new ADocument((const char*) _ptr->name);
+			ADocumentProjectNode * new_node = new ADocumentProjectNode(new_file);
 			_node->addChild(new_node);
 			parseDocument(_ptr, new_node);
 		}
 		_ptr = _ptr->next;
 		++_i;
 	}
-}
+}*/
 
 ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 	: QMainWindow(parent), AProjectManager(), m_pApplication(app)
@@ -87,7 +88,7 @@ ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 
 	//Setup project explorer links
 	connect(ui.wdgProjectExplorer, &AProjectExplorer::createNewFileRequested, this, &ATEnvironment::createNewFile);
-	connect(ui.wdgProjectExplorer, &AProjectExplorer::openFileRequested, [=](AFile * file){openFile(file);});
+	connect(ui.wdgProjectExplorer, &AProjectExplorer::openNodeFileRequested, this, &ATEnvironment::openNodeDocument);
 
 	//connect(ui.actionNewFile, &QAction::triggered, [=](){openFile("test");});
 
@@ -123,7 +124,7 @@ void ATEnvironment::displayProject(AProject * _project)
 	if(_project)
 		ui.wdgProjectExplorer->loadProjectTree(_project->rootNode());
 
-	QString file_name = project() ? QFileInfo(project()->name()).fileName() : "No File";
+	QString file_name = project() ? QFileInfo(QString::fromStdString(project()->name())).fileName() : "No File";
 	setWindowTitle(QString("%1 - ATEnvironment").arg(file_name));
 }
 
@@ -178,24 +179,42 @@ void ATEnvironment::createNewProject()
 
 void ATEnvironment::createNewFile(AQProjectNode * project_parent_node)
 {
-	AQNewFileDialog dlg;
-	if(dlg.exec() == QDialog::Accepted)
+	AQNewFileDialog dlg(m_pApplication);
+	if(dlg.exec() != QDialog::Accepted)
 	{
-		QString file_name = dlg.fileName() + ".rdpd";
-
-		AFile * new_file = new AFile(file_name.toStdString().c_str());
-
-		AFileProjectNode * new_node = new AFileProjectNode(new_file);
-		project_parent_node->projectNode()->addChild(new_node);
-
-		AQProjectNode * new_tree_node = new AQProjectNode(new_node, project_parent_node);
-		if(!project_parent_node->isExpanded())
-			project_parent_node->setExpanded(true);
+		return;
 	}
+	
+	auto editor_plugin = dlg.selectedTypeEditor();
+	ADocument * doc = editor_plugin->createFile(project()->projectDir(), dlg.fileName().toStdString());
+
+	if(!doc)
+		return;
+
+	ADocumentProjectNode * new_node = new ADocumentProjectNode(doc);
+	project_parent_node->projectNode()->addChild(new_node);
+
+	AQProjectNode * new_tree_node = new AQProjectNode(new_node, project_parent_node);
+	if(!project_parent_node->isExpanded())
+		project_parent_node->setExpanded(true);
+
+	openNodeDocument(new_node);
 }
 
+void ATEnvironment::openProject()
+{
+	QString file_name = QFileDialog::getOpenFileName(this, tr("Open project"),
+                                                 "D:",
+                                                 tr("AT Project Files (*.atprj);; All Files (*)"));
 
-void ATEnvironment::openFile(AFile * file)
+	auto res = AProjectManager::openProject(file_name.toStdString());
+	if(res)
+		displayProject(res);
+	else
+		QMessageBox::warning(this, tr("Error"), tr("Unable to open given project."), QMessageBox::Ok);
+}
+
+void ATEnvironment::openNodeDocument(ADocumentProjectNode * doc_node)
 {
 	ui.mdiArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -211,17 +230,4 @@ void ATEnvironment::openFile(AFile * file)
 	ui.mdiArea->setActiveSubWindow(mdi_sub_wind);
 
 	editor->openFile(file);*/
-}
-
-void ATEnvironment::openProject()
-{
-	QString file_name = QFileDialog::getOpenFileName(this, tr("Open project"),
-                                                 "D:",
-                                                 tr("AT Project Files (*.atprj);; All Files (*)"));
-
-	auto res = AProjectManager::openProject(file_name.toStdString());
-	if(res)
-		displayProject(res);
-	else
-		QMessageBox::warning(this, tr("Error"), tr("Unable to open given project."), QMessageBox::Ok);
 }

@@ -1,6 +1,8 @@
 #include "AProjectNode.h"
-#include "../AFile.h"
+#include "../ADocument.h"
 #include "../utils/helpers.h"
+
+using namespace std;
 
 AProjectNode::AProjectNode(const std::string & _name)
 	:ANamedObject(_name)
@@ -41,163 +43,102 @@ AProjectNode* AProjectNode::getChild(int _i)
 
 void AProjectNode::serialize(xmlNode * xml_node) const
 {
-	xmlNodeSetContent(xml_node, BAD_CAST "");
+	xmlNewProp(xml_node, BAD_CAST "type" , BAD_CAST to_string(static_cast<int>(type())).c_str());
+	xmlNewProp(xml_node, BAD_CAST "name" , BAD_CAST name().c_str());
+
+	//xmlNodeSetContent(xml_node, BAD_CAST "");
 
 	for(auto c : mChildren)
 	{
-		
-		xmlNodePtr child_node = xmlNewNode(NULL, BAD_CAST c->name());
-		xmlAddChild(xml_node, child_node);
-
-		
-		if (c->type() == AProjectNode::Type::File)
-			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "file");
-		else
-		{
-			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "group");
-		};
-		
+		xmlNodePtr child_node = xmlNewChild(xml_node, NULL, BAD_CAST "node", BAD_CAST "");		
 		c->serialize(child_node);
 	}
 }
 
 
-void AProjectNode::deserialize(xmlNodePtr xml_ptr)
+AError AProjectNode::deserialize(xmlNodePtr xml_ptr)
 {
+	//Name
+	auto cname = xml_prop(xml_ptr, "name");
+	setName(string(cname));
+
 	xml_for_each_child(xml_ptr, child)
 	{
-		struct _xmlAttr * _prop = xml_ptr->properties;
-		const xmlChar * _prop_type = xmlGetProp(xml_ptr, _prop->name);
-		const char * _node_type = (const char*) _prop_type;
-		/*if (strcmp(_node_type,"file")==0) 
-		{
-			AFile * new_file = new AFile((const char*) xml_ptr->name);
-			AFileProjectNode * new_node = new AFileProjectNode(new_file);
-			addChild(new_node);
-			new_node->deserialize(xml_ptr);			
-		}
-		else 
-		{
-			AGroupProjectNode * new_node = new AGroupProjectNode((const char*) xml_ptr->name);
-			addChild(new_node);
-			new_node->deserialize(xml_ptr);
-		}*/
-		AProjectNode * new_node = createAndDeserialize(child);
+		AProjectNode * new_node = AProjectNode::createAndDeserialize(child);
 		addChild(new_node);
 	}
+
+	return AError();
 }
 
 
 AProjectNode * AProjectNode::createAndDeserialize(xmlNode * xml_node)
 {
-	const char * _node_type = (const char*) xmlGetProp(xml_node, (xmlChar*)"type");
+	auto prop = xml_prop(xml_node, "type");
+	int node_type = atoi(xml_prop(xml_node, "type"));
+
 	AProjectNode * new_node = nullptr;
-	if(!strcmp(_node_type, "file"))
+	switch(static_cast<AProjectNode::Type>(node_type))
 	{
-		new_node = new AFileProjectNode(0);
-	}
-	else if(!strcmp(_node_type, "group"))
-	{
-		new_node = new AGroupProjectNode(0);
-	}
+	case AProjectNode::Type::Group:
+		{
+			new_node = new AGroupProjectNode("group");
+			break;
+		}
+	case AProjectNode::Type::File:
+		{
+			new_node = new ADocumentProjectNode();
+			break;
+		}
+	default:
+		break;
+	};
 
 	new_node->deserialize(xml_node);
-
 	return new_node;
 }
 
-
-/*void AProjectNode::deserialize(xmlNodePtr xml_ptr)
-{
-	xml_ptr = xml_ptr->xmlChildrenNode;
-	//int _i = 0;
-	while (xml_ptr != NULL)
-	{	
-
-// #define xml_for_each_child (root, iterator) for(xmlNode * iterator = root->children; iterator; iterator = iterator->next) if (iterator->type == XML_ELEMENT_NODE)
-		if (xml_ptr->type == XML_ELEMENT_NODE)
-		{
-			struct _xmlAttr * _prop = xml_ptr->properties;
-			const xmlChar * _prop_type = xmlGetProp(xml_ptr, _prop->name);
-			const char * _node_type = (const char*) _prop_type;
-			if (strcmp(_node_type,"file")==0) 
-			{
-				AFile * new_file = new AFile((const char*) xml_ptr->name);
-				AFileProjectNode * new_node = new AFileProjectNode(new_file);
-				addChild(new_node);
-				new_node->deserialize(xml_ptr);			
-			}
-			else 
-			{
-				AGroupProjectNode * new_node = new AGroupProjectNode((const char*) xml_ptr->name);
-				addChild(new_node);
-				new_node->deserialize(xml_ptr);
-			}
-
-		}
-		xml_ptr = xml_ptr->next;
-		//++_i;
-	}
-}*/
-
-/*
-xmlNode * AProjectNode::serialize(xmlNode * parent_node, USBuilding * building)
-{
-	xmlNode * project_node = xmlNewChild(parent_node, NULL, BAD_CAST "project_node", BAD_CAST "");
-	
-	xmlNewProp(project_node, BAD_CAST "name", BAD_CAST name().c_str());
-
-	char buffer[128];
-	sprintf(buffer, "%d", type());
-
-	xmlNewProp(project_node, BAD_CAST "type", BAD_CAST buffer);
-
-	for(auto c : mChildren)
-	{
-		c->serialize(project_node, building);
-	}
-
-	return project_node;
-}
-
-void AProjectNode::deserialize(xmlNode * node, USBuilding * building)
-{
-	const char * file_name = xml_node_attr_data(node, "name");
-	setName(file_name);
-
-	xml_for_each_child(node, child_node)
-	{
-		AProjectNode * new_node = 0;
-
-		int child_type = atoi(xml_node_attr_data(child_node, "type"));
-		
-		if(child_type == AProjectNode::Group)
-			new_node = new AGroupProjectNode("new_group");
-		else if(child_type == AProjectNode::File)
-			new_node = new AFileProjectNodede();
-		else if(child_type == AProjectNode::BuildingElement)
-			new_node = new USElementProjectNode();
-
-		if(new_node)
-			new_node->deserialize(child_node, building);
-
-		mChildren.push_back(new_node);
-	}
-}
-*/
 //================AGroupProjectNode=====================
 AGroupProjectNode::AGroupProjectNode(const std::string & _name)
-	:AProjectNode(_name)
+	:AProjectNode(_name), mExpanded(true)
 {
 
 }
 
-AProjectNode::Type AGroupProjectNode::type()
+AProjectNode::Type AGroupProjectNode::type() const
 {
-
 	return AProjectNode::Type::Group;
 }
 
+void AGroupProjectNode::setExpanded(bool expanded)
+{
+	mExpanded = expanded;
+}
+
+bool AGroupProjectNode::expanded() const
+{
+	return mExpanded;
+}
+
+void AGroupProjectNode::serialize(xmlNode * xml_node) const
+{
+	AProjectNode::serialize(xml_node);
+
+	xmlNewProp(xml_node, BAD_CAST "expanded" , BAD_CAST to_string(static_cast<int>(mExpanded)).c_str());
+}
+
+AError AGroupProjectNode::deserialize(xmlNodePtr xml_ptr)
+{
+	auto res = AProjectNode::deserialize(xml_ptr);
+
+	auto exp_prop = xml_prop(xml_ptr, "expanded");
+	if(exp_prop)
+	{
+		mExpanded = atoi(exp_prop);
+	}
+
+	return res;
+}
 
 //==============ARootProjectNode=================
 ARootProjectNode::ARootProjectNode(const std::string & project_name)
@@ -206,41 +147,41 @@ ARootProjectNode::ARootProjectNode(const std::string & project_name)
 
 }
 
-AProjectNode::Type ARootProjectNode::type()
+AProjectNode::Type ARootProjectNode::type() const
 {
 	return AProjectNode::Type::ProjectRoot;
 }
 
 //==============AFileProjectNodede=================
-AFileProjectNode::AFileProjectNode(AFile * _file)
+ADocumentProjectNode::ADocumentProjectNode(ADocument * _file)
 	:AGroupProjectNode("unnamed"), m_pFile(0)
 {
 	if(_file)
 	{
-		setName(_file->name());
+		setName(_file->fileName());
 		m_pFile = _file;
 	}
 
 }
 
-AProjectNode::Type AFileProjectNode::type()
+AProjectNode::Type ADocumentProjectNode::type() const
 {
 	return AProjectNode::Type::File;
 }
-/*
-xmlNode * AFileProjectNodede::serialize(xmlNode * parent_node, USBuilding * building)
+
+void ADocumentProjectNode::serialize(xmlNode * parent_node) const
 {
-	xmlNode * node = AProjectNode::serialize(parent_node, building);
+	AGroupProjectNode::serialize(parent_node);
 
-	char buffer[128];
-	sprintf(buffer, "%d", std::distance(building->fileContainer()->mFiles.begin(), std::find(building->fileContainer()->mFiles.begin(), building->fileContainer()->mFiles.end(), m_pFile)));
-	xmlNewProp(node, BAD_CAST "file_index", BAD_CAST buffer);
-
-	return node;
+	if(m_pFile)
+		m_pFile->save();
 }
-
-void AFileProjectNodede::deserialize(xmlNode * node, USBuilding * building)
+/*
+AError ADocumentProjectNode::deserialize(xmlNode * node)
 {
+	auto res = AGroupProjectNode::deserialize(node);
+
+
 	AProjectNode::deserialize(node, building);
 
 	int file_index = atoi(xml_node_attr_data(node, "file_index"));
@@ -248,14 +189,16 @@ void AFileProjectNodede::deserialize(xmlNode * node, USBuilding * building)
 	USFile * file = building->fileContainer()->mFiles[file_index];
 	m_pFile = file;
 	setName(file->name().c_str());
-}
-*/
-AFile * AFileProjectNode::file()
+
+	return res;
+}*/
+
+ADocument * ADocumentProjectNode::file()
 {
 	return m_pFile;
 }
 
-void AFileProjectNode::serialize(xmlNode* xml_node)
+void ADocumentProjectNode::serialize(xmlNode* xml_node)
 {
 	
 }

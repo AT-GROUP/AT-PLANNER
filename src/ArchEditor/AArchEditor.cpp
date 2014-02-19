@@ -14,7 +14,7 @@ AError ArchEditorPlugin::init(QToolBar * tb, QMenu * menu)
 	return AError();
 }
 
-void ArchEditorPlugin::openFile(AFile * file)
+void ArchEditorPlugin::openFile(ADocument * file)
 {
 }
 

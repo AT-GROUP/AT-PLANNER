@@ -22,23 +22,7 @@
     </widget>
    </item>
    <item row="1" column="0" colspan="2">
-    <widget class="QListWidget" name="listWidget">
-     <item>
-      <property name="text">
-       <string>Scheme/Data Diagram</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Knowledge Base</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Dialog Scenario</string>
-      </property>
-     </item>
-    </widget>
+    <widget class="QListWidget" name="listAvalibleFiles"/>
    </item>
    <item row="4" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">

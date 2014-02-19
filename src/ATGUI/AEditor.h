@@ -9,7 +9,6 @@
 #include <QtWidgets/QMenu>
 
 //class AEditor;
-class AFile;
 
 /*
 Creates editor instance for further usage in AT environment.

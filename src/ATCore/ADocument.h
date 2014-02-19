@@ -12,11 +12,16 @@ class AT_CORE_API ADocument
 public:
 	enum class Type {ExtendedDFD, DialogScenario, KnowledgeBase, Unknown};
 
+	const std::string & fileName() const;
+
+	AError save();
 	AError saveToFile(const std::string & file_name);
 	AError loadFromFile(const std::string & file_name);
 
 	virtual void serialize(_xmlNode * document_node) const = 0;
 	virtual AError deserialize(_xmlNode * document_node) = 0;
+private:
+	std::string mFileName, mDirectory;
 };
 
 #endif

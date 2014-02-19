@@ -128,7 +128,6 @@
     <ClCompile Include="..\src\ATCore\ACommandExecutor.cpp" />
     <ClCompile Include="..\src\ATCore\ADocument.cpp" />
     <ClCompile Include="..\src\ATCore\AError.cpp" />
-    <ClCompile Include="..\src\ATCore\AFile.cpp" />
     <ClCompile Include="..\src\ATCore\ALogManager.cpp" />
     <ClCompile Include="..\src\ATCore\ANamedObject.cpp" />
     <ClCompile Include="..\src\ATCore\architecture\AArchitectureDocument.cpp" />
@@ -147,7 +146,6 @@
     <ClInclude Include="..\src\ATCore\ADelegatedObject.h" />
     <ClInclude Include="..\src\ATCore\ADocument.h" />
     <ClInclude Include="..\src\ATCore\AError.h" />
-    <ClInclude Include="..\src\ATCore\AFile.h" />
     <ClInclude Include="..\src\ATCore\ALogManager.h" />
     <ClInclude Include="..\src\ATCore\ANamedObject.h" />
     <ClInclude Include="..\src\ATCore\architecture\AArchitectureDocument.h" />

@@ -3,6 +3,7 @@
 #define ATCore_AProjectManager_h
 
 #include "../config.h"
+#include "../AError.h"
 #include <string>
 
 class AProject;
@@ -15,7 +16,7 @@ public:
 
 	virtual int closeProject();
 	AProject * createProject(const std::string & project_path);
-	void saveProject() const;
+	AError saveProject() const;
 	AProject * openProject(const std::string & path);
 private:
 	AProject * m_pProject;

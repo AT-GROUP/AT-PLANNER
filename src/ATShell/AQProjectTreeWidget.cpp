@@ -1,14 +1,15 @@
 #include "AQProjectTreeWidget.h"
 #include <ATCore/project/AProjectNode.h>
-#include <ATCore/AFile.h>
+#include <ATCore/ADocument.h>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMessageBox>
+#include <QtWidgets/QTreeWidgetItem>
 
 //============================AProjectExplorer================================
 AQProjectNode::AQProjectNode(AProjectNode * project_node, QTreeWidgetItem * parent)
 	:QTreeWidgetItem(parent), m_pProjectNode(project_node)
 {
-	setText(0, QString("%1").arg(project_node->name()));
+	setText(0, QString::fromStdString(project_node->name()));
 	setFlags(Qt::ItemIsEnabled | Qt::ItemIsEditable | Qt::ItemIsSelectable);
 
 	updateIcon();
@@ -56,13 +57,47 @@ AQProjectTreeWidget::AQProjectTreeWidget(QWidget *parent)
 	//connect(this, &AQProjectTreeWidget::itemChanged, this, &AQProjectTreeWidget::onTreeItemChanged);
 
 	//Auto update icon
-	connect(this, &AQProjectTreeWidget::itemExpanded, [=](QTreeWidgetItem * item){((AQProjectNode*)item)->updateIcon();});
-	connect(this, &AQProjectTreeWidget::itemCollapsed, [=](QTreeWidgetItem * item){((AQProjectNode*)item)->updateIcon();});
+	connect(this, &AQProjectTreeWidget::itemExpanded, [=](QTreeWidgetItem * item)
+		{
+			auto g_node = static_cast<AQProjectNode*>(item);
+			g_node->updateIcon();
+			
+			auto gr_node = dynamic_cast<AGroupProjectNode*>(g_node->projectNode());
+			if(gr_node)
+				gr_node->setExpanded(true);
+	});
+
+	connect(this, &AQProjectTreeWidget::itemCollapsed, [=](QTreeWidgetItem * item)
+		{
+			auto g_node = static_cast<AQProjectNode*>(item);
+			g_node->updateIcon();
+			
+			auto gr_node = dynamic_cast<AGroupProjectNode*>(g_node->projectNode());
+			if(gr_node)
+				gr_node->setExpanded(true);
+	});
+
+	connect(this, &AQProjectTreeWidget::itemChanged, this, &AQProjectTreeWidget::changeItemName);
+	connect(this, &AQProjectTreeWidget::itemActivated, [=](QTreeWidgetItem * item)
+		{
+			auto g_node = static_cast<AQProjectNode*>(item);
+			auto doc_node = dynamic_cast<ADocumentProjectNode*>(g_node->projectNode());
+			if(doc_node)
+				emit openNodeFileRequested(doc_node);
+	});
 }
 
 AQProjectTreeWidget::~AQProjectTreeWidget()
 {
 
+}
+
+void AQProjectTreeWidget::changeItemName(QTreeWidgetItem *item, int column)
+{
+	auto new_name = item->text(0).toStdString();
+
+	auto g_node = static_cast<AQProjectNode*>(item);
+	g_node->projectNode()->setName(new_name);	
 }
 
 void AQProjectTreeWidget::loadProjectTree(ARootProjectNode * project_root)
@@ -86,13 +121,17 @@ void AQProjectTreeWidget::updateData()
 
 void AQProjectTreeWidget::createItemSubtree(AQProjectNode * tw_node, AProjectNode * prj_node)
 {
-	tw_node->setText(0, QString("%1").arg(prj_node->name()));
+	tw_node->setText(0, QString::fromStdString(prj_node->name()));
 
 	for(auto c : prj_node->mChildren)
 	{
 		AQProjectNode * new_node = new AQProjectNode(c, tw_node);
 		createItemSubtree(new_node, c);
 	}
+
+	auto gr_node = dynamic_cast<AGroupProjectNode*>(prj_node);
+	if(gr_node)
+		tw_node->setExpanded(gr_node->expanded());
 }
 
 void AQProjectTreeWidget::showContextMenu(const QPoint &pos)
@@ -111,10 +150,10 @@ void AQProjectTreeWidget::showContextMenu(const QPoint &pos)
 
 		if(selected_item->type() == AProjectNode::Type::File)
 		{
-			AFile * file = ((AFileProjectNode*)selected_item->projectNode())->file();
+			auto doc_node = static_cast<ADocumentProjectNode*>(selected_item->projectNode());
 			QAction * actionOpen = new QAction(QIcon(":/SurveyViewer/resources/icons/project_tree/open_file.ico"), "Open", this);
 			contextMenu.addAction(actionOpen);
-			connect(actionOpen, &QAction::triggered, [=](){this->openFileRequested(file);});
+			connect(actionOpen, &QAction::triggered, [=](){this->openNodeFileRequested(doc_node);});
 			
 			item_specific_actions = true;
 		}
@@ -182,7 +221,7 @@ void AQProjectTreeWidget::onAddGroupItemClicked()
 
 void AQProjectTreeWidget::onRemoveItemClicked()
 {
-	auto res = QMessageBox::warning(this, "Confirm", QString("Are you sure you want to remove %1?").arg(m_pCurrentSelection->projectNode()->name()), QMessageBox::Ok | QMessageBox::Cancel);
+	auto res = QMessageBox::warning(this, "Confirm", QString("Are you sure you want to remove %1?").arg(m_pCurrentSelection->projectNode()->name().c_str()), QMessageBox::Ok | QMessageBox::Cancel);
 
 	if(res == QMessageBox::Ok)
 	{

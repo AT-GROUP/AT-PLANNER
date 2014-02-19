@@ -36,9 +36,6 @@
     <ClCompile Include="..\src\ATCore\AError.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ATCore\AFile.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\ATCore\ANamedObject.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -84,9 +81,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ATCore\AError.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ATCore\AFile.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ATCore\ANamedObject.h">

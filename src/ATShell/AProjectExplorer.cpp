@@ -1,6 +1,6 @@
 #include "AProjectExplorer.h"
 #include <ATCore/project/AProjectNode.h>
-#include <ATCore/AFile.h>
+#include <ATCore/ADocument.h>
 
 //============================AProjectExplorer================================
 AProjectExplorer::AProjectExplorer(QWidget *parent)
@@ -9,7 +9,7 @@ AProjectExplorer::AProjectExplorer(QWidget *parent)
 	ui.setupUi(this);
 
 	connect(ui.treeProject, &AQProjectTreeWidget::createNewFileRequested, this, &AProjectExplorer::createNewFileRequested);
-	connect(ui.treeProject, &AQProjectTreeWidget::openFileRequested, this, &AProjectExplorer::openFileRequested);
+	connect(ui.treeProject, &AQProjectTreeWidget::openNodeFileRequested, this, &AProjectExplorer::openNodeFileRequested);
 }
 
 AProjectExplorer::~AProjectExplorer()

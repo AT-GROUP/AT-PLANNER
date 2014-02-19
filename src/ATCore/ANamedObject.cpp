@@ -11,14 +11,14 @@ ANamedObject::ANamedObject(const std::string & _name)
 }
 
 
-const char * ANamedObject::name()
+const std::string & ANamedObject::name() const
 {
-	return m_pName.c_str();
+	return m_pName;
 }
 
 bool ANamedObject::nameIs(const char * _name)
 {
-	return !strcmp(name(), _name);
+	return !strcmp(name().c_str(), _name);
 }
 
 void ANamedObject::setName(const std::string & _name)
