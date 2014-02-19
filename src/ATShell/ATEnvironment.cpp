@@ -17,44 +17,7 @@
 #include <QtWidgets/QMessageBox>
 #include <QDialog>
 
-/*void parseDoc(xmlNodePtr ptr, AProjectNode *  _node)
-{
-	ptr = ptr->xmlChildrenNode;
-	int _i = 0;
-	while (ptr != NULL)
-	{	
-
-		if (_i&1)
-		{
-			AFile * new_file = new AFile((const char*) ptr->name);
-			AFileProjectNode * new_node = new AFileProjectNode(new_file);
-			_node->addChild(new_node);
-			parseDoc(ptr, new_node);
-		}
-		ptr = ptr->next;
-		++_i;
-	}
-}*/
-
-/*
-void ATEnvironment::parseDocument(xmlNodePtr _ptr, AProjectNode *  _node)
-{
-	_ptr = _ptr->xmlChildrenNode;
-	int _i = 0;
-	while (_ptr != NULL)
-	{	
-
-		if (_i&1)
-		{
-			ADocument * new_file = new ADocument((const char*) _ptr->name);
-			ADocumentProjectNode * new_node = new ADocumentProjectNode(new_file);
-			_node->addChild(new_node);
-			parseDocument(_ptr, new_node);
-		}
-		_ptr = _ptr->next;
-		++_i;
-	}
-}*/
+using namespace std;
 
 ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 	: QMainWindow(parent), AProjectManager(), m_pApplication(app)
@@ -101,17 +64,6 @@ ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 			auto wdg = new APluginsWidget(m_pApplication);
 			wdg->show();
 	});
-
-
-	//=============
-	/*auto arch_plugin = static_cast<AGUIEditorPlugin*>(m_pApplication->editorForExtension("arch"));
-	auto ed = arch_plugin->createMainWindow();
-	ed->showMaximized();*/
-
-	auto edfd_plugin = static_cast<AGUIEditorPlugin*>(m_pApplication->editorForExtension("edfd"));
-	auto ed = edfd_plugin->createMainWindow();
-	ed->showMaximized();
-
 }
 
 ATEnvironment::~ATEnvironment()
@@ -216,18 +168,59 @@ void ATEnvironment::openProject()
 
 void ATEnvironment::openNodeDocument(ADocumentProjectNode * doc_node)
 {
-	ui.mdiArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+	//Check, maybe document is already opened
+	auto oi = mOpenedDocs.find(doc_node);
+	if(oi != mOpenedDocs.end())
+	{
+		ui.mdiArea->setActiveSubWindow(oi->second);
+	}
+	else
+	{
+		ui.mdiArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-	QMdiSubWindow * mdi_sub_wind = new QMdiSubWindow();
+		//Find suitable editor for file
+		QFileInfo fi(QString::fromStdString(doc_node->name()));
+		QString ext = fi.completeSuffix();
+
+		auto ed_plug = m_pApplication->editorForExtension(ext.toStdString());
+		if(!ed_plug)
+		{
+			QMessageBox::warning(this, tr("Error"), tr("No suitable editors loaded into environment."), QMessageBox::Ok);
+			return;
+		}
+
+		auto gui_plug = static_cast<AGUIEditorPlugin*>(ed_plug);
+		auto ed_wdg = static_cast<AGUIEditorInstance*>(gui_plug->createEditorInstance());
 	
+		auto mdi_sub_wind = new ATMdiWindow(ed_wdg);
+	
+		ui.mdiArea->addSubWindow(mdi_sub_wind);
+		ui.mdiArea->setActiveSubWindow(mdi_sub_wind);
 
-/*	AQSchemesEditor * editor = new AQSchemesEditor();
-	mdi_sub_wind->layout()->addWidget(editor);
-	//editor->show();
-	mdi_sub_wind->show();
+		mdi_sub_wind->show();
+	
+		/*connect(ed_wdg, &AGUIEditorInstance::windowTitleChanged, [=](const QString & new_title)
+			{
+				mdi_sub_wind->setWindowTitle(new_title);
+		});*/
 
-	ui.mdiArea->addSubWindow(mdi_sub_wind);
-	ui.mdiArea->setActiveSubWindow(mdi_sub_wind);
 
-	editor->openFile(file);*/
+		ed_wdg->openFile(project()->projectDir() + "/" + doc_node->name());
+		mdi_sub_wind->setWindowTitle(ed_wdg->windowTitle());
+
+		connect(mdi_sub_wind, &ATMdiWindow::editorClosed, [=]()
+			{
+				closeMdiWindow(mdi_sub_wind, doc_node);
+		});
+
+		mOpenedDocs.insert(pair<ADocumentProjectNode*, ATMdiWindow*>(doc_node, mdi_sub_wind));
+	}
+}
+
+void ATEnvironment::closeMdiWindow(ATMdiWindow * mdi_wnd, ADocumentProjectNode * doc_node)
+{
+	ui.mdiArea->removeSubWindow(mdi_wnd);
+
+	auto oi = mOpenedDocs.find(doc_node);
+	mOpenedDocs.erase(oi);
 }

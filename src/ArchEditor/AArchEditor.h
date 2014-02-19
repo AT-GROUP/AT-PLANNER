@@ -2,11 +2,26 @@
 #define AARCHEDITOR_H
 
 #include "ui_AArchEditor.h"
+#include <ATCore/architecture/AArchitectureDocument.h>
 #include <ATGUI/AEditor.h>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QItemDelegate>
 
-class ArchEditorPlugin : public AGUIEditorPlugin
+class AArchEditor : public AGUIEditorInstance
+{
+	Q_OBJECT
+
+public:
+	AArchEditor(AGUIEditorPlugin * _plug, QWidget *parent = 0);
+	~AArchEditor();
+	void loadAvalibleElements();
+	virtual void showDocument() override;
+private:
+	Ui::AArchEditor ui;
+};
+
+
+class ArchEditorPlugin : public AGUITEditorPlugin<AArchitectureDocument, AArchEditor>
 {
 public:
 	virtual const std::string name()
@@ -21,16 +36,21 @@ public:
 
 	virtual const std::string documentDescription() const
 	{
-		return "Architecture Instance Model";
+		return "Architecture Model";
 	}
 
-	virtual QWidget * createMainWindow();
+	virtual const std::string editorTitle() const
+	{
+		return "Architecture Model Editor";
+	}
 
 	virtual AError init(QToolBar * tb, QMenu * menu);
 	virtual void openFile(ADocument * file);
 
 	virtual const std::string documentExtension() const override;
 	virtual ADocument * createFile(const std::string & directory, const std::string & filename) override {return 0;};
+
+	virtual ADocument * createDocument() {return 0;}
 };
 
 
@@ -45,18 +65,6 @@ public:
 
 private:
     QTreeView *m_view;
-};
-
-class AArchEditor : public QWidget
-{
-	Q_OBJECT
-
-public:
-	AArchEditor(QWidget *parent = 0);
-	~AArchEditor();
-	void loadAvalibleElements();
-private:
-	Ui::AArchEditor ui;
 };
 
 #endif // AARCHEDITOR_H

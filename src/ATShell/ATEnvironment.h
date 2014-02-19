@@ -2,7 +2,9 @@
 #define ATENVIRONMENT_H
 
 #include <ATCore/project/AProjectManager.h>
+#include <ATGUI/AEditor.h>
 #include <QtWidgets/QMainWindow>
+#include <QtWidgets/QMdiSubWindow>
 #include "ui_ATEnvironment.h"
 #include <libxml/tree.h>
 #include <libxml/parser.h>
@@ -11,6 +13,30 @@
 class AProject;
 class AGroupProjectNode;
 class ATApplication;
+
+class ATMdiWindow : public QMdiSubWindow
+{
+	Q_OBJECT
+
+public:
+	ATMdiWindow(AGUIEditorInstance * ed_inst)
+		:QMdiSubWindow(), m_pEditorInstance(ed_inst)
+	{
+		layout()->addWidget(ed_inst);
+	}
+
+protected:
+	virtual void closeEvent(QCloseEvent * closeEvent)
+	{
+		emit editorClosed();
+	}
+
+signals:
+	void editorClosed();
+
+private:
+	AGUIEditorInstance * m_pEditorInstance;
+};
 
 class ATEnvironment : public QMainWindow, public AProjectManager
 {
@@ -33,7 +59,8 @@ public:
 	virtual int closeProject() override;
 
 	//void parseDocument(xmlNodePtr _ptr, AProjectNode * _node);
-
+	
+	void closeMdiWindow(ATMdiWindow * mdi_wnd, ADocumentProjectNode * doc_node);
 public slots:
 	void createNewProject();
 	void createNewFile(AQProjectNode * project_parent_node);
@@ -42,6 +69,7 @@ public slots:
 private:
 	Ui::ATEnvironmentClass ui;
 	ATApplication * m_pApplication;
+	std::map<ADocumentProjectNode*, ATMdiWindow*> mOpenedDocs;
 };
 
 #endif // ATENVIRONMENT_H

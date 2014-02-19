@@ -20,8 +20,8 @@ AQBlock::AQBlock(BlockScheme::ABlock * _block, QGraphicsItem * parent)
 
 }*/
 
-EDFDEditor::EDFDEditor(QWidget *parent)
-	: QMainWindow(parent), m_pCurrentDocument(nullptr)
+EDFDEditor::EDFDEditor(AGUIEditorPlugin * _plug, QWidget *parent)
+	: AGUIEditorInstance(_plug, parent)
 {
 	ui.setupUi(this);
 
@@ -30,17 +30,27 @@ EDFDEditor::EDFDEditor(QWidget *parent)
 
 
     connect(ui.ANewFile, SIGNAL(triggered()), this, SLOT(NewFile()));
-    connect(ui.ASave, SIGNAL(triggered()), this, SLOT(Save()));
+    connect(ui.ASave, &QAction::triggered, [=]()
+		{
+			saveCurrentDocument();
+	});
+
     connect(ui.ASaveAs, SIGNAL(triggered()), this, SLOT(SaveAs()));
     connect(ui.ALoad, SIGNAL(triggered()), this, SLOT(Load()));
     connect(ui.AExit, SIGNAL(triggered()), this, SLOT(close()));
-
-	newFile();
 }
 
 EDFDEditor::~EDFDEditor()
 {
 
+}
+
+void EDFDEditor::showDocument()
+{
+	AGUIEditorInstance::showDocument();
+
+	ui.gvDocument->setDocument(static_pointer_cast<EDFDDocument>(document()));
+	updateScene();
 }
 
 void EDFDEditor::updateScene()
@@ -54,28 +64,14 @@ void EDFDEditor::updateScene()
 	}*/
 }
 
-void EDFDEditor::newFile()
-{
-    //Create new file
-	m_pCurrentDocument = shared_ptr<EDFDDocument>(new EDFDDocument());
-	ui.gvDocument->setDocument(m_pCurrentDocument);
-	updateScene();
-}
-
 void EDFDEditor::SaveAs()
 {
     //create new file and save to it
 	auto fname = QFileDialog::getSaveFileName(0, "Select file to save", QDir::currentPath(), "EDFD document (*.edfd)");
 	if(fname != "")
 	{
-		m_pCurrentDocument->saveToFile(fname.toStdString());
-		ui.gvDocument->setDocument(m_pCurrentDocument);
+		document()->saveToFile(fname.toStdString());
 	}
-}
-
-void EDFDEditor::Save()
-{
-    //rewrite existing file
 }
 
 void EDFDEditor::Load()
@@ -86,15 +82,16 @@ void EDFDEditor::Load()
 	if(fname == "")
 		return;
 
-	shared_ptr<EDFDDocument> new_doc(new EDFDDocument());
+	/*shared_ptr<EDFDDocument> new_doc(new EDFDDocument());
 	auto res = new_doc->loadFromFile(fname.toStdString());
 
 	if(res.OK())
 	{
 		m_pCurrentDocument = new_doc;
-		updateScene();
-	}
+		
+	}*/
 	
+	openFile(fname.toStdString());
 }
 
 AError EDFDEditorPlugin::init(QToolBar * tb, QMenu * menu)
@@ -113,11 +110,6 @@ void EDFDEditorPlugin::openFile(ADocument * file)
 	updateScene();*/
 }
 
-QWidget * EDFDEditorPlugin::createMainWindow()
-{
-	return new EDFDEditor();
-}
-
 const std::string EDFDEditorPlugin::documentExtension() const
 {
 	return "edfd";
@@ -130,3 +122,7 @@ ADocument * EDFDEditorPlugin::createFile(const std::string & directory, const st
 	return new_doc;
 }
 
+ADocument * EDFDEditorPlugin::createDocument()
+{
+	return new EDFDDocument();
+}

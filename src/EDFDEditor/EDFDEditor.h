@@ -29,29 +29,31 @@ namespace BlockScheme
 	};
 };*/
 
-class EDFDEDITOR_EXPORT EDFDEditor : public QMainWindow
+class AGUIEditorInstance;
+
+class EDFDEDITOR_EXPORT EDFDEditor : public AGUIEditorInstance
 {
 	Q_OBJECT
 
 public:
-	EDFDEditor(QWidget *parent = 0);
+	EDFDEditor(AGUIEditorPlugin * _plug, QWidget *parent = 0);
 	~EDFDEditor();
+
+	virtual void showDocument() override;
 
 	void updateScene();
 
 public slots:
-    void newFile();
-    void Save();
     void SaveAs();
     void Load();
 
 private:
 	Ui::EDFDEditor ui;
 
-	std::shared_ptr<EDFDDocument> m_pCurrentDocument;
+	//std::shared_ptr<EDFDDocument> m_pCurrentDocument;
 };
 
-class EDFDEditorPlugin : public AGUIEditorPlugin
+class EDFDEditorPlugin : public AGUITEditorPlugin<EDFDDocument, EDFDEditor>
 {
 public:
 	virtual const std::string name()
@@ -69,14 +71,19 @@ public:
 		return "Extended Data Flow Diagramm";
 	}
 
-	virtual const std::string documentExtension() const override;
+	virtual const std::string editorTitle() const
+	{
+		return "EDFD Editor";
+	}
 
-	virtual QWidget * createMainWindow();
+	virtual const std::string documentExtension() const override;
 
 	virtual AError init(QToolBar * tb, QMenu * menu);
 	virtual void openFile(ADocument * file);
 	
 	virtual ADocument * createFile(const std::string & directory, const std::string & filename) override;
+
+	virtual ADocument * createDocument() override;
 };
 
 #endif // EDFDEDITOR_H

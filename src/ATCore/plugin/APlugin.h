@@ -6,6 +6,7 @@
 #include "../AError.h"
 #include <vector>
 #include <string>
+#include <memory>
 
 #define AT_PLUGIN_EXPORT __declspec(dllexport)
 
@@ -47,20 +48,49 @@ public:
 Editor plugins are used to create/editing/viewing project files.
 */
 
+class AEditorInstance;
+
 class AT_CORE_API AEditorPlugin : public APlugin
 {
 public:
 	virtual const Type type() const;
-	virtual void openFile(ADocument * file)=0;
 	virtual const std::string documentExtension() const = 0;
 	virtual const std::string documentDescription() const = 0;
+	virtual const std::string editorTitle() const = 0;
 	
+	/*
+	Creates new document, without any saving.
+	*/
+	virtual ADocument * createDocument() = 0;
+
 	/*
 	Creates document of it's type in given folder. Filename must contain
 	extension.
 	*/
 	virtual ADocument * createFile(const std::string & directory, const std::string & filename) = 0;
+	virtual ADocument * openFile(const std::string & directory, const std::string & filename);
+	virtual void openFile(ADocument * file)=0;
+
+	/*
+	Creates editor instance (window).
+	*/
+	virtual AEditorInstance * createEditorInstance() = 0;
 };
 
+class AT_CORE_API AEditorInstance
+{
+public:
+	AEditorInstance(AEditorPlugin * _plug);
+	AEditorPlugin * plugin();
+
+	void openFile(const std::string & file_path);
+	void openDocument(const std::shared_ptr<ADocument> & document);
+	const std::shared_ptr<ADocument> & document() const;
+	void saveCurrentDocument();
+	virtual void showDocument() = 0;
+private:
+	AEditorPlugin * m_pPlugin;
+	std::shared_ptr<ADocument> m_pDocument;
+};
 
 #endif

@@ -18,11 +18,6 @@ void ArchEditorPlugin::openFile(ADocument * file)
 {
 }
 
-QWidget * ArchEditorPlugin::createMainWindow()
-{
-	return new AArchEditor();
-}
-
 const std::string ArchEditorPlugin::documentExtension() const
 {
 	return "arch";
@@ -115,8 +110,8 @@ QSize SheetDelegate::sizeHint(const QStyleOptionViewItem &opt, const QModelIndex
     return sz;
 }
 
-AArchEditor::AArchEditor(QWidget *parent)
-	: QWidget(parent)
+AArchEditor::AArchEditor(AGUIEditorPlugin * _plug, QWidget *parent)
+	: AGUIEditorInstance(_plug, parent)
 {
 	ui.setupUi(this);
 
@@ -168,4 +163,9 @@ void AArchEditor::loadAvalibleElements()
 		}
 	}
 	ui.treeItems->insertTopLevelItems(0, items);
+}
+
+void AArchEditor::showDocument()
+{
+
 }

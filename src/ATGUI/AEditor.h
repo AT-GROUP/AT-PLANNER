@@ -7,6 +7,7 @@
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QToolbar>
 #include <QtWidgets/QMenu>
+#include <QtWidgets/QMainWindow>
 
 //class AEditor;
 
@@ -32,15 +33,37 @@ class AEditorInitializer : public AAbstractEditorInitializer
 };
 */
 
-class AT_GUI_API AGUIEditorPlugin : public QWidget, public AEditorPlugin
+class AGUIEditorInstance;
+
+class AT_GUI_API AGUIEditorPlugin : public AEditorPlugin
 {
 //	Q_OBJECT
 
 public:
 	//AEditor();
 	virtual AError init(QToolBar * tb, QMenu * menu)=0;
-	virtual QWidget * createMainWindow() = 0;
 };
+
+template<class DocType, class EdInstType> class AGUITEditorPlugin : public AGUIEditorPlugin
+{
+public:
+	virtual EdInstType * createEditorInstance()
+	{
+		return new EdInstType(this, 0);
+	}
+};
+
+//AT_GUI_API
+class Q_DECL_EXPORT AGUIEditorInstance : public QMainWindow, public AEditorInstance
+{
+public:
+	AGUIEditorInstance(AEditorPlugin * _plug, QWidget * parent);
+	virtual void showDocument() override;
+private:
+};
+
+//AT_GUI_API const QMetaObject AGUIEditorInstance::staticMetaObject;
+
 /*
 extern "C"
 {
