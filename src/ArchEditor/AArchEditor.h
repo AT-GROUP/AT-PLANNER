@@ -48,9 +48,6 @@ public:
 	virtual void openFile(ADocument * file);
 
 	virtual const std::string documentExtension() const override;
-	virtual ADocument * createFile(const std::string & directory, const std::string & filename) override {return 0;};
-
-	virtual ADocument * createDocument() {return 0;}
 };
 
 

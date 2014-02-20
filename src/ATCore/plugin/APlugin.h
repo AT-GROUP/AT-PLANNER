@@ -76,7 +76,7 @@ public:
 	Creates document of it's type in given folder. Filename must contain
 	extension.
 	*/
-	virtual ADocument * createFile(const std::string & directory, const std::string & filename) = 0;
+	ADocument * createFile(const std::string & directory, const std::string & filename);
 	virtual ADocument * openFile(const std::string & directory, const std::string & filename);
 	virtual void openFile(ADocument * file)=0;
 

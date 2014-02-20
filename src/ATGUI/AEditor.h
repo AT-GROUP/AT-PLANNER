@@ -51,6 +51,16 @@ public:
 	{
 		return new EdInstType(this, 0);
 	}
+
+	virtual DocType * createDocument()
+	{
+		return new DocType();
+	}
+
+/*	virtual std::shared_ptr<DocType> document() override
+	{
+		return static_pointer_cast<DocType>(AGUIEditorPlugin::document());
+	}*/
 };
 
 //AT_GUI_API

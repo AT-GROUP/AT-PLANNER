@@ -2,6 +2,9 @@
 #include <QtWidgets/QTreeWidgetItem>
 #include <QtWidgets/QListWidget>
 #include <QtCore/QList>
+#include <AGArchElement.h>
+
+using namespace std;
 
 APlugin * AT_CREATE_PLUGIN_FN()
 {
@@ -126,6 +129,8 @@ AArchEditor::AArchEditor(AGUIEditorPlugin * _plug, QWidget *parent)
 	});
 
 	loadAvalibleElements();
+
+	//ui.gvDocument->setScene(new QGraphicsScene());
 }
 
 AArchEditor::~AArchEditor()
@@ -167,5 +172,20 @@ void AArchEditor::loadAvalibleElements()
 
 void AArchEditor::showDocument()
 {
+	ui.gvDocument->scene()->clear();
 
+	auto doc = static_pointer_cast<AArchitectureDocument>(document());
+	for(auto e : doc->elements())
+	{
+		QGraphicsItem * new_item = nullptr;
+
+		switch(e->type())
+		{
+		case AArchElement::Type::Functional:
+			new_item = new AGArchFuncElement(static_pointer_cast<AArchFuncElement>(e));
+			break;
+		};
+
+		ui.gvDocument->scene()->addItem(new_item);
+	}
 }

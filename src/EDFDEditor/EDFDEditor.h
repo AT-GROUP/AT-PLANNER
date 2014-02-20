@@ -80,10 +80,6 @@ public:
 
 	virtual AError init(QToolBar * tb, QMenu * menu);
 	virtual void openFile(ADocument * file);
-	
-	virtual ADocument * createFile(const std::string & directory, const std::string & filename) override;
-
-	virtual ADocument * createDocument() override;
 };
 
 #endif // EDFDEDITOR_H

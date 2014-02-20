@@ -115,14 +115,3 @@ const std::string EDFDEditorPlugin::documentExtension() const
 	return "edfd";
 }
 
-ADocument * EDFDEditorPlugin::createFile(const std::string & directory, const std::string & filename)
-{
-	EDFDDocument * new_doc = new EDFDDocument();
-	new_doc->saveToFile(directory + "/" + filename);
-	return new_doc;
-}
-
-ADocument * EDFDEditorPlugin::createDocument()
-{
-	return new EDFDDocument();
-}

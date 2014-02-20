@@ -130,6 +130,7 @@
     <ClCompile Include="..\src\ATCore\AError.cpp" />
     <ClCompile Include="..\src\ATCore\ALogManager.cpp" />
     <ClCompile Include="..\src\ATCore\ANamedObject.cpp" />
+    <ClCompile Include="..\src\ATCore\architecture\AArchElement.cpp" />
     <ClCompile Include="..\src\ATCore\architecture\AArchitectureDocument.cpp" />
     <ClCompile Include="..\src\ATCore\edfd\DFDConnection.cpp" />
     <ClCompile Include="..\src\ATCore\edfd\DFDElement.cpp" />
@@ -139,6 +140,7 @@
     <ClCompile Include="..\src\ATCore\project\AProject.cpp" />
     <ClCompile Include="..\src\ATCore\project\AProjectManager.cpp" />
     <ClCompile Include="..\src\ATCore\project\AProjectNode.cpp" />
+    <ClCompile Include="..\src\ATCore\utils\geometry.cpp" />
     <ClCompile Include="..\src\ATCore\utils\helpers.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +150,7 @@
     <ClInclude Include="..\src\ATCore\AError.h" />
     <ClInclude Include="..\src\ATCore\ALogManager.h" />
     <ClInclude Include="..\src\ATCore\ANamedObject.h" />
+    <ClInclude Include="..\src\ATCore\architecture\AArchElement.h" />
     <ClInclude Include="..\src\ATCore\architecture\AArchitectureDocument.h" />
     <ClInclude Include="..\src\ATCore\ASingleton.h" />
     <ClInclude Include="..\src\ATCore\config.h" />
@@ -159,6 +162,7 @@
     <ClInclude Include="..\src\ATCore\project\AProject.h" />
     <ClInclude Include="..\src\ATCore\project\AProjectManager.h" />
     <ClInclude Include="..\src\ATCore\project\AProjectNode.h" />
+    <ClInclude Include="..\src\ATCore\utils\geometry.h" />
     <ClInclude Include="..\src\ATCore\utils\helpers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

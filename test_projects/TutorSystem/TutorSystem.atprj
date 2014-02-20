@@ -5,7 +5,9 @@
       <node type="1" name="main.edfd" expanded="1"/>
       <node type="1" name="tute_student.edfd" expanded="1"/>
     </node>
-    <node type="3" name="Architecture" expanded="1"/>
+    <node type="3" name="Architecture" expanded="1">
+      <node type="1" name="main.arch" expanded="1"/>
+    </node>
     <node type="3" name="KB" expanded="1"/>
     <node type="3" name="DB" expanded="1"/>
   </project_root_node>

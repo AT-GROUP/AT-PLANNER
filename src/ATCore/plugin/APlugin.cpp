@@ -26,6 +26,13 @@ ADocument * AEditorPlugin::openFile(const std::string & directory, const std::st
 	return new_doc;
 }
 
+ADocument * AEditorPlugin::createFile(const std::string & directory, const std::string & filename)
+{
+	auto * new_doc = createDocument();
+	new_doc->saveToFile(directory + "/" + filename);
+	return new_doc;
+}
+
 AEditorInstance::AEditorInstance(AEditorPlugin * _plug)
 	:m_pPlugin(_plug), m_pDocument(nullptr), m_pDelegate(nullptr)
 {
