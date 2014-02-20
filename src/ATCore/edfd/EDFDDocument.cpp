@@ -78,14 +78,14 @@ void EDFDDocument::serialize(_xmlNode * document_node) const
 				stringstream n_str4;
 				n_str4 << i_c;
 				string s4(n_str4.str());
-				xmlNewProp (child_node, BAD_CAST "Source" , BAD_CAST s4.c_str());
+				xmlNewProp (child_node, BAD_CAST "source_id" , BAD_CAST s4.c_str());
 			}
 			if (e_c->name() == c->dest())
 			{
 				stringstream n_str5;
 				n_str5 << i_c;
 				string s5(n_str5.str());
-				xmlNewProp (child_node, BAD_CAST "Dest" , BAD_CAST s5.c_str());
+				xmlNewProp (child_node, BAD_CAST "dest_id" , BAD_CAST s5.c_str());
 			}
 			i_c++;
 		}
@@ -113,7 +113,14 @@ AError EDFDDocument::deserialize(_xmlNode * document_node)
 		shared_ptr<DFDElement> new_el(nullptr);
 		if (_type == "Entity")
 			new_el.reset(new DFDEntity(_name, _name, ap));
+		if (_type == "Function")
+			new_el.reset(new DFDFunction(_name, _name, ap));
+		if (_type == "Storage")
+			new_el.reset(new DFDStorage(_name, _name, ap));
+		if (_type == "NFFunction")
+			new_el.reset(new DFDNFFunction(_name, _name, ap));
 
+		mElements.push_back(new_el);
 
 		element_dictionary[id] = new_el;
 	}
@@ -122,15 +129,18 @@ AError EDFDDocument::deserialize(_xmlNode * document_node)
 
 	xml_for_each_child(conn_nodes, conn_node)
 	{
+		const char *_cname = xml_prop(conn_node, "name");
 		//Get linked element indices
 		int source_id = atoi(xml_prop(conn_node, "source_id")), dest_id = atoi(xml_prop(conn_node, "dest_id"));
 		
 		//Get links to real elements
 		shared_ptr<DFDElement> src_elem = element_dictionary[source_id], dest_elem = element_dictionary[dest_id];
 
+		shared_ptr<DFDConnection> conn(new DFDConnection(_cname, src_elem, dest_elem));
 
+		mConnections.push_back(conn);
 	}
-	
+
 	return AError();
 }
 
