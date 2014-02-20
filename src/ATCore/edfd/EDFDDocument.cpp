@@ -4,6 +4,7 @@
 #include <libxml/tree.h>
 #include <algorithm>
 #include <sstream>
+#include <map>
 
 using namespace std;
 
@@ -35,10 +36,10 @@ void EDFDDocument::serialize(_xmlNode * document_node) const
 	{
 		xmlNodePtr child_node = xmlNewChild(doc_node1, NULL, BAD_CAST "elem", BAD_CAST "");
 
-		stringstream n_str1;
-		n_str1 << i;
-		string s1(n_str1.str());
-		xmlNewProp (child_node, BAD_CAST "id" , BAD_CAST s1.c_str());
+		//stringstream n_str1;
+		//n_str1 << i;
+		//string s1(n_str1.str()); - Fuck yourself, read <string>
+		xmlNewProp (child_node, BAD_CAST "id" , BAD_CAST to_string(i).c_str());
 
 		xmlNewProp (child_node, BAD_CAST "name" , BAD_CAST e->name().c_str());
 
@@ -93,7 +94,9 @@ void EDFDDocument::serialize(_xmlNode * document_node) const
 
 AError EDFDDocument::deserialize(_xmlNode * document_node)
 {
-	shared_ptr<DFDElement> new_el(nullptr);
+	//Dictionary for elements
+	map<int, shared_ptr<DFDElement>> element_dictionary;
+
 	xmlNode *cur = child_for_path(document_node, "Elements");
 	xml_for_each_child(cur, child)
 	{
@@ -103,10 +106,31 @@ AError EDFDDocument::deserialize(_xmlNode * document_node)
 		const char *_yPos = xml_prop(child, "yPos");
 		APoint ap(atoi(_xPos), atoi(_yPos));
 		const char *_type = xml_prop(child, "type");
+
+		int id = atoi(xml_prop(child, "id"));
+		
+
+		shared_ptr<DFDElement> new_el(nullptr);
 		if (_type == "Entity")
 			new_el.reset(new DFDEntity(_name, _name, ap));
+
+
+		element_dictionary[id] = new_el;
 	}
-	//xmlNode * cur = child_for_path(document_node, "Elements");
+
+	auto conn_nodes = child_for_path(document_node, "Connections");
+
+	xml_for_each_child(conn_nodes, conn_node)
+	{
+		//Get linked element indices
+		int source_id = atoi(xml_prop(conn_node, "source_id")), dest_id = atoi(xml_prop(conn_node, "dest_id"));
+		
+		//Get links to real elements
+		shared_ptr<DFDElement> src_elem = element_dictionary[source_id], dest_elem = element_dictionary[dest_id];
+
+
+	}
+	
 	return AError();
 }
 
