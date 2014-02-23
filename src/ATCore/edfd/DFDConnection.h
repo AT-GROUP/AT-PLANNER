@@ -21,6 +21,17 @@ public:
 	{
 		return m_pDest->name();
 	}
+
+	std::shared_ptr<DFDElement> nameSource()
+	{
+		return m_pSource;
+	}
+
+	std::shared_ptr<DFDElement> nameDest()
+	{
+		return m_pDest;
+	}
+
 private:
 	std::shared_ptr<DFDElement> m_pSource, m_pDest;
 };

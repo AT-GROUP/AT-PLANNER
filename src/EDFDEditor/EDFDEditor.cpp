@@ -1,5 +1,7 @@
 #include "EDFDEditor.h"
 
+#include "DFDGraphicsConnection.h"
+
 #include <ATCore/edfd/AScheme.h>
 #include <ATCore/plugin/APlugin.h>
 #include <ATCore/edfd/EDFDDocument.h>
@@ -57,6 +59,54 @@ void EDFDEditor::updateScene()
 {
 	ui.gvDocument->scene()->clear();
 
+	map<shared_ptr<DFDElement>, DFDGraphicsElement*> elem_graph_dictionary;
+	
+	for (auto e : static_pointer_cast<EDFDDocument>(document())->getElements())
+	{
+		if (e->type() == DFDElement::Type::Entity)
+		{
+			////////////
+			auto el = new DFDGraphicsEntity(static_pointer_cast<DFDEntity>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
+			////////////
+			el->setPos(static_pointer_cast<DFDEntity>(e)->Mouse_pos.x(), static_pointer_cast<DFDEntity>(e)->Mouse_pos.y());
+			ui.gvDocument->scene()->addItem(el);
+			elem_graph_dictionary[e] = el;
+		}
+		if (e->type() == DFDElement::Type::Function)
+		{
+			////////////
+			auto el = new DFDGraphicsFuntion(static_pointer_cast<DFDFunction>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
+			////////////
+			el->setPos(static_pointer_cast<DFDFunction>(e)->Mouse_pos.x(), static_pointer_cast<DFDFunction>(e)->Mouse_pos.y());
+			ui.gvDocument->scene()->addItem(el);
+			elem_graph_dictionary[e] = el;
+		}
+		if (e->type() == DFDElement::Type::Storage)
+		{
+			////////////
+			auto el = new DFDGraphicsStorage(static_pointer_cast<DFDStorage>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
+			////////////
+			el->setPos(static_pointer_cast<DFDStorage>(e)->Mouse_pos.x(), static_pointer_cast<DFDStorage>(e)->Mouse_pos.y());
+			ui.gvDocument->scene()->addItem(el);
+			elem_graph_dictionary[e] = el;
+		}
+		if (e->type() == DFDElement::Type::NFFunction)
+		{
+			////////////
+			auto el = new DFDGraphicsNFFuntion(static_pointer_cast<DFDNFFunction>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
+			////////////
+			el->setPos(static_pointer_cast<DFDNFFunction>(e)->Mouse_pos.x(), static_pointer_cast<DFDNFFunction>(e)->Mouse_pos.y());
+			ui.gvDocument->scene()->addItem(el);
+			elem_graph_dictionary[e] = el;
+		}
+	}
+
+	for (auto c : static_pointer_cast<EDFDDocument>(document())->getConnections())
+	{
+		DFDGraphicsElement *src = elem_graph_dictionary[c->nameSource()], *dst = elem_graph_dictionary[c->nameDest()];
+		DFDGraphicsConnection *con = new DFDGraphicsConnection(c,src,dst);
+		static_cast<AWorkspaceScene*>(ui.gvDocument->scene())->AddConnection(con);
+	}
 /*	for(auto i : m_pScheme->mBlocks)
 	{
 		AQBlock * block = new AQBlock(i);

@@ -54,8 +54,9 @@ public:
 		Mouse_pos.setY(y);
 	}
 
-	void GetPos()
+	APoint GetPos()
 	{
+		return Mouse_pos;
 	}
 
 	//virtual void serialize(xmlNode * xml_node) const;

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <sstream>
 #include <map>
+#include <string>
 
 using namespace std;
 
@@ -16,6 +17,16 @@ EDFDDocument::EDFDDocument()
 ADocument::Type EDFDDocument::type() const
 {
 	return ADocument::Type::EDFD;
+}
+
+std::vector<std::shared_ptr<DFDElement>> EDFDDocument::getElements()
+{
+	return mElements;
+}
+
+std::vector<std::shared_ptr<DFDConnection>> EDFDDocument::getConnections()
+{
+	return mConnections;
 }
 
 void EDFDDocument::addElement(const std::shared_ptr<DFDElement> & new_element)
@@ -36,31 +47,25 @@ void EDFDDocument::serialize(_xmlNode * document_node) const
 	{
 		xmlNodePtr child_node = xmlNewChild(doc_node1, NULL, BAD_CAST "elem", BAD_CAST "");
 
-		//stringstream n_str1;
-		//n_str1 << i;
-		//string s1(n_str1.str()); - Fuck yourself, read <string>
 		xmlNewProp (child_node, BAD_CAST "id" , BAD_CAST to_string(i).c_str());
 
 		xmlNewProp (child_node, BAD_CAST "name" , BAD_CAST e->name().c_str());
 
-		stringstream n_str2;
-		n_str2 << e->Mouse_pos.x();
-		string s2(n_str2.str());
-		xmlNewProp (child_node, BAD_CAST "xPos" , BAD_CAST s2.c_str());
+		xmlNewProp (child_node, BAD_CAST "xPos" , BAD_CAST to_string(e->Mouse_pos.x()).c_str());
 
-		stringstream n_str3;
-		n_str3 << e->Mouse_pos.y();
-		string s3(n_str3.str());
-		xmlNewProp (child_node, BAD_CAST "yPos" , BAD_CAST s3.c_str());
+		xmlNewProp (child_node, BAD_CAST "yPos" , BAD_CAST to_string(e->Mouse_pos.y()).c_str());
 		
-		if (e->type() == DFDElement::Type::Entity)
+		/*if (e->type() == DFDElement::Type::Entity)
 			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "Entity");
 		if (e->type() == DFDElement::Type::Function)
 			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "Function");
 		if (e->type() == DFDElement::Type::Storage)
 			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "Storage");
 		if (e->type() == DFDElement::Type::NFFunction)
-			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "NFFunction");
+			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "NFFunction");*/
+
+		xmlNewProp(child_node, BAD_CAST "type" , BAD_CAST to_string(static_cast<int>(e->type())).c_str());
+
 		i++;
 	}
 
@@ -105,20 +110,37 @@ AError EDFDDocument::deserialize(_xmlNode * document_node)
 		const char *_xPos = xml_prop(child, "xPos");
 		const char *_yPos = xml_prop(child, "yPos");
 		APoint ap(atoi(_xPos), atoi(_yPos));
-		const char *_type = xml_prop(child, "type");
+		auto _type = atoi(xml_prop(child, "type"));
 
 		int id = atoi(xml_prop(child, "id"));
 		
-
 		shared_ptr<DFDElement> new_el(nullptr);
-		if (_type == "Entity")
-			new_el.reset(new DFDEntity(_name, _name, ap));
-		if (_type == "Function")
-			new_el.reset(new DFDFunction(_name, _name, ap));
-		if (_type == "Storage")
-			new_el.reset(new DFDStorage(_name, _name, ap));
-		if (_type == "NFFunction")
-			new_el.reset(new DFDNFFunction(_name, _name, ap));
+
+		switch(static_cast<DFDElement::Type>(_type))
+		{
+		case DFDElement::Type::Entity:
+			{
+				new_el.reset(new DFDEntity(_name, _name, ap));
+				break;
+			}
+		case DFDElement::Type::Function:
+			{
+				new_el.reset(new DFDFunction(_name, _name, ap));
+				break;
+			}
+		case DFDElement::Type::Storage:
+			{
+				new_el.reset(new DFDStorage(_name, _name, ap));
+				break;
+			}
+		case DFDElement::Type::NFFunction:
+			{
+				new_el.reset(new DFDNFFunction(_name, _name, ap));
+				break;
+			}
+		default:
+			break;
+		}
 
 		mElements.push_back(new_el);
 

@@ -56,11 +56,6 @@ DFDGraphicsElement * AWorkspaceScene::GetActiveItem()
 AWorkspaceWidget::AWorkspaceWidget(QWidget *parent)
     : QGraphicsView(parent)
 {
-/*	e = 0;
-	f = 0;
-    s = 0;
-	nf = 0;*/
-
 	Ascene = new AWorkspaceScene();
 	Ascene->setItemIndexMethod(QGraphicsScene::NoIndex);
     setScene(Ascene);
@@ -68,35 +63,19 @@ AWorkspaceWidget::AWorkspaceWidget(QWidget *parent)
 	QGraphicsRectItem *rect = new QGraphicsRectItem(0,0,3000,3000);
 	rect->hide();
 	Ascene->addItem(rect);
-
-	/*QString sse = "111";
-	QPoint *m_p = new QPoint(-50,-50);
-	DFDEntity *ent = new DFDEntity(sse,sse,m_p);
-	DFDGraphicsEntity *item1 = new DFDGraphicsEntity(ent, Ascene);
-	item1->setPos(m_p->x(),m_p->y());
-	Ascene->addItem(item1);
-
-	sse = "222";
-	m_p = new QPoint(50,50);
-	DFDFunction *fun = new DFDFunction(sse,sse,m_p);
-	DFDGraphicsFuntion *item2 = new DFDGraphicsFuntion(fun, Ascene);
-	item2->setPos(m_p->x(),m_p->y());
-	Ascene->addItem(item2);
-
-	sse = "333";
-	m_p = new QPoint(150,150);
-	DFDStorage *stor = new DFDStorage(sse,sse,m_p);
-	DFDGraphicsStorage *item3 = new DFDGraphicsStorage(stor, Ascene);
-	item2->setPos(m_p->x(),m_p->y());
-	Ascene->addItem(item3);
-
-	DFDGraphicsConnection *conn1 = new DFDGraphicsConnection(item2,item1);
-	Ascene->addItem(conn1);*/
-	/*DFDGraphicsConnection *conn2 = new DFDGraphicsConnection(item2,item3);
-	Ascene->addItem(conn2);*/
-
 }
 
+template<class ElementClass, class GrClass> DFDGraphicsElement * create_element(const shared_ptr<EDFDDocument> doc, QString ent_name, QString label , shared_ptr<DFDElement> & new_element, const APoint pt, AWorkspaceScene * scene)
+{
+	QString sse;
+	sse.setNum(1);
+	sse = ent_name + sse;
+	new_element.reset(new ElementClass(sse.toStdString(), sse.toStdString(), pt));
+	QString con_name = QInputDialog::getText(0, label, "Name:", QLineEdit::Normal, QString::fromStdString(new_element->name()));
+	new_element->setName(con_name.toStdString());
+			
+	return new GrClass(static_pointer_cast<ElementClass>(new_element), scene);
+}
 
 void AWorkspaceWidget::dropEvent(QDropEvent *event)
 {
@@ -122,48 +101,20 @@ void AWorkspaceWidget::dropEvent(QDropEvent *event)
 
 		if (event->mimeData()->text() == "Test1")
 		{
-			QString sse;
-			sse.setNum(4);
-			sse = "entity " + sse;
-			new_el.reset(new DFDEntity(sse.toStdString(), sse.toStdString(), ap));
-			QString con_name = QInputDialog::getText(0, "Input entity name", "Name:", QLineEdit::Normal, QString::fromStdString(new_el->name()));
-			new_el->setName(con_name.toStdString());
-			
-			new_gr_el = new DFDGraphicsEntity(static_pointer_cast<DFDEntity>(new_el), Ascene);
+			new_gr_el = create_element<DFDEntity, DFDGraphicsEntity>(m_pDoc, "entity ", "Input entity name", new_el, ap, Ascene);
 		}
 		if (event->mimeData()->text() == "Test2")
 		{
-			QString sse;
-			sse.setNum(5);
-			sse = "function " + sse;
-			new_el.reset(new DFDFunction(sse.toStdString(), sse.toStdString(),ap));
-			QString con_name = QInputDialog::getText(0, "Input function name", "Name:", QLineEdit::Normal, QString::fromStdString(new_el->name()));
-			new_el->setName(con_name.toStdString());
-			
-			new_gr_el = new DFDGraphicsFuntion(static_pointer_cast<DFDFunction>(new_el), Ascene);
+			new_gr_el = create_element<DFDFunction, DFDGraphicsFuntion>(m_pDoc, "function ", "Input function name", new_el, ap, Ascene);
 		}
 		if (event->mimeData()->text() == "Test3")
 		{
-			QString sse;
-			sse.setNum(3);
-			sse = "storage " + sse;
-			new_el.reset(new DFDStorage(sse.toStdString(), sse.toStdString(), ap));
-			QString con_name = QInputDialog::getText(0, "Input storage name", "Name:", QLineEdit::Normal, QString::fromStdString(new_el->name()));
-			new_el->setName(con_name.toStdString());
-
-			new_gr_el = new DFDGraphicsStorage(static_pointer_cast<DFDStorage>(new_el), Ascene);
+			new_gr_el = create_element<DFDStorage, DFDGraphicsStorage>(m_pDoc, "storage ", "Input storage name", new_el, ap, Ascene);
 
 		}
 		if (event->mimeData()->text() == "Test4")
 		{
-			QString sse;
-			sse.setNum(6);
-			sse = "nffunction " + sse;
-			new_el.reset(new DFDNFFunction(sse.toStdString(), sse.toStdString(), ap));
-			QString con_name = QInputDialog::getText(0, "Input nffunction name", "Name:", QLineEdit::Normal, QString::fromStdString(new_el->name()));
-			new_el->setName(con_name.toStdString());
-
-			new_gr_el = new DFDGraphicsNFFuntion(static_pointer_cast<DFDNFFunction>(new_el), Ascene);
+			new_gr_el = create_element<DFDNFFunction, DFDGraphicsNFFuntion>(m_pDoc, "nffunction ", "Input nffunction name", new_el, ap, Ascene);
 		}
 		if (event->mimeData()->text() == "Test5")
 		{
