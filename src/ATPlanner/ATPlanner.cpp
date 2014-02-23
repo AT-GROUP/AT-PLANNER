@@ -57,7 +57,7 @@ AError ATPlanner::buildGeneralizedPlan()
 	auto adapter = static_cast<AAdapterPlugin*>(adapters[0]->plugin());
 
 	//Solve task with adapter
-	adapter->buildGeneralizedPlan();
+	adapter->buildGeneralizedPlan(common_dfd.get());
 
 	//Deserialize plan based from adapter result
 

@@ -20,8 +20,9 @@ public:
 	void addElement(const std::shared_ptr<DFDElement> & new_element);
 	void addConnection(const std::shared_ptr<DFDConnection> & new_connection);
 
-	std::vector<std::shared_ptr<DFDElement>> getElements();
-	std::vector<std::shared_ptr<DFDConnection>> getConnections();
+	std::vector<std::shared_ptr<DFDElement>> getElements() const;
+	const std::vector<std::shared_ptr<DFDElement>> & elements() const;
+	const std::vector<std::shared_ptr<DFDConnection>> & connections() const;
 
 	virtual void serialize(_xmlNode * document_node) const override;
 	virtual AError deserialize(_xmlNode * document_node) override;

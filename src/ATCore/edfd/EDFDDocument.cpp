@@ -19,12 +19,17 @@ ADocument::Type EDFDDocument::type() const
 	return ADocument::Type::EDFD;
 }
 
-std::vector<std::shared_ptr<DFDElement>> EDFDDocument::getElements()
+std::vector<std::shared_ptr<DFDElement>> EDFDDocument::getElements() const
 {
 	return mElements;
 }
 
-std::vector<std::shared_ptr<DFDConnection>> EDFDDocument::getConnections()
+const std::vector<std::shared_ptr<DFDElement>> & EDFDDocument::elements() const
+{
+	return mElements;
+}
+
+const std::vector<std::shared_ptr<DFDConnection>> & EDFDDocument::connections() const
 {
 	return mConnections;
 }
@@ -78,14 +83,14 @@ void EDFDDocument::serialize(_xmlNode * document_node) const
 		xmlNewProp (child_node, BAD_CAST "name" , BAD_CAST c->name().c_str());
 		for (auto e_c : mElements)
 		{
-			if (e_c->name() == c->source())
+			if (e_c->name() == c->sourceName())
 			{
 				stringstream n_str4;
 				n_str4 << i_c;
 				string s4(n_str4.str());
 				xmlNewProp (child_node, BAD_CAST "source_id" , BAD_CAST s4.c_str());
 			}
-			if (e_c->name() == c->dest())
+			if (e_c->name() == c->destName())
 			{
 				stringstream n_str5;
 				n_str5 << i_c;

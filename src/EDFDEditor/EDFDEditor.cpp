@@ -101,7 +101,7 @@ void EDFDEditor::updateScene()
 		}
 	}
 
-	for (auto c : static_pointer_cast<EDFDDocument>(document())->getConnections())
+	for (auto c : static_pointer_cast<EDFDDocument>(document())->connections())
 	{
 		DFDGraphicsElement *src = elem_graph_dictionary[c->nameSource()], *dst = elem_graph_dictionary[c->nameDest()];
 		DFDGraphicsConnection *con = new DFDGraphicsConnection(c,src,dst);

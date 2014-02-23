@@ -12,12 +12,15 @@ class AT_CORE_API DFDConnection : public ANamedObject
 public:
 	DFDConnection(const std::string & _name, std::shared_ptr<DFDElement> src, const std::shared_ptr<DFDElement> dest);
 
-	std::string source()
+	const std::shared_ptr<DFDElement> & source() const;
+	const std::shared_ptr<DFDElement> & dest() const;
+
+	std::string sourceName()
 	{
 		return m_pSource->name();
 	}
 
-	std::string dest()
+	std::string destName()
 	{
 		return m_pDest->name();
 	}

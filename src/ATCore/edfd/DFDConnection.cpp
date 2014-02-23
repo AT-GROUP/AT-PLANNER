@@ -6,3 +6,13 @@ DFDConnection::DFDConnection(const std::string & _name, const std::shared_ptr<DF
 {
 
 }
+
+const std::shared_ptr<DFDElement> & DFDConnection::source() const
+{
+	return m_pSource;
+}
+
+const std::shared_ptr<DFDElement> & DFDConnection::dest() const
+{
+	return m_pDest;
+}

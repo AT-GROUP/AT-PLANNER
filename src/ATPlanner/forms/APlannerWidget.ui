@@ -59,6 +59,13 @@
       </widget>
      </item>
      <item>
+      <widget class="QPushButton" name="bnBuildCommon">
+       <property name="text">
+        <string>Build Common</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QPushButton" name="bnRebuilt">
        <property name="text">
         <string>Rebuild</string>

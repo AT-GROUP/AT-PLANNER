@@ -15,6 +15,7 @@
 #define AT_CREATE_PLUGIN_FNNAME FUNCTION_NAME(create_plugin_instance)
 
 class ADocument;
+class EDFDDocument;
 
 class AT_CORE_API APlugin
 {
@@ -50,7 +51,7 @@ class AT_CORE_API AAdapterPlugin : public APlugin
 {
 public:
 	virtual const Type type() const;
-	virtual void buildGeneralizedPlan() = 0;
+	virtual void buildGeneralizedPlan(const EDFDDocument * common_dfd) = 0;
 };
 
 /*
