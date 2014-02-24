@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>305</height>
+    <height>351</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -51,13 +51,6 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>Switch Style</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="pushButton_2">
        <property name="text">
         <string>Options...</string>
@@ -65,16 +58,23 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="bnBuildCommon">
+      <widget class="QPushButton" name="bnBuildCommonPlan">
        <property name="text">
-        <string>Build Common</string>
+        <string>Build Common Plan</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="bnRebuilt">
+      <widget class="QPushButton" name="bnBuildStartMaket">
        <property name="text">
-        <string>Rebuild</string>
+        <string>Build Start Maket</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="bnBuildDetailedPlan">
+       <property name="text">
+        <string>Build Detaiedl Plan</string>
        </property>
       </widget>
      </item>

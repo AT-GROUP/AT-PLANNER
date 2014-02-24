@@ -8,9 +8,9 @@ APlannerWidget::APlannerWidget(ATPlanner * _planner, QWidget *parent)
 {
 	ui.setupUi(this);
 
-	connect(ui.bnRebuilt, &QPushButton::clicked, [=](){m_pPlanner->rebuildPlan();});
+//	connect(ui.bnRebuilt, &QPushButton::clicked, [=](){m_pPlanner->rebuildPlan();});
 
-	connect(ui.bnBuildCommon, &QPushButton::clicked, [=](){m_pPlanner->buildGeneralizedPlan();});
+	connect(ui.bnBuildCommonPlan, &QPushButton::clicked, [=](){m_pPlanner->buildGeneralizedPlan();});
 }
 
 APlannerWidget::~APlannerWidget()
