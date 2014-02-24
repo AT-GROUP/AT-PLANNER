@@ -1,6 +1,7 @@
 
 #include "ATApplication.h"
 #include <ATGUI/AEditor.h>
+#include <ATPlanner/APlannerWidget.h>
 
 #include <QtCore/QDir>
 #include <QtCore/QDebug>
@@ -10,7 +11,7 @@
 using namespace std;
 
 ATApplication::ATApplication(int argc, char *argv[])
-	:QApplication(argc, argv), ACommandExecutor(), m_pPlanner(new ATPlanner(this))
+	:QApplication(argc, argv), ACommandExecutor(), m_pPlanner(new ATPlanner(this)), m_pPlannerWidget(nullptr)
 {
 	searchAndLoadPlugins();
 
@@ -54,10 +55,15 @@ AError ATApplication::executeCommand(const std::string & cmd_text, std::string &
 
 void ATApplication::planRebuilt(ATPlanner * planner, APlan * plan)
 {
-
+	m_pPlannerWidget->displayPlan(plan);
 }
 
 ATPlanner * ATApplication::planner() const
 {
 	return m_pPlanner;
+}
+
+void ATApplication::setPlannerWidget(APlannerWidget * wdg)
+{
+	m_pPlannerWidget = wdg;
 }

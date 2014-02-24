@@ -39,6 +39,7 @@ ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 	//Create planner widget
 	auto planner_wdg = m_pApplication->planner()->createInfoWidget();
 	ui.dockPlanner->setWidget((QWidget*)planner_wdg);
+	m_pApplication->setPlannerWidget(planner_wdg);
 	/*
 	Create switching menus in View menu.
 	*/

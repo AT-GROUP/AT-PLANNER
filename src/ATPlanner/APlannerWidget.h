@@ -4,6 +4,7 @@
 #include "config.h"
 #include <QWidget>
 #include "ui_APlannerWidget.h"
+#include "ATPlanner.h"
 
 class ATPlanner;
 class APlan;
@@ -19,7 +20,10 @@ public:
 	/*
 	Is called when plan was rebuilt.
 	*/
-	void planRebuilt(APlan * plan);
+	virtual void planRebuilt(ATPlanner * planner, APlan * plan);
+
+	
+	void displayPlan(APlan * new_plan);
 private:
 	Ui::APlannerWidget ui;
 	ATPlanner * m_pPlanner;

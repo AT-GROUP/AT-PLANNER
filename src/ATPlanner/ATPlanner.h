@@ -11,13 +11,13 @@ class APlan;
 class AProject;
 class APluginManager;
 
-class AT_PLANNER_API AIPlannerDelegate
+class AT_PLANNER_API APlannerDelegate
 {
 public:
 	virtual void planRebuilt(ATPlanner * planner, APlan * plan) = 0;
 };
 
-class AT_PLANNER_API ATPlanner : public ADelegatedObject<AIPlannerDelegate>
+class AT_PLANNER_API ATPlanner : public ADelegatedObject<APlannerDelegate>
 {
 public:
 	ATPlanner(APluginManager * plugin_mgr);

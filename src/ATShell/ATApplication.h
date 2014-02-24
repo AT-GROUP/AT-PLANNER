@@ -9,7 +9,7 @@
 
 class ATPlanner;
 
-class ATApplication : public QApplication, public ACommandExecutor, public AIPlannerDelegate
+class ATApplication : public QApplication, public ACommandExecutor, public APlannerDelegate
 {
 	Q_OBJECT
 public:
@@ -27,8 +27,12 @@ public:
 	
 	//Simple accessor
 	ATPlanner * planner() const;
+
+	//
+	void setPlannerWidget(APlannerWidget * wdg);
 private:
 	ATPlanner * m_pPlanner;
+	APlannerWidget * m_pPlannerWidget;
 };
 
 #endif

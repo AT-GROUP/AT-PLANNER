@@ -26,7 +26,7 @@ AError ATPlanner::rebuildPlan()
 	m_pCurrentPlan = new APlan();
 
 	DELEGATE()->planRebuilt(this, m_pCurrentPlan);
-	m_pPlannerWidget->planRebuilt(m_pCurrentPlan);
+	m_pPlannerWidget->planRebuilt(this, m_pCurrentPlan);
 	return AError();
 }
 
@@ -57,9 +57,13 @@ AError ATPlanner::buildGeneralizedPlan()
 	auto adapter = static_cast<AAdapterPlugin*>(adapters[0]->plugin());
 
 	//Solve task with adapter
-	adapter->buildGeneralizedPlan(common_dfd.get());
+	APlan * plan = adapter->buildGeneralizedPlan(common_dfd.get());
 
-	//Deserialize plan based from adapter result
+
+	//Show plan and make current
+	m_pCurrentPlan = plan;
+	delegate()->planRebuilt(this, plan);
 
 	return AError();
 }
+

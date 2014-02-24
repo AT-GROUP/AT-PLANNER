@@ -16,6 +16,7 @@
 
 class ADocument;
 class EDFDDocument;
+class APlan;
 
 class AT_CORE_API APlugin
 {
@@ -51,7 +52,7 @@ class AT_CORE_API AAdapterPlugin : public APlugin
 {
 public:
 	virtual const Type type() const;
-	virtual void buildGeneralizedPlan(const EDFDDocument * common_dfd) = 0;
+	virtual APlan * buildGeneralizedPlan(const EDFDDocument * common_dfd) = 0;
 };
 
 /*
