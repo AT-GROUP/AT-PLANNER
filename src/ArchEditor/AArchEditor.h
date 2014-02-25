@@ -1,5 +1,6 @@
-#ifndef AARCHEDITOR_H
-#define AARCHEDITOR_H
+
+#ifndef AARCHEDITOR_AArchEditor_H
+#define AARCHEDITOR_AArchEditor_H
 
 #include "ui_AArchEditor.h"
 #include <ATCore/architecture/AArchitectureDocument.h>

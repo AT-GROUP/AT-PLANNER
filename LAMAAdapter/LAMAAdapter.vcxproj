@@ -129,9 +129,6 @@
     <ProjectReference Include="..\ATCore\ATCore.vcxproj">
       <Project>{98073dbf-a3b0-4134-b6c8-3c67732f4fa2}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\ATPlanner\ATPlanner.vcxproj">
-      <Project>{f81840f2-34d5-4592-9a81-047c298fc260}</Project>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

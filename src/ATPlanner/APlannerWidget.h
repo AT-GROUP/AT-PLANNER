@@ -24,6 +24,9 @@ public:
 
 	
 	void displayPlan(APlan * new_plan);
+signals:
+	void startArchDocumentCreated(ADocumentProjectNode * arch_doc_node);
+
 private:
 	Ui::APlannerWidget ui;
 	ATPlanner * m_pPlanner;

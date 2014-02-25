@@ -9,6 +9,7 @@
 #include <ATCore/ADocument.h>
 #include <ATCore/ADocument.h>
 #include <ATGUI/AEditor.h>
+#include <ATPlanner/APlannerWidget.h>
 //#include "editors/schemes_editor/AQSchemesEditor.h"
 #include <QtCore/QFileInfo>
 #include <QtCore/QDir>
@@ -40,6 +41,8 @@ ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 	auto planner_wdg = m_pApplication->planner()->createInfoWidget();
 	ui.dockPlanner->setWidget((QWidget*)planner_wdg);
 	m_pApplication->setPlannerWidget(planner_wdg);
+	connect(planner_wdg, &APlannerWidget::startArchDocumentCreated, this, &ATEnvironment::openNodeDocument);
+
 	/*
 	Create switching menus in View menu.
 	*/

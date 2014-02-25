@@ -11,6 +11,7 @@
 #endif
 
 #define AT_CORE_IMPORT
+
 #include <ATCore/config.h>
 
 #endif

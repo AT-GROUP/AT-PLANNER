@@ -1,16 +1,23 @@
+
+#include <ATCore/plan/APlan.h>
 #include "APlannerWidget.h"
 #include "ATPlanner.h"
 #include "ATPlanner.h"
-#include "APlan.h"
 
 APlannerWidget::APlannerWidget(ATPlanner * _planner, QWidget *parent)
 	: QWidget(parent), m_pPlanner(_planner)
 {
 	ui.setupUi(this);
 
-//	connect(ui.bnRebuilt, &QPushButton::clicked, [=](){m_pPlanner->rebuildPlan();});
-
+	
+	//Build generalized plan
 	connect(ui.bnBuildCommonPlan, &QPushButton::clicked, [=](){m_pPlanner->buildGeneralizedPlan();});
+
+	//Build start architecture model
+	connect(ui.bnBuildStartModel, &QPushButton::clicked, [=](){
+		auto arch_doc_node = m_pPlanner->buildStartingArchitectureModel();
+		emit startArchDocumentCreated(arch_doc_node);
+	});
 }
 
 APlannerWidget::~APlannerWidget()

@@ -1,9 +1,11 @@
 #include "ATPlanner.h"
 #include "APlannerWidget.h"
-#include "APlan.h"
+#include "AStartArchitectureGenerator.h"
+#include <ATCore/plan/APlan.h>
 #include <ATCore/project/AProject.h>
 #include <ATCore/plugin/APluginManager.h>
 #include <ATCore/plugin/APlugin.h>
+#include <ATCore/architecture/AArchitectureDocument.h>
 
 ATPlanner::ATPlanner(APluginManager * plugin_mgr)
 	:m_pCurrentPlan(nullptr), m_pPluginManager(plugin_mgr)
@@ -67,3 +69,27 @@ AError ATPlanner::buildGeneralizedPlan()
 	return AError();
 }
 
+ADocumentProjectNode * ATPlanner::buildStartingArchitectureModel()
+{
+	AError err;
+	
+	//Get preprocessed hierarchy
+	auto common_dfd = m_pProject->commonEDFD(&err);
+
+	if(!common_dfd)
+		return nullptr;
+
+	//Create new architecure document
+	AArchitectureDocument * arch_doc = new AArchitectureDocument();
+
+	//Build architecure model
+	AStartArchitectureGenerator generator;
+	generator.generate(common_dfd.get(), arch_doc);
+
+	//Save document to project
+	arch_doc->saveToFile(m_pProject->projectDir() + "/main.arch");
+	auto doc_node = m_pProject->addDocument(arch_doc);
+
+	//Return saved document
+	return doc_node;
+}

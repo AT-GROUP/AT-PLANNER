@@ -10,6 +10,7 @@ class ATPlanner;
 class APlan;
 class AProject;
 class APluginManager;
+class ADocumentProjectNode;
 
 class AT_PLANNER_API APlannerDelegate
 {
@@ -37,6 +38,12 @@ public:
 	Builds generalized plan based on EDFD hierarchy.
 	*/
 	AError buildGeneralizedPlan();
+
+
+	/*
+	Generates starting architecture model.
+	*/
+	ADocumentProjectNode * buildStartingArchitectureModel();
 private:
 	APlan * m_pCurrentPlan;
 	APlannerWidget * m_pPlannerWidget;

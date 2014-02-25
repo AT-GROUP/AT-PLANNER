@@ -68,8 +68,8 @@ void AArchElement::setPos(const APoint & new_pos)
 
 //=====================Functional element==========================
 
-AArchFuncElement::AArchFuncElement()
-	:AArchElement()
+AArchFuncElement::AArchFuncElement(const std::string & _name)
+	:AArchElement(_name)
 {
 	mInterface.inputs.push_back(APIKInterface::Slot("Solver"));
 	mInterface.inputs.push_back(APIKInterface::Slot("Scenario"));
@@ -87,12 +87,18 @@ bool AArchFuncElement::hasConfig() const
 	return !mConfig.params.empty();
 }
 
-const APIKInterface & AArchFuncElement::interface() const
+const APIKInterface & AArchFuncElement::interfaceDeclaration() const
 {
 	return mInterface;
 }
 
 //=====================Informational element==========================
+
+AArchInfoElement::AArchInfoElement(const std::string & _name)
+	:AArchElement(_name)
+{
+
+}
 
 AArchElement::Type AArchInfoElement::type() const
 {

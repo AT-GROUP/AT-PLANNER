@@ -1,8 +1,12 @@
 
 #include "AGArchElement.h"
+#include <ATCore/architecture/AArchElement.h>
+#include <ATCore/architecture/AArchElementGroup.h>
 #include <QtWidgets/QGraphicsSceneDragDropEvent>
 #include <QtGui/QDrag>
 #include <QtWidgets/QWidget>
+
+using namespace std;
 
 const float START_DRAG_DISTANCE = 10.0f;
 
@@ -46,7 +50,7 @@ AGArchFuncElement::AGArchFuncElement(const std::shared_ptr<AArchFuncElement> & _
 
 	//Slots
 	float current_height = -25 + 20;
-	for(auto & slot : mElement->interface().inputs)
+	for(auto & slot : mElement->interfaceDeclaration().inputs)
 	{
 		AGSlotElement * new_slot = new AGSlotElement(slot, this);
 		new_slot->setPos(-50, current_height + new_slot->boundingRect().height() / 2);
@@ -81,4 +85,25 @@ void AGArchFuncElement::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	new_pos += (event->screenPos() - event->buttonDownScreenPos(Qt::LeftButton));
 
 	setPos(new_pos);
+}
+
+
+//=========================Group=================================
+AGArchGroup::AGArchGroup(const std::shared_ptr<AArchElementGroup> & _group)
+	:QGraphicsItemGroup(), mGroup(_group)
+{
+	for(auto & e : mGroup->children())
+	{
+		QGraphicsItem * new_item(nullptr);
+
+		switch(e->type())
+		{
+		case AArchElement::Type::Functional:
+			new_item = new AGArchFuncElement(static_pointer_cast<AArchFuncElement>(e));
+			break;
+		};
+
+		if(new_item)
+			addToGroup(new_item);
+	}
 }

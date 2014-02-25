@@ -4,7 +4,7 @@
 
 #include "../config.h"
 #include "../ADocument.h"
-#include "AArchElement.h"
+#include "AArchElementGroup.h"
 #include <memory>
 #include <vector>
 
@@ -17,9 +17,11 @@ public:
 	virtual void serialize(_xmlNode * document_node) const override;
 	virtual AError deserialize(_xmlNode * document_node) override;
 
-	const std::vector<std::shared_ptr<AArchElement>> & elements() const;
+	const std::vector<std::shared_ptr<AArchElementGroup>> & groups() const;
+	void addGroup(const std::shared_ptr<AArchElementGroup> & new_group);
 private:
-	std::vector<std::shared_ptr<AArchElement>> mElements;
+	std::vector<std::shared_ptr<AArchElementGroup>> mElementGroups;
+
 };
 
 #endif

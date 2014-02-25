@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\ATPlanner\APlan.cpp" />
     <ClCompile Include="..\src\ATPlanner\APlannerWidget.cpp" />
+    <ClCompile Include="..\src\ATPlanner\AStartArchitectureGenerator.cpp" />
     <ClCompile Include="..\src\ATPlanner\ATPlanner.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_APlannerWidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -32,7 +32,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\ATPlanner\APlan.h" />
+    <ClInclude Include="..\src\ATPlanner\AStartArchitectureGenerator.h" />
     <ClInclude Include="GeneratedFiles\ui_APlannerWidget.h" />
     <CustomBuild Include="..\src\ATPlanner\APlannerWidget.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

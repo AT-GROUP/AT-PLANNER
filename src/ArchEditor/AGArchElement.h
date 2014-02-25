@@ -1,9 +1,12 @@
+
 #ifndef AARCHEDITOR_AGArchElement_H
 #define AARCHEDITOR_AGArchElement_H
 
-#include <ATCore/architecture/AArchElement.h>
 #include <QtWidgets/QGraphicsItemGroup>
 #include <memory>
+
+class AArchFuncElement;
+class AArchElementGroup;
 
 class AGArchFuncElement : public QGraphicsItemGroup
 {
@@ -16,6 +19,14 @@ protected:
 private:
 	std::shared_ptr<AArchFuncElement> mElement;
 	bool mIsDragging;
+};
+
+class AGArchGroup : public QGraphicsItemGroup
+{
+public:
+	AGArchGroup(const std::shared_ptr<AArchElementGroup> & group);
+private:
+	std::shared_ptr<AArchElementGroup> mGroup;
 };
 
 #endif

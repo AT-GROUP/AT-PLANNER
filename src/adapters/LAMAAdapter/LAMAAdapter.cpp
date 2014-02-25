@@ -1,7 +1,7 @@
 
 #include "LAMAAdapter.h"
 #include <ATCore/edfd/EDFDDocument.h>
-#include <ATPlanner/APlan.h>
+#include <ATCore/plan/APlan.h>
 #include <direct.h>
 #include <string>
 #include <windows.h>

@@ -1,3 +1,4 @@
+
 #ifndef ATCore_AError_h
 #define ATCore_AError_h
 
@@ -9,8 +10,7 @@
 Class defines error with it's own errorcode and message.
 */
 
-enum
-{
+enum ErrorType {
 	AT_ERROR_FILE_NOT_FOUND,
 	AT_ERROR_FILE_UNKOWN_FORMAT,
 	AT_ERROR_COMMAND_NOT_FOUND,

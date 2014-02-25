@@ -127,3 +127,10 @@ std::shared_ptr<EDFDDocument> AProject::commonEDFD(AError * err) const
 
 	return detailed_doc;
 }
+
+ADocumentProjectNode * AProject::addDocument(ADocument * doc)
+{
+	ADocumentProjectNode * new_node = new ADocumentProjectNode(doc);
+	m_pRootNode->addChild(new_node);
+	return new_node;
+}

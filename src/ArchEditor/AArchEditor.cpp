@@ -175,17 +175,9 @@ void AArchEditor::showDocument()
 	ui.gvDocument->scene()->clear();
 
 	auto doc = static_pointer_cast<AArchitectureDocument>(document());
-	for(auto e : doc->elements())
+	for(auto gr : doc->groups())
 	{
-		QGraphicsItem * new_item = nullptr;
-
-		switch(e->type())
-		{
-		case AArchElement::Type::Functional:
-			new_item = new AGArchFuncElement(static_pointer_cast<AArchFuncElement>(e));
-			break;
-		};
-
+		QGraphicsItem * new_item = new AGArchGroup(gr);
 		ui.gvDocument->scene()->addItem(new_item);
 	}
 }

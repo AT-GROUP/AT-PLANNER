@@ -3,9 +3,9 @@
 #define ATCore_AArchElement_h
 
 #include "../config.h"
-#include "../ANamedObject.h"
 #include "../AError.h"
 #include "../utils/geometry.h"
+#include "../ANamedObject.h"
 #include <vector>
 
 struct _xmlNode;
@@ -16,7 +16,7 @@ public:
 	enum class Type {Functional, Informational};
 
 	AArchElement(const std::string & _name = "");
-	virtual Type type() const= 0;
+	virtual Type type() const = 0;
 	static AArchElement * createAndDeserialize(_xmlNode * element_node);
 	
 	virtual void serialize(_xmlNode * element_node) const;
@@ -77,11 +77,12 @@ is called "operational PIK".
 class AT_CORE_API AArchFuncElement : public AArchElement
 {
 public:
-	AArchFuncElement();
+	AArchFuncElement(const std::string & _name = "");
 
 	virtual Type type() const override;
 	bool hasConfig() const;
-	const APIKInterface & interface() const;
+
+	const APIKInterface & interfaceDeclaration() const;
 private:
 	APIKInterface mInterface;
 	APIKConfig mConfig;
@@ -94,6 +95,7 @@ script/programm code.
 class AT_CORE_API AArchInfoElement : public AArchElement
 {
 public:
+	AArchInfoElement(const std::string & _name = "");
 	virtual Type type() const override;
 };
 

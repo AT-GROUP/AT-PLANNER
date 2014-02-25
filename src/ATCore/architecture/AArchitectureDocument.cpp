@@ -32,13 +32,18 @@ AError AArchitectureDocument::deserialize(_xmlNode * document_node)
 	xml_for_each_child(els_node, el_node)
 	{
 		shared_ptr<AArchElement> new_elem(AArchElement::createAndDeserialize(el_node));
-		mElements.push_back(new_elem);
+		//mElements.push_back(new_elem);
 	}
 
 	return AError();
 }
 
-const std::vector<std::shared_ptr<AArchElement>> & AArchitectureDocument::elements() const
+const std::vector<std::shared_ptr<AArchElementGroup>> & AArchitectureDocument::groups() const
 {
-	return mElements;
+	return mElementGroups;
+}
+
+void AArchitectureDocument::addGroup(const std::shared_ptr<AArchElementGroup> & new_group)
+{
+	mElementGroups.push_back(new_group);
 }

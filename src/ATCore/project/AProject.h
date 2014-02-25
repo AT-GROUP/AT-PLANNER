@@ -52,6 +52,12 @@ public:
 	*/
 	std::shared_ptr<EDFDDocument> commonEDFD(AError * err = nullptr) const;
 
+	/*
+	Adds document to project, creates document node
+	in project root and returns created node.
+	*/
+	ADocumentProjectNode * addDocument(ADocument * doc);
+
 private:
 	ARootProjectNode * m_pRootNode;
 	//AProjectNode * m_pProject;

@@ -50,7 +50,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_APlannerWidget.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ATPlanner\APlan.cpp">
+    <ClCompile Include="..\src\ATPlanner\AStartArchitectureGenerator.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -64,7 +64,7 @@
     <ClInclude Include="..\src\ATPlanner\config.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\ATPlanner\APlan.h">
+    <ClInclude Include="..\src\ATPlanner\AStartArchitectureGenerator.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

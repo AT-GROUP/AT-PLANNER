@@ -131,10 +131,12 @@
     <ClCompile Include="..\src\ATCore\ALogManager.cpp" />
     <ClCompile Include="..\src\ATCore\ANamedObject.cpp" />
     <ClCompile Include="..\src\ATCore\architecture\AArchElement.cpp" />
+    <ClCompile Include="..\src\ATCore\architecture\AArchElementGroup.cpp" />
     <ClCompile Include="..\src\ATCore\architecture\AArchitectureDocument.cpp" />
     <ClCompile Include="..\src\ATCore\edfd\DFDConnection.cpp" />
     <ClCompile Include="..\src\ATCore\edfd\DFDElement.cpp" />
     <ClCompile Include="..\src\ATCore\edfd\EDFDDocument.cpp" />
+    <ClCompile Include="..\src\ATCore\plan\APlan.cpp" />
     <ClCompile Include="..\src\ATCore\plugin\APlugin.cpp" />
     <ClCompile Include="..\src\ATCore\plugin\APluginManager.cpp" />
     <ClCompile Include="..\src\ATCore\project\AProject.cpp" />
@@ -151,12 +153,14 @@
     <ClInclude Include="..\src\ATCore\ALogManager.h" />
     <ClInclude Include="..\src\ATCore\ANamedObject.h" />
     <ClInclude Include="..\src\ATCore\architecture\AArchElement.h" />
+    <ClInclude Include="..\src\ATCore\architecture\AArchElementGroup.h" />
     <ClInclude Include="..\src\ATCore\architecture\AArchitectureDocument.h" />
     <ClInclude Include="..\src\ATCore\ASingleton.h" />
     <ClInclude Include="..\src\ATCore\config.h" />
     <ClInclude Include="..\src\ATCore\edfd\DFDConnection.h" />
     <ClInclude Include="..\src\ATCore\edfd\DFDElement.h" />
     <ClInclude Include="..\src\ATCore\edfd\EDFDDocument.h" />
+    <ClInclude Include="..\src\ATCore\plan\APlan.h" />
     <ClInclude Include="..\src\ATCore\plugin\APlugin.h" />
     <ClInclude Include="..\src\ATCore\plugin\APluginManager.h" />
     <ClInclude Include="..\src\ATCore\project\AProject.h" />

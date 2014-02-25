@@ -65,16 +65,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="bnBuildStartMaket">
+      <widget class="QPushButton" name="bnBuildStartModel">
        <property name="text">
-        <string>Build Start Maket</string>
+        <string>Build Start Model</string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="bnBuildDetailedPlan">
        <property name="text">
-        <string>Build Detaiedl Plan</string>
+        <string>Build Detailed Plan</string>
        </property>
       </widget>
      </item>
