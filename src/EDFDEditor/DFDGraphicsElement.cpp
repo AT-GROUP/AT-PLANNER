@@ -1,7 +1,4 @@
 #include <QtWidgets>
-//#include <libxml\tree.h>
-//#include <libxml\parser.h>
-//#include <vector>
 #include "DFDGraphicsElement.h"
 #include "DFDGraphicsConnection.h"
 #include "AWorkspaceWidget.h"
@@ -50,14 +47,36 @@ void DFDGraphicsElement::connTo()
 {
 	if (AAScene->CheckActiveItem(this) == false)
 	{
-		/*DFDGraphicsConnection *conn = new DFDGraphicsConnection(AAScene->GetActiveItem(),this);
-		QString con_name = QInputDialog::getText(0, "Input connection name", "Name:", QLineEdit::Normal, "");
-		conn->changeText(con_name);
-		AAScene->AddConnection(conn);
-		AAScene->SetConnectingStatus(false);*/
 		emit newConnectionRequested(AAScene->GetActiveItem(), this);
 	}
 	else return;
+}
+
+void DFDGraphicsElement::setDe()
+{
+	auto fname = QFileDialog::getOpenFileName(0, "Select file to open", QDir::currentPath(), "EDFD document (*.edfd)");
+	if(fname == "")
+		return;
+	this->m_pObject->mDetalization.used = true;
+	this->m_pObject->mDetalization.document_name = fname.toStdString();
+}
+
+void DFDGraphicsElement::delDe()
+{
+	this->m_pObject->mDetalization.used = false;
+	this->m_pObject->mDetalization.document_name = "";
+}
+
+void DFDGraphicsElement::changeDe()
+{
+	auto fname = QFileDialog::getOpenFileName(0, "Select file to open", QDir::currentPath(), "EDFD document (*.edfd)");
+	if(fname == "")
+		return;
+
+	if(fname.toStdString() == this->m_pObject->mDetalization.document_name)
+		return;
+
+	this->m_pObject->mDetalization.document_name = fname.toStdString();
 }
 
 void DFDGraphicsElement::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
@@ -79,7 +98,35 @@ void DFDGraphicsElement::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		connec->setToolTip("Connect me to another object!");
 		menu->addAction(connec);
 		menu->popup(event->screenPos());
-		
+
+		detMenu = new QMenu;
+		detMenu->setTitle("Detalization");
+		menu->addMenu(detMenu);
+		if (this->m_pObject->mDetalization.used == false)
+		{
+			str = "Add detalization file";
+			setDet = new QAction(str,this);
+			setDet->setToolTip("HO-HO-HO");
+			detMenu->addAction(setDet);
+
+			connect(setDet, SIGNAL(triggered()), this, SLOT(setDe()));
+		}
+		else
+		{
+			str = "Change detalization file";
+			chageDet = new QAction(str,this);
+			chageDet->setToolTip("HO-HO-HO");
+			detMenu->addAction(chageDet);
+
+			str = "Delete detalization";
+			delDet = new QAction(str,this);
+			delDet->setToolTip("HO-HO-HO");
+			detMenu->addAction(delDet);
+
+			connect(delDet, SIGNAL(triggered()), this, SLOT(delDe()));
+			connect(chageDet, SIGNAL(triggered()), this, SLOT(changeDe()));
+		}
+
 		connect(reName, SIGNAL(triggered()), this, SLOT(reNa()));
 		connect(addComment, SIGNAL(triggered()), this, SLOT(addComm()));
 		connect(connec, SIGNAL(triggered()), this, SLOT(conn()));
@@ -163,6 +210,17 @@ DFDGraphicsNFFuntion::DFDGraphicsNFFuntion(const std::shared_ptr<DFDNFFunction> 
 		:DFDGraphicsElement(nfun)
 {
 	AAScene = scene;
+
+	QPolygonF Triangle1;
+	Triangle1.append(QPointF(20,0));
+	Triangle1.append(QPointF(0,40));
+	Triangle1.append(QPointF(100,40));
+	Triangle1.append(QPointF(80,0));
+	Triangle1.append(QPointF(20,0));
+	QGraphicsPolygonItem *pol1 = new QGraphicsPolygonItem(Triangle1);
+	addToGroup(pol1);
+
 	text->setPlainText(QString::fromStdString(nfun->name()));
-	text->setPos(20,20);
+	text->setPos(15,10);
+	
 }

@@ -9,6 +9,23 @@
 
 using namespace std;
 
+///////////////////////////////////////////////////////////////////
+
+inline const char * const BoolToString(bool b)
+{
+  return b ? "true" : "false";
+}
+
+bool to_bool(std::string str) {
+    std::transform(str.begin(), str.end(), str.begin(), ::tolower);
+    std::istringstream is(str);
+    bool b;
+    is >> std::boolalpha >> b;
+    return b;
+}
+
+///////////////////////////////////////////////////////////////////////////
+
 EDFDDocument::EDFDDocument()
 {
 
@@ -59,17 +76,16 @@ void EDFDDocument::serialize(_xmlNode * document_node) const
 		xmlNewProp (child_node, BAD_CAST "xPos" , BAD_CAST to_string(e->Mouse_pos.x()).c_str());
 
 		xmlNewProp (child_node, BAD_CAST "yPos" , BAD_CAST to_string(e->Mouse_pos.y()).c_str());
-		
-		/*if (e->type() == DFDElement::Type::Entity)
-			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "Entity");
-		if (e->type() == DFDElement::Type::Function)
-			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "Function");
-		if (e->type() == DFDElement::Type::Storage)
-			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "Storage");
-		if (e->type() == DFDElement::Type::NFFunction)
-			xmlNewProp (child_node, BAD_CAST "type" , BAD_CAST "NFFunction");*/
 
 		xmlNewProp(child_node, BAD_CAST "type" , BAD_CAST to_string(static_cast<int>(e->type())).c_str());
+
+		xmlNewProp(child_node, BAD_CAST "detal" , BAD_CAST BoolToString(e->mDetalization.used));
+
+		if (e->mDetalization.used)
+		{
+			xmlNewProp(child_node, BAD_CAST "detal_doc_name" , BAD_CAST e->mDetalization.document_name.c_str());
+			//xmlNewProp(child_node, BAD_CAST "type" , BAD_CAST e->mDetalization.document);
+		}
 
 		i++;
 	}
@@ -110,14 +126,12 @@ AError EDFDDocument::deserialize(_xmlNode * document_node)
 	xmlNode *cur = child_for_path(document_node, "Elements");
 	xml_for_each_child(cur, child)
 	{
-		const char *_id = xml_prop(child, "id");
+		int id = atoi(xml_prop(child, "id"));
 		const char *_name = xml_prop(child, "name");
 		const char *_xPos = xml_prop(child, "xPos");
 		const char *_yPos = xml_prop(child, "yPos");
 		APoint ap(atoi(_xPos), atoi(_yPos));
 		auto _type = atoi(xml_prop(child, "type"));
-
-		int id = atoi(xml_prop(child, "id"));
 		
 		shared_ptr<DFDElement> new_el(nullptr);
 
@@ -146,6 +160,15 @@ AError EDFDDocument::deserialize(_xmlNode * document_node)
 		default:
 			break;
 		}
+
+		////////////////////////////////////////////////////
+		bool det = to_bool(xml_prop(child, "detal"));
+		new_el->mDetalization.used = det;
+		if (det)
+		{
+			new_el->mDetalization.document_name = xml_prop(child, "detal_doc_name");
+		}
+		////////////////////////////////////////////////////
 
 		mElements.push_back(new_el);
 

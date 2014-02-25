@@ -99,34 +99,22 @@ void AWorkspaceWidget::dropEvent(QDropEvent *event)
 		shared_ptr<DFDElement> new_el(nullptr);
 		DFDGraphicsElement * new_gr_el(nullptr);
 
-		if (event->mimeData()->text() == "Test1")
+		if (event->mimeData()->text() == "Entity")
 		{
 			new_gr_el = create_element<DFDEntity, DFDGraphicsEntity>(m_pDoc, "entity ", "Input entity name", new_el, ap, Ascene);
 		}
-		if (event->mimeData()->text() == "Test2")
+		if (event->mimeData()->text() == "Function")
 		{
 			new_gr_el = create_element<DFDFunction, DFDGraphicsFuntion>(m_pDoc, "function ", "Input function name", new_el, ap, Ascene);
 		}
-		if (event->mimeData()->text() == "Test3")
+		if (event->mimeData()->text() == "Storage")
 		{
 			new_gr_el = create_element<DFDStorage, DFDGraphicsStorage>(m_pDoc, "storage ", "Input storage name", new_el, ap, Ascene);
 
 		}
-		if (event->mimeData()->text() == "Test4")
+		if (event->mimeData()->text() == "NF Function")
 		{
 			new_gr_el = create_element<DFDNFFunction, DFDGraphicsNFFuntion>(m_pDoc, "nffunction ", "Input nffunction name", new_el, ap, Ascene);
-		}
-		if (event->mimeData()->text() == "Test5")
-		{
-			QGraphicsItemGroup *gr = new QGraphicsItemGroup();
-			gr->setFlag(QGraphicsItem::ItemIsSelectable,true);
-			gr->setFlag(QGraphicsItem::ItemIsMovable,true);
-			gr->setFlag(QGraphicsItem::ItemSendsGeometryChanges,true);
-			auto rect = new QGraphicsRectItem(0, 0, 150, 60);
-			gr->addToGroup(rect);
-			gr->setPos(event->pos());
-			Ascene->addItem(gr);
-			//gr->setCacheMode(QGraphicsItem::DeviceCoordinateCache);
 		}
 
 		if(new_el)

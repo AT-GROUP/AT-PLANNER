@@ -59,9 +59,6 @@ public:
 		return Mouse_pos;
 	}
 
-	//virtual void serialize(xmlNode * xml_node) const;
-	//virtual void deserialize(xmlNodePtr xml_ptr);
-
 	bool isDetalized() const;
 private:
 	std::vector<DFDElement*> mChildren;
@@ -81,13 +78,6 @@ class AT_CORE_API DFDEntity : public DFDElement
 public:
 	DFDEntity(const std::string & _name = "", const std::string & comment = "", const APoint & m_p = APoint());
 	virtual Type type() override;
-
-	/*virtual void serialize(xmlNode * xml_node) const
-	{
-		DFDElement::serialize(xml_node);
-		//сериализация если элемент имеет аттрибуты отличные от DFDElement
-	}*/
-
 };
 
 

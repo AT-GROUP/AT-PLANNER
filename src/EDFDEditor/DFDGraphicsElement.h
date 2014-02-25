@@ -32,6 +32,11 @@ public:
 	QAction *connec;
 	QAction *connectTo;
 
+	QMenu *detMenu;
+	QAction *setDet;
+	QAction *delDet;
+	QAction *chageDet;
+
 	QGraphicsTextItem *text;
 
     QList<DFDGraphicsConnection *> connections() const;
@@ -72,6 +77,10 @@ private slots:
 	void addComm();
 	void conn();
 	void connTo();
+
+	void setDe();
+	void delDe();
+	void changeDe();
 
 signals:
 	emit void newConnectionRequested(DFDGraphicsElement * src, DFDGraphicsElement * dest);
