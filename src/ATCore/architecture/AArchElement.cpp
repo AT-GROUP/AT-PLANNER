@@ -92,6 +92,11 @@ bool AArchFuncElement::hasConfig() const
 	return !mConfig.params.empty();
 }
 
+APIKConfig & AArchFuncElement::config()
+{
+	return mConfig;
+}
+
 const APIKInterface & AArchFuncElement::interfaceDeclaration() const
 {
 	return mInterface;

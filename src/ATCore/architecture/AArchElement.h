@@ -81,6 +81,7 @@ public:
 
 	virtual Type type() const override;
 	bool hasConfig() const;
+	APIKConfig & config();
 
 	const APIKInterface & interfaceDeclaration() const;
 private:

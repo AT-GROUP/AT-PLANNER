@@ -1,5 +1,6 @@
 
 #include "AGArchElement.h"
+#include "AInstanceConfigDialog.h"
 #include <ATCore/architecture/AArchElement.h>
 #include <ATCore/architecture/AArchElementGroup.h>
 #include <ATCore/edfd/DFDElement.h>
@@ -7,6 +8,7 @@
 #include <QtGui/QDrag>
 #include <QtGui/QPen>
 #include <QtWidgets/QWidget>
+#include <QtWidgets/QMenu>
 
 using namespace std;
 
@@ -44,6 +46,32 @@ void AGArchElement::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 
 	setPos(mElement->pos().x(), mElement->pos().y());
 	static_cast<AGArchGroup*>(parentItem())->childGeometryChanged();
+}
+
+QAction * AGArchElement::showMenuActions(QMenu & menu, const QPoint & pt)
+{
+	QAction *renameAction = menu.addAction("Rename");
+    QAction *deleteAction = menu.addAction("Delete");
+
+	QAction *selectedAction = menu.exec(pt);
+
+	if(selectedAction == renameAction)
+	{
+
+	}
+	else if(selectedAction == deleteAction)
+	{
+
+	}
+	else
+		return selectedAction;
+}
+
+void AGArchElement::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    QMenu menu;
+
+	showMenuActions(menu, event->screenPos());
 }
 
 class AGSlotElement : public QGraphicsItemGroup
@@ -100,6 +128,35 @@ AArchFuncElement * AGArchFuncElement::fElement()
 {
 	return static_cast<AArchFuncElement*>(element());
 }
+
+QAction * AGArchFuncElement::showMenuActions(QMenu & menu, const QPoint & pt)
+{
+	QAction *config_action = nullptr;
+	if(fElement()->hasConfig())
+	{
+		config_action = menu.addAction("Configuration");
+		menu.addSeparator();
+	}
+
+	QAction * sel_action = AGArchElement::showMenuActions(menu, pt);
+	if(sel_action)
+	{
+		if(sel_action == config_action)
+		{
+			AInstanceConfigDialog dlg(fElement()->config());
+
+			if(dlg.exec() == QDialog::Accepted)
+			{
+				//Update config
+				dlg.saveConfig();
+			}
+			return 0;
+		}
+	}
+
+	return sel_action;
+}
+
 /*
 void AGArchFuncElement::mousePressEvent(QGraphicsSceneMouseEvent *event)
 {
@@ -166,7 +223,7 @@ AGArchGroup::AGArchGroup(const std::shared_ptr<AArchElementGroup> & _group)
 	QPen pen;
 	pen.setStyle(Qt::DashLine);
 	pen.setWidth(2);
-	pen.setBrush(Qt::gray);
+	pen.setBrush(Qt::gray); 
 	pen.setCapStyle(Qt::RoundCap);
 	pen.setJoinStyle(Qt::RoundJoin);
 	m_pBorder->setPen(pen);

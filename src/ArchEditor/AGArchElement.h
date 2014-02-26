@@ -9,6 +9,8 @@ class AArchElement;
 class AArchFuncElement;
 class AArchInfoElement;
 class AArchElementGroup;
+class QMenu;
+class QAction;
 
 class AGArchElement : public QGraphicsItemGroup
 {
@@ -16,8 +18,10 @@ public:
 	AGArchElement(const std::shared_ptr<AArchElement> & element);
 	AArchElement * element();
 	void updateElementPos();
+	virtual QAction * showMenuActions(QMenu & menu, const QPoint & pt);
 protected:
 	virtual void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
+	virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 private:
 	std::shared_ptr<AArchElement> mElement;
 };
@@ -27,6 +31,7 @@ class AGArchFuncElement : public AGArchElement
 public:
 	AGArchFuncElement(const std::shared_ptr<AArchFuncElement> & element);
 	AArchFuncElement * fElement();
+	virtual QAction * showMenuActions(QMenu & menu, const QPoint & pt);
 protected:
   /*  void mousePressEvent(QGraphicsSceneMouseEvent *event);
 	
