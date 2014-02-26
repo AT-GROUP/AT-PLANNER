@@ -7,6 +7,7 @@
 using namespace std;
 
 AArchElement::AArchElement(const std::string & _name)
+	:ANamedObject(_name)
 {
 
 }
@@ -41,7 +42,11 @@ AArchElement * AArchElement::createAndDeserialize(_xmlNode * element_node)
 
 void AArchElement::serialize(_xmlNode * element_node) const
 {
-	
+	xmlNewProp (element_node, BAD_CAST "name" , BAD_CAST name().c_str());
+	xmlNewProp (element_node, BAD_CAST "x" , BAD_CAST to_string(mPos.x()).c_str());
+	xmlNewProp (element_node, BAD_CAST "y" , BAD_CAST to_string(mPos.y()).c_str());
+
+	xmlNewProp(element_node, BAD_CAST "type" , BAD_CAST to_string(static_cast<int>(type())).c_str());
 }
 
 AError AArchElement::deserialize(_xmlNode * element_node)

@@ -27,7 +27,7 @@ void AStartArchitectureGenerator::generate(EDFDDocument * detailed_edfd, AArchit
 		{
 			shared_ptr<AArchElementGroup> storage_group(new AArchElementGroup(dfd_el));
 
-			shared_ptr<AArchInfoElement> storage(new AArchInfoElement());
+			shared_ptr<AArchInfoElement> storage(new AArchInfoElement("Database"));
 			storage_group->addChild(storage);
 
 			shared_ptr<AArchFuncElement> driver(new AArchFuncElement("Driver"));

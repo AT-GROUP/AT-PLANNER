@@ -14,6 +14,7 @@
 /////////////////////// object layer ////////////////////////////////////
 
 class EDFDDocument;
+class _xmlNode;
 
 class AT_CORE_API DFDElement : public ANamedObject
 {
@@ -22,7 +23,7 @@ public:
 	std::string mComment;
 
 	enum class Type {Entity, Storage, Function, NFFunction};
-	virtual Type type()=0;
+	virtual Type type() const=0;
 
 	APoint Mouse_pos;
 
@@ -60,6 +61,11 @@ public:
 	}
 
 	bool isDetalized() const;
+
+	void serialize(_xmlNode * element_node) const;
+	void deserialize(_xmlNode * element_node);
+
+	static DFDElement * createAndDeserialize(_xmlNode * element_node);
 private:
 	std::vector<DFDElement*> mChildren;
 
@@ -77,7 +83,7 @@ class AT_CORE_API DFDEntity : public DFDElement
 {
 public:
 	DFDEntity(const std::string & _name = "", const std::string & comment = "", const APoint & m_p = APoint());
-	virtual Type type() override;
+	virtual Type type() const override;
 };
 
 
@@ -85,7 +91,7 @@ class AT_CORE_API DFDFunction : public DFDElement
 {
 public:
 	DFDFunction(const std::string & _name = "", const std::string & comment = "", const APoint & m_p = APoint());
-	virtual Type type();
+	virtual Type type() const;
 };
 
 
@@ -93,7 +99,7 @@ class AT_CORE_API DFDStorage : public DFDElement
 {
 public:
 	DFDStorage(const std::string & _name = "", const std::string & comment = "", const APoint & m_p = APoint());
-	virtual Type type();
+	virtual Type type() const;
 };
 
 
@@ -101,7 +107,7 @@ class AT_CORE_API DFDNFFunction : public DFDElement
 {
 public:
 	DFDNFFunction(const std::string & _name = "", const std::string & comment = "", const APoint & m_p = APoint());
-	virtual Type type();
+	virtual Type type() const;
 };
  
 #endif

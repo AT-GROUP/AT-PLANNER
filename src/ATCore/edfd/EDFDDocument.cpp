@@ -68,24 +68,8 @@ void EDFDDocument::serialize(_xmlNode * document_node) const
 	for(auto e : mElements)
 	{
 		xmlNodePtr child_node = xmlNewChild(doc_node1, NULL, BAD_CAST "elem", BAD_CAST "");
-
+		e->serialize(child_node);
 		xmlNewProp (child_node, BAD_CAST "id" , BAD_CAST to_string(i).c_str());
-
-		xmlNewProp (child_node, BAD_CAST "name" , BAD_CAST e->name().c_str());
-
-		xmlNewProp (child_node, BAD_CAST "xPos" , BAD_CAST to_string(e->Mouse_pos.x()).c_str());
-
-		xmlNewProp (child_node, BAD_CAST "yPos" , BAD_CAST to_string(e->Mouse_pos.y()).c_str());
-
-		xmlNewProp(child_node, BAD_CAST "type" , BAD_CAST to_string(static_cast<int>(e->type())).c_str());
-
-		xmlNewProp(child_node, BAD_CAST "detal" , BAD_CAST BoolToString(e->mDetalization.used));
-
-		if (e->mDetalization.used)
-		{
-			xmlNewProp(child_node, BAD_CAST "detal_doc_name" , BAD_CAST e->mDetalization.document_name.c_str());
-			//xmlNewProp(child_node, BAD_CAST "type" , BAD_CAST e->mDetalization.document);
-		}
 
 		i++;
 	}
@@ -127,39 +111,9 @@ AError EDFDDocument::deserialize(_xmlNode * document_node)
 	xml_for_each_child(cur, child)
 	{
 		int id = atoi(xml_prop(child, "id"));
-		const char *_name = xml_prop(child, "name");
-		const char *_xPos = xml_prop(child, "xPos");
-		const char *_yPos = xml_prop(child, "yPos");
-		APoint ap(atoi(_xPos), atoi(_yPos));
-		auto _type = atoi(xml_prop(child, "type"));
 		
-		shared_ptr<DFDElement> new_el(nullptr);
+		shared_ptr<DFDElement> new_el(DFDElement::createAndDeserialize(child));
 
-		switch(static_cast<DFDElement::Type>(_type))
-		{
-		case DFDElement::Type::Entity:
-			{
-				new_el.reset(new DFDEntity(_name, _name, ap));
-				break;
-			}
-		case DFDElement::Type::Function:
-			{
-				new_el.reset(new DFDFunction(_name, _name, ap));
-				break;
-			}
-		case DFDElement::Type::Storage:
-			{
-				new_el.reset(new DFDStorage(_name, _name, ap));
-				break;
-			}
-		case DFDElement::Type::NFFunction:
-			{
-				new_el.reset(new DFDNFFunction(_name, _name, ap));
-				break;
-			}
-		default:
-			break;
-		}
 
 		////////////////////////////////////////////////////
 		bool det = to_bool(xml_prop(child, "detal"));
