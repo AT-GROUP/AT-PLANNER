@@ -4,6 +4,7 @@
 #define ATCore_AArchElementGroup_h
 
 #include "../config.h"
+#include "../utils/geometry.h"
 //#include "AArchElement.h"
 #include <string>
 #include <set>
@@ -23,11 +24,18 @@ public:
 	void addChild(const std::shared_ptr<AArchElement> & new_element);
 
 	void serialize(_xmlNode * group_node) const;
+	void deserialize(_xmlNode * group_node);
 
 	static AArchElementGroup * createAndDeserialize(_xmlNode * group_node);
+
+	const DFDElement * dfdElement() const;
+
+	const APoint & pos() const;
+	void setPos(const APoint & new_pos);
 private:
 	std::shared_ptr<DFDElement> m_pDfdElement;
 	std::set<std::shared_ptr<AArchElement>> mChildren;
+	APoint mPos;
 };
 
 #endif

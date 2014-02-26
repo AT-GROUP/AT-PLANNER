@@ -35,7 +35,10 @@ ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 				saveProject();
 			}
 		);
-	connect(ui.actionOpen_Project, &QAction::triggered, this, &ATEnvironment::openProject);
+	connect(ui.actionOpen_Project, &QAction::triggered, [=]()
+		{
+			this->openProject();
+	});
 
 	//Create planner widget
 	auto planner_wdg = m_pApplication->planner()->createInfoWidget();
@@ -163,17 +166,21 @@ void ATEnvironment::createNewFile(AQProjectNode * project_parent_node)
 	openNodeDocument(new_node);
 }
 
+void ATEnvironment::openProject(const std::string & path)
+{
+	auto res = AProjectManager::openProject(path);
+	if(res)
+		displayProject(res);
+	else
+		QMessageBox::warning(this, tr("Error"), tr("Unable to open given project."), QMessageBox::Ok);
+}
+
 void ATEnvironment::openProject()
 {
 	QString file_name = QFileDialog::getOpenFileName(this, tr("Open project"),
                                                  "D:",
                                                  tr("AT Project Files (*.atprj);; All Files (*)"));
-
-	auto res = AProjectManager::openProject(file_name.toStdString());
-	if(res)
-		displayProject(res);
-	else
-		QMessageBox::warning(this, tr("Error"), tr("Unable to open given project."), QMessageBox::Ok);
+	openProject(file_name.toStdString());
 }
 
 void ATEnvironment::openNodeDocument(ADocumentProjectNode * doc_node)
@@ -207,8 +214,6 @@ void ATEnvironment::openNodeDocument(ADocumentProjectNode * doc_node)
 	
 		ui.mdiArea->addSubWindow(mdi_sub_wind);
 		ui.mdiArea->setActiveSubWindow(mdi_sub_wind);
-
-		mdi_sub_wind->show();
 	
 		/*connect(ed_wdg, &AGUIEditorInstance::windowTitleChanged, [=](const QString & new_title)
 			{
@@ -225,6 +230,14 @@ void ATEnvironment::openNodeDocument(ADocumentProjectNode * doc_node)
 		});
 
 		mOpenedDocs.insert(pair<ADocumentProjectNode*, ATMdiWindow*>(doc_node, mdi_sub_wind));
+
+		//Connect events
+		connect(mdi_sub_wind, &ATMdiWindow::aboutToActivate, [=]()
+			{
+				linkFileActions(ed_wdg);
+		});
+
+		mdi_sub_wind->show();
 	}
 }
 
@@ -240,4 +253,23 @@ void ATEnvironment::documentChanged(const std::shared_ptr<ADocument> & doc)
 {
 	if(doc->type() == ADocument::Type::EDFD)
 		m_pApplication->planner()->buildGeneralizedPlan();
+}
+
+void ATEnvironment::linkFileActions(AGUIEditorInstance * editor_widget)
+{
+	//Link file actions
+	
+	if(editor_widget)
+	{
+		ui.actionSaveAsFile->setEnabled(true);
+		ui.actionSaveFile->setEnabled(true);
+
+		connect(ui.actionSaveFile, &QAction::triggered, editor_widget, &AGUIEditorInstance::saveFileInitiated);
+	}
+	else
+	{
+		ui.actionSaveAsFile->setEnabled(false);
+		ui.actionSaveFile->setEnabled(false);
+	}
+
 }

@@ -1,6 +1,7 @@
 #include "ATApplication.h"
 #include "ATEnvironment.h"
 #include <QtWidgets/QApplication>
+#include <QtCore/QDebug>
 
 int main(int argc, char *argv[])
 {
@@ -8,6 +9,14 @@ int main(int argc, char *argv[])
 	ATEnvironment w(&a);
 	//w.show();
 	w.showMaximized();
+
+	if(argc > 1)
+	{
+		QString project_path(argv[1]);
+		qDebug() << "Opening project " << project_path;
+
+		w.openProject(project_path.toStdString());
+	}
 
 	return a.exec();
 }

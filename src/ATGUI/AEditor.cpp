@@ -27,3 +27,8 @@ void AGUIEditorInstance::showDocument()
 	setWindowTitle(new_title);
 	//emit windowTitleChanged(new_title);
 }
+
+void AGUIEditorInstance::saveFileInitiated()
+{
+	saveCurrentDocument();
+}

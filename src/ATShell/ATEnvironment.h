@@ -67,8 +67,11 @@ public:
 public slots:
 	void createNewProject();
 	void createNewFile(AQProjectNode * project_parent_node);
+	void openProject(const std::string & path);
 	void openProject();
 	void openNodeDocument(ADocumentProjectNode * doc_node);
+
+	void linkFileActions(AGUIEditorInstance * editor_widget);
 private:
 	Ui::ATEnvironmentClass ui;
 	ATApplication * m_pApplication;

@@ -69,6 +69,8 @@ class Q_DECL_EXPORT AGUIEditorInstance : public QMainWindow, public AEditorInsta
 public:
 	AGUIEditorInstance(AEditorPlugin * _plug, QWidget * parent);
 	virtual void showDocument() override;
+public slots:
+	void saveFileInitiated();
 private:
 };
 
