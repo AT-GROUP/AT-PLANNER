@@ -4,6 +4,8 @@
 #include "config.h"
 #include "AError.h"
 #include "plugin/APluginManager.h"
+#include "architecture/AArchElementFactory.h"
+#include "ASingleton.h"
 #include <string>
 
 class AUtilityPlugin;
@@ -15,13 +17,10 @@ public:
 };
 
 
-class AT_CORE_API ACommandExecutor : public APluginManager, public AIConsoleDelegate
+class AT_CORE_API ACommandExecutor : public APluginManager, public AIConsoleDelegate, public AArchElementFactory
 {
 public:
-	ACommandExecutor()
-		:APluginManager()
-	{
-	}
+	ACommandExecutor();
 
 	/*
 	Primitive command execution.
@@ -35,5 +34,9 @@ public:
 	*/
 	virtual AError executeScript(const std::string & script, std::string & answer);
 };
+
+AT_CORE_API ACommandExecutor * command_executor();
+
+typedef ASingleton<ACommandExecutor> CommandExecutor;
 
 #endif

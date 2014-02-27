@@ -1,6 +1,12 @@
 #include "ACommandExecutor.h"
 #include "plugin/APlugin.h"
 
+ACommandExecutor::ACommandExecutor()
+	:APluginManager()
+{
+	CommandExecutor::setSingleton(this);
+}
+
 AError ACommandExecutor::executeCommand(const std::string & cmd_text, std::string & answer)
 {
 	AUtilityPlugin * plug = getPluginForCommand(cmd_text);
@@ -23,4 +29,10 @@ AError ACommandExecutor::executeScript(const std::string & script, std::string &
 	//Now script is only 1 command - must be rewritten to complete parser and analizer
 
 	return executeCommand(script, answer);
+}
+
+
+ACommandExecutor * command_executor()
+{
+	return CommandExecutor::singleton();
 }

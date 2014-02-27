@@ -1,8 +1,8 @@
 
-#include <ATCore/plan/APlan.h>
 #include "APlannerWidget.h"
 #include "ATPlanner.h"
-#include "ATPlanner.h"
+#include <ATCore/plan/APlan.h>
+#include <ATCore/ACommandExecutor.h>
 
 APlannerWidget::APlannerWidget(ATPlanner * _planner, QWidget *parent)
 	: QWidget(parent), m_pPlanner(_planner)
@@ -15,7 +15,7 @@ APlannerWidget::APlannerWidget(ATPlanner * _planner, QWidget *parent)
 
 	//Build start architecture model
 	connect(ui.bnBuildStartModel, &QPushButton::clicked, [=](){
-		auto arch_doc_node = m_pPlanner->buildStartingArchitectureModel();
+		auto arch_doc_node = m_pPlanner->buildStartingArchitectureModel(command_executor());
 		emit startArchDocumentCreated(arch_doc_node);
 	});
 }

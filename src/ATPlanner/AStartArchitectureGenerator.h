@@ -7,12 +7,13 @@
 
 class EDFDDocument;
 class AArchitectureDocument;
+class AArchElementFactory;
 
 class AT_PLANNER_API AStartArchitectureGenerator
 {
 public:
 	AStartArchitectureGenerator();
-	void generate(EDFDDocument * detailed_edfd, AArchitectureDocument * arch_doc);
+	void generate(AArchElementFactory * arch_factory, EDFDDocument * detailed_edfd, AArchitectureDocument * arch_doc);
 };
 
 #endif

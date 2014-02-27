@@ -6,8 +6,8 @@
 
 using namespace std;
 
-AArchElement::AArchElement(const std::string & _name)
-	:ANamedObject(_name)
+AArchElement::AArchElement(APIKInterface & _intf, const std::string & _name)
+	:ANamedObject(_name), mInterface(_intf)
 {
 
 }
@@ -74,12 +74,22 @@ void AArchElement::setPos(const APoint & new_pos)
 //=====================Functional element==========================
 
 AArchFuncElement::AArchFuncElement(const std::string & _name)
-	:AArchElement(_name)
+	:AArchElement(APIKInterfaceFunc(), _name)
 {
 	mInterface.inputs.push_back(APIKInterface::Slot("Solver"));
 	mInterface.inputs.push_back(APIKInterface::Slot("Scenario"));
 	
-	mConfig.params.push_back(APIKConfig::Property("type"));
+//	mConfig.params.push_back(APIKConfig::Property("type"));
+}
+
+const APIKInterfaceFunc & AArchFuncElement::archInterface() const
+{
+	return static_cast<const APIKInterfaceFunc&>(mInterface);
+}
+
+APIKInterfaceFunc & AArchFuncElement::archInterface()
+{
+	return static_cast<APIKInterfaceFunc&>(mInterface);
 }
 
 AArchElement::Type AArchFuncElement::type() const
@@ -89,12 +99,18 @@ AArchElement::Type AArchFuncElement::type() const
 
 bool AArchFuncElement::hasConfig() const
 {
-	return !mConfig.params.empty();
+	//return !mConfig.params.empty();
+	return archInterface().config.params.empty();
+}
+
+const APIKConfig & AArchFuncElement::config() const
+{
+	return archInterface().config;
 }
 
 APIKConfig & AArchFuncElement::config()
 {
-	return mConfig;
+	return archInterface().config;
 }
 
 const APIKInterface & AArchFuncElement::interfaceDeclaration() const
@@ -105,7 +121,7 @@ const APIKInterface & AArchFuncElement::interfaceDeclaration() const
 //=====================Informational element==========================
 
 AArchInfoElement::AArchInfoElement(const std::string & _name)
-	:AArchElement(_name)
+	:AArchElement(APIKInterfaceInf(), _name)
 {
 
 }

@@ -1,0 +1,44 @@
+<PIKDatabase>
+	<interface type="0" name="ATKnowledgeBase" descr="Knowledge Base in AT-knowledge language">
+	</interface>
+	<interface type="0" name="ATDialogScenario" descr="Dialog Scenario in AT dialog scenario language description">
+	</interface>
+	<interface type="0" name="ATExplanations" descr="Explanations for AT explainer">
+	</interface>
+	<interface type="0" name="DataBase" descr="DataBase object">
+	</interface>
+	<interface type="0" name="VBAScript" descr="Visual Basic script for Microsoft Office integration">
+	</interface>
+	<interface type="1" name="ATSolver" descr="Universal Solver written by Demidov Dmitry">
+		<config>
+			<param name="Probability Type"/>
+			<param name="Solve Direction"/>
+		</config>
+		<input_documents>
+			<input name="Knowledge Base" type="ATKnowledgeBase" necessary="1"/>
+		</input_documents>
+	</interface>
+	<interface type="1" name="ATDialoger" descr="Dialog Inerpreter">
+		<input_documents>
+			<input name="Dialog Scenario" type="ATDialogScenario" necessary="1"/>
+		</input_documents>
+	</interface>
+	<interface type="1" name="DBDriver" descr="Driver for accessing database">
+		<config>
+			<param name="Connection String"/>
+		</config>
+		<input_documents>
+			<input name="DataBase" type="DataBase" necessary="1"/>
+		</input_documents>
+	</interface>
+	<interface type="1" name="ATExplainer" descr="Explainer for ATSolver">
+		<input_documents>
+			<input name="Explanations" type="ATExplanations" necessary="1"/>
+		</input_documents>
+	</interface>
+	<interface type="1" name="ATScripter" descr="Script interpreter for MSOffice integration">
+		<input_documents>
+			<input name="Script" type="VBAScript" necessary="1"/>
+		</input_documents>
+	</interface>
+</PIKDatabase>

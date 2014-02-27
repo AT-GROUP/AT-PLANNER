@@ -93,6 +93,12 @@
     <ClCompile Include="..\src\ATCore\architecture\AArchElementGroup.cpp">
       <Filter>src\architecture</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ATCore\architecture\AArchElementFactory.cpp">
+      <Filter>src\architecture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\architecture\APIKInterface.cpp">
+      <Filter>src\architecture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ATCore\AError.h">
@@ -159,6 +165,12 @@
       <Filter>src\plan</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ATCore\architecture\AArchElementGroup.h">
+      <Filter>src\architecture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\architecture\AArchElementFactory.h">
+      <Filter>src\architecture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\architecture\APIKInterface.h">
       <Filter>src\architecture</Filter>
     </ClInclude>
   </ItemGroup>

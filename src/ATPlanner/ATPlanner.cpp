@@ -69,7 +69,7 @@ AError ATPlanner::buildGeneralizedPlan()
 	return AError();
 }
 
-ADocumentProjectNode * ATPlanner::buildStartingArchitectureModel()
+ADocumentProjectNode * ATPlanner::buildStartingArchitectureModel(AArchElementFactory * arch_factory)
 {
 	AError err;
 	
@@ -84,7 +84,7 @@ ADocumentProjectNode * ATPlanner::buildStartingArchitectureModel()
 
 	//Build architecure model
 	AStartArchitectureGenerator generator;
-	generator.generate(common_dfd.get(), arch_doc);
+	generator.generate(arch_factory, common_dfd.get(), arch_doc);
 
 	//Save document to project
 	arch_doc->saveToFile(m_pProject->projectDir() + "/main.arch");

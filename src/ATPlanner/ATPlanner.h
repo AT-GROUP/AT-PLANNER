@@ -11,6 +11,7 @@ class APlan;
 class AProject;
 class APluginManager;
 class ADocumentProjectNode;
+class AArchElementFactory;
 
 class AT_PLANNER_API APlannerDelegate
 {
@@ -43,7 +44,7 @@ public:
 	/*
 	Generates starting architecture model.
 	*/
-	ADocumentProjectNode * buildStartingArchitectureModel();
+	ADocumentProjectNode * buildStartingArchitectureModel(AArchElementFactory * arch_factory);
 private:
 	APlan * m_pCurrentPlan;
 	APlannerWidget * m_pPlannerWidget;
