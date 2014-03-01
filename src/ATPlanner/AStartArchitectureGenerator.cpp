@@ -30,10 +30,10 @@ void AStartArchitectureGenerator::generate(AArchElementFactory * arch_factory, E
 		{
 			new_gr = new AArchElementGroup(dfd_el);
 
-			shared_ptr<AArchInfoElement> storage(new AArchInfoElement("Database"));
+			shared_ptr<AArchInfoElement> storage(static_cast<AArchInfoElement*>(arch_factory->createArchPIKInstance(AArchElement::Type::Informational, "DataBase")));
 			new_gr->addChild(storage);
 
-			shared_ptr<AArchFuncElement> driver(new AArchFuncElement("Driver"));
+			shared_ptr<AArchFuncElement> driver(static_cast<AArchFuncElement*>(arch_factory->createArchPIKInstance(AArchElement::Type::Informational, "DBDriver")));
 			new_gr->addChild(driver);
 		}
 

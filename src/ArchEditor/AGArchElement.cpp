@@ -1,5 +1,6 @@
 
 #include "AGArchElement.h"
+#include "AGArchLink.h"
 #include "AInstanceConfigDialog.h"
 #include <ATCore/architecture/AArchElement.h>
 #include <ATCore/architecture/AArchElementGroup.h>
@@ -9,19 +10,40 @@
 #include <QtGui/QPen>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QMenu>
+#include <QtWidgets/QGraphicsRectItem>
+#include <QtCore/QDebug>
 
 using namespace std;
 
 const float START_DRAG_DISTANCE = 10.0f;
 
+AGLinkStarter::AGLinkStarter(QGraphicsItem * parent)
+	:QGraphicsRectItem(0, 0, 20, 20, parent)
+{
+	setBrush(QBrush(QColor(0, 255, 0)));
+	setAcceptDrops(true);
+}
+
+void AGLinkStarter::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+	event->accept();
+}
+
+
 AGArchElement::AGArchElement(const std::shared_ptr<AArchElement> & _element)
 	:QGraphicsItemGroup(), mElement(_element)
 {
 	setCacheMode(QGraphicsItem::CacheMode::NoCache);
-	setHandlesChildEvents(true);
-	setAcceptDrops(true);
+	//setHandlesChildEvents(true);
+	setFiltersChildEvents(true);
+	//setAcceptDrops(true);
 	setFlag(QGraphicsItem::ItemIsMovable);
 
+	//Link starter
+	m_pLinkStarter = new AGLinkStarter(0);
+	m_pLinkStarter->setPos(45, -20);
+	addToGroup(m_pLinkStarter);
+	m_pLinkStarter->setZValue(20.0);
 	//setPos(mElement->pos().x(), mElement->pos().y());
 }
 
@@ -34,6 +56,25 @@ void AGArchElement::updateElementPos()
 {
 	auto p = pos();
 	mElement->setPos(APoint(p.x(), p.y()));
+}
+
+void AGArchElement::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+	if(m_pLinkStarter->sceneBoundingRect().contains(event->scenePos()))
+	{
+		event->ignore();
+		emit linkCreatingStarted(this, event->scenePos().toPoint());
+	}
+	else
+	{
+		QGraphicsItemGroup::mousePressEvent(event);
+	}
+}
+
+void AGArchElement::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+	updateConnectedLinks();
+	QGraphicsItemGroup::mouseMoveEvent(event);
 }
 
 void AGArchElement::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
@@ -67,6 +108,22 @@ QAction * AGArchElement::showMenuActions(QMenu & menu, const QPoint & pt)
 		return selectedAction;
 }
 
+AGLinkStarter * AGArchElement::linkStarter()
+{
+	return m_pLinkStarter;
+}
+
+void AGArchElement::notifyLinkAboutMoving(AGArchLink * link)
+{
+	mNotifyableLinks.push_back(link);
+}
+
+void AGArchElement::updateConnectedLinks()
+{
+	for(auto nl : mNotifyableLinks)
+		nl->updateShape();
+}
+
 void AGArchElement::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
     QMenu menu;
@@ -74,28 +131,43 @@ void AGArchElement::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 	showMenuActions(menu, event->screenPos());
 }
 
-class AGSlotElement : public QGraphicsItemGroup
+//==========================AGSlotElement=====================
+AGSlotElement::AGSlotElement(const APIKInterface::Slot & _slot, QGraphicsItem * parent)
+	:QGraphicsItemGroup(parent), mSlot(_slot)
 {
-public:
-	AGSlotElement(const APIKInterface::Slot & _slot, QGraphicsItem * parent = 0)
-		:QGraphicsItemGroup(parent), mSlot(_slot)
-	{
-		QGraphicsEllipseItem * ellipse = new QGraphicsEllipseItem(0, 0, 16, 16, this);
-		ellipse->setPos(-17, -8);
+	m_pEllipse = new QGraphicsEllipseItem(0, 0, 16, 16, this);
+	m_pEllipse->setBrush(QBrush(QColor(255, 255, 0)));
+	m_pEllipse->setPos(-17, -8);
 
-		QGraphicsTextItem * label = new QGraphicsTextItem(QString::fromStdString(mSlot.name), this);
-		label->setPos(-16 - label->boundingRect().width() - 3, - label->boundingRect().height() / 2);
-	}
+	QGraphicsTextItem * label = new QGraphicsTextItem(QString::fromStdString(mSlot.name), this);
+	label->setPos(-16 - label->boundingRect().width() - 3, - label->boundingRect().height() / 2);
+}
 
-private:
-	APIKInterface::Slot mSlot;
-};
+const std::string & AGSlotElement::slotName() const
+{
+	return mSlot.name;
+}
 
+AArchElement * AGSlotElement::archElement() const
+{
+	QGraphicsItem * pi = parentItem();
+	AGArchElement * par = static_cast<AGArchElement*>(pi);
+	return par->element();
+}
+
+QGraphicsItem * AGSlotElement::ellipse()
+{
+	return m_pEllipse;
+}
+
+//===================AGArchFuncElement==========================
 AGArchFuncElement::AGArchFuncElement(const std::shared_ptr<AArchFuncElement> & _element)
 	:AGArchElement(_element)
 {
 	//Main form
 	auto rect = new QGraphicsRectItem(-50, -25, 100, 50, this);
+	rect->setBrush(QBrush(QColor(200, 200, 180)));
+	rect->setAcceptDrops(true);
 	
 	
 	//Config icon if element has config
@@ -119,6 +191,8 @@ AGArchFuncElement::AGArchFuncElement(const std::shared_ptr<AArchFuncElement> & _
 		AGSlotElement * new_slot = new AGSlotElement(slot, this);
 		new_slot->setPos(-50, current_height + new_slot->boundingRect().height() / 2);
 		current_height += 18;
+
+		mSlots[slot.name] = new_slot;
 	}
 
 	setPos(fElement()->pos().x(), fElement()->pos().y());
@@ -127,6 +201,12 @@ AGArchFuncElement::AGArchFuncElement(const std::shared_ptr<AArchFuncElement> & _
 AArchFuncElement * AGArchFuncElement::fElement()
 {
 	return static_cast<AArchFuncElement*>(element());
+}
+
+QGraphicsItem * AGArchFuncElement::slotEllipse(const std::string & slot_name)
+{
+	auto slot_item = mSlots[slot_name];
+	return slot_item->ellipse();
 }
 
 QAction * AGArchFuncElement::showMenuActions(QMenu & menu, const QPoint & pt)
@@ -197,7 +277,7 @@ AGArchGroup::AGArchGroup(const std::shared_ptr<AArchElementGroup> & _group)
 	//Add children
 	for(auto & e : mGroup->children())
 	{
-		QGraphicsItem * new_item(nullptr);
+		AGArchElement * new_item(nullptr);
 
 		switch(e->type())
 		{
@@ -214,6 +294,8 @@ AGArchGroup::AGArchGroup(const std::shared_ptr<AArchElementGroup> & _group)
 			addToGroup(new_item);
 			//new_item->setParentItem(this);
 			new_item->setPos(e->pos().x(), e->pos().y());
+
+			mGElements.push_back(new_item);
 		}
 	}
 
@@ -242,6 +324,11 @@ AGArchGroup::AGArchGroup(const std::shared_ptr<AArchElementGroup> & _group)
 	setCacheMode(QGraphicsItem::CacheMode::NoCache);
 }
 
+std::shared_ptr<AArchElementGroup> & AGArchGroup::group()
+{
+	return mGroup;
+}
+
 void AGArchGroup::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
 {
 	QGraphicsItemGroup::mouseReleaseEvent(event);
@@ -264,4 +351,13 @@ void AGArchGroup::childGeometryChanged()
 	//m_pLabel->setPos(rf.left() + m_pLabel->boundingRect().width() / 2, rf.top() + m_pLabel->boundingRect().height() / 2);
 
 	prepareGeometryChange();
+}
+
+void AGArchGroup::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+	for(auto e : mGElements)
+	{
+		e->updateConnectedLinks();
+	}
+	QGraphicsItemGroup::mouseMoveEvent(event);
 }

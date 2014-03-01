@@ -4,6 +4,7 @@
 
 #include "../config.h"
 #include "../AError.h"
+#include "../ANamedObject.h"
 #include <string>
 #include <vector>
 
@@ -13,27 +14,26 @@ struct _xmlNode;
 Describes interface for operational PIK for
 usage in architecture maket.
 */
-class AT_CORE_API APIKInterface
+class AT_CORE_API APIKInterface : public ANamedObject
 {
 public:
 	enum class Type {Info, Func};
 
 	struct Slot
 	{
-		
-
-		Slot(const std::string & _name)
-			:name(_name)
+		Slot(const std::string & _name, const std::string & _type)
+			:name(_name), type(_type)
 		{
 
 		}
 
-		std::string name, acceptable_type;
+		std::string name, type;
 	};
 
-	virtual AError deserialize(_xmlNode * doc_node) = 0;
+	virtual AError deserialize(_xmlNode * doc_node);
 
-	std::vector<Slot> inputs, outputs;
+	std::vector<Slot> inputs;
+	std::string description;
 };
 
 class AT_CORE_API APIKInterfaceInf : public APIKInterface
@@ -65,7 +65,7 @@ struct AT_CORE_API APIKInterfaceFunc : public APIKInterface
 {
 	virtual AError deserialize(_xmlNode * doc_node);
 
-	APIKConfig config;
+	APIKConfig configInterface;
 };
 
 

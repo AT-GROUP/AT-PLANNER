@@ -3,6 +3,7 @@
 #include "AArchElement.h"
 #include "../edfd/DFDElement.h"
 #include "../utils/helpers.h"
+#include "../ACommandExecutor.h"
 #include <libxml/tree.h>
 
 using namespace std;
@@ -29,7 +30,7 @@ void AArchElementGroup::addChild(const std::shared_ptr<AArchElement> & new_eleme
 	return;
 }
 
-void AArchElementGroup::serialize(_xmlNode * group_node) const
+void AArchElementGroup::serialize(_xmlNode * group_node, std::vector<AArchElement*> & els) const
 {
 	xmlNewProp(group_node, BAD_CAST "child_count" , BAD_CAST to_string(mChildren.size()).c_str());
 
@@ -46,12 +47,16 @@ void AArchElementGroup::serialize(_xmlNode * group_node) const
 
 	for(auto c : mChildren)
 	{
+		els.push_back(c.get());
+
 		xmlNode * element_node = xmlNewChild(elements_node, NULL, BAD_CAST "element", BAD_CAST "");
 		c->serialize(element_node);
+
+		xmlNewProp(element_node, BAD_CAST "id", BAD_CAST to_string(els.size()-1).c_str());
 	}
 }
 
-void AArchElementGroup::deserialize(_xmlNode * group_node)
+void AArchElementGroup::deserialize(_xmlNode * group_node, std::map<int, AArchElement*> & elements)
 {
 	//Position
 	const char *_x = xml_prop(group_node, "x"), *_y = xml_prop(group_node, "y");
@@ -63,19 +68,22 @@ void AArchElementGroup::deserialize(_xmlNode * group_node)
 
 	xml_for_each_child(children_node, child_node)
 	{
-		shared_ptr<AArchElement> new_el(AArchElement::createAndDeserialize(child_node));
+		shared_ptr<AArchElement> new_el(AArchElement::createAndDeserialize(child_node, command_executor()));
 		addChild(new_el);
+
+		int element_id = atoi(xml_prop(child_node, "id"));
+		elements.insert(pair<int, AArchElement*>(element_id, new_el.get()));
 	}
 }
 
-AArchElementGroup * AArchElementGroup::createAndDeserialize(_xmlNode * group_node)
+AArchElementGroup * AArchElementGroup::createAndDeserialize(_xmlNode * group_node, std::map<int, AArchElement*> & elements)
 {
 	//DFD element
 	xmlNode * dfd_element_node = child_for_path(group_node, "dfd_element");
 	shared_ptr<DFDElement> dfd_element(DFDElement::createAndDeserialize(dfd_element_node));
 
 	AArchElementGroup * new_group = new AArchElementGroup(dfd_element);
-	new_group->deserialize(group_node);
+	new_group->deserialize(group_node, elements);
 
 	return new_group;
 

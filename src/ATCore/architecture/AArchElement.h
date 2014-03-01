@@ -10,6 +10,7 @@
 #include <vector>
 
 struct _xmlNode;
+class AArchElementFactory;
 
 class AT_CORE_API AArchElement : public ANamedObject
 {
@@ -18,13 +19,16 @@ public:
 
 	AArchElement(APIKInterface & _intf, const std::string & _name = "");
 	virtual Type type() const = 0;
-	static AArchElement * createAndDeserialize(_xmlNode * element_node);
+	static AArchElement * createAndDeserialize(_xmlNode * element_node, AArchElementFactory * arch_factory);
 	
 	virtual void serialize(_xmlNode * element_node) const;
 	virtual AError deserialize(_xmlNode * element_node);
 
 	const APoint & pos() const;
 	void setPos(const APoint & new_pos);
+
+	APIKInterface::Slot & slot(const std::string & slot_name);
+	const APIKInterface & interfaceDeclaration() const;
 protected:
 	APIKInterface & mInterface;
 private:
@@ -36,21 +40,42 @@ Operational element, that can do something. In ZOM it
 is called "operational PIK".
 */
 
+struct AT_CORE_API APIKConfigInstance
+{
+	APIKConfigInstance(const APIKConfig & config)
+		:mConfig(config)
+	{
+
+	}
+
+	bool exists() const
+	{
+		return !mConfig.params.empty();
+	}
+
+	const std::vector<APIKConfig::Property> & params() const
+	{
+		return mConfig.params;
+	}
+private:
+	const APIKConfig & mConfig;
+};
+
 class AT_CORE_API AArchFuncElement : public AArchElement
 {
 public:
-	AArchFuncElement(const std::string & _name = "");
+	AArchFuncElement(APIKInterfaceFunc & intf, const std::string & _name = "");
 	const APIKInterfaceFunc & archInterface() const;
 	APIKInterfaceFunc & archInterface();
 
 	virtual Type type() const override;
 	bool hasConfig() const;
-	const APIKConfig & config() const;
-	APIKConfig & config();
+	const APIKConfigInstance & config() const;
+	APIKConfigInstance & config();
 
-	const APIKInterface & interfaceDeclaration() const;
-private:
 	
+private:
+	APIKConfigInstance mConfig;
 };
 
 /*
@@ -60,7 +85,7 @@ script/programm code.
 class AT_CORE_API AArchInfoElement : public AArchElement
 {
 public:
-	AArchInfoElement(const std::string & _name = "");
+	AArchInfoElement(APIKInterfaceInf & intf, const std::string & _name = "");
 	virtual Type type() const override;
 };
 

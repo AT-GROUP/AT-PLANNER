@@ -63,7 +63,7 @@ public:
 	bool isDetalized() const;
 
 	void serialize(_xmlNode * element_node) const;
-	void deserialize(_xmlNode * element_node);
+	virtual AError deserialize(_xmlNode * element_node);
 
 	static DFDElement * createAndDeserialize(_xmlNode * element_node);
 private:

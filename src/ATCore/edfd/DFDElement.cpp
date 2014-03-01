@@ -33,17 +33,18 @@ void DFDElement::serialize(_xmlNode * element_node) const
 	}
 }
 
-void DFDElement::deserialize(_xmlNode * element_node)
+AError DFDElement::deserialize(_xmlNode * element_node)
 {
 	//Name
-	const char *_name = xml_prop(element_node, "name");
-	setName(string(_name));
+	ANamedObject::deserialize(element_node);
 
 	//Position
 	const char *_xPos = xml_prop(element_node, "xPos");
 	const char *_yPos = xml_prop(element_node, "yPos");
 	Mouse_pos.setX(atoi(_xPos));
 	Mouse_pos.setY(atoi(_yPos));
+
+	return AError();
 }
 
 DFDElement * DFDElement::createAndDeserialize(_xmlNode * element_node)

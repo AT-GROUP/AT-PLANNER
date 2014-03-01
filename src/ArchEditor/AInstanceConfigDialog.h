@@ -10,12 +10,13 @@ class AInstanceConfigDialog : public QDialog
 	Q_OBJECT
 
 public:
-	AInstanceConfigDialog(APIKConfig & config, QWidget *parent = 0);
+	AInstanceConfigDialog(APIKConfigInstance & config, QWidget *parent = 0);
 	~AInstanceConfigDialog();
 	void saveConfig();
+	void updateData();
 private:
 	Ui::AInstanceConfigDialog ui;
-	APIKConfig & mConfig;
+	APIKConfigInstance & mConfig;
 };
 
 #endif // AINSTANCECONFIGDIALOG_H

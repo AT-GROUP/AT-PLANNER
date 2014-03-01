@@ -99,6 +99,9 @@
     <ClCompile Include="..\src\ATCore\architecture\APIKInterface.cpp">
       <Filter>src\architecture</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ATCore\architecture\AArchLink.cpp">
+      <Filter>src\architecture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ATCore\AError.h">
@@ -171,6 +174,9 @@
       <Filter>src\architecture</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ATCore\architecture\APIKInterface.h">
+      <Filter>src\architecture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\architecture\AArchLink.h">
       <Filter>src\architecture</Filter>
     </ClInclude>
   </ItemGroup>

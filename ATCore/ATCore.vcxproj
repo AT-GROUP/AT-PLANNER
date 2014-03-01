@@ -134,6 +134,7 @@
     <ClCompile Include="..\src\ATCore\architecture\AArchElementFactory.cpp" />
     <ClCompile Include="..\src\ATCore\architecture\AArchElementGroup.cpp" />
     <ClCompile Include="..\src\ATCore\architecture\AArchitectureDocument.cpp" />
+    <ClCompile Include="..\src\ATCore\architecture\AArchLink.cpp" />
     <ClCompile Include="..\src\ATCore\architecture\APIKInterface.cpp" />
     <ClCompile Include="..\src\ATCore\edfd\DFDConnection.cpp" />
     <ClCompile Include="..\src\ATCore\edfd\DFDElement.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="..\src\ATCore\architecture\AArchElementFactory.h" />
     <ClInclude Include="..\src\ATCore\architecture\AArchElementGroup.h" />
     <ClInclude Include="..\src\ATCore\architecture\AArchitectureDocument.h" />
+    <ClInclude Include="..\src\ATCore\architecture\AArchLink.h" />
     <ClInclude Include="..\src\ATCore\architecture\APIKInterface.h" />
     <ClInclude Include="..\src\ATCore\ASingleton.h" />
     <ClInclude Include="..\src\ATCore\config.h" />

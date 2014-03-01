@@ -14,31 +14,31 @@
 			<param name="Probability Type"/>
 			<param name="Solve Direction"/>
 		</config>
-		<input_documents>
+		<input>
 			<input name="Knowledge Base" type="ATKnowledgeBase" necessary="1"/>
-		</input_documents>
+		</input>
 	</interface>
 	<interface type="1" name="ATDialoger" descr="Dialog Inerpreter">
-		<input_documents>
+		<input>
 			<input name="Dialog Scenario" type="ATDialogScenario" necessary="1"/>
-		</input_documents>
+		</input>
 	</interface>
 	<interface type="1" name="DBDriver" descr="Driver for accessing database">
 		<config>
 			<param name="Connection String"/>
 		</config>
-		<input_documents>
+		<input>
 			<input name="DataBase" type="DataBase" necessary="1"/>
-		</input_documents>
+		</input>
 	</interface>
 	<interface type="1" name="ATExplainer" descr="Explainer for ATSolver">
-		<input_documents>
+		<input>
 			<input name="Explanations" type="ATExplanations" necessary="1"/>
-		</input_documents>
+		</input>
 	</interface>
 	<interface type="1" name="ATScripter" descr="Script interpreter for MSOffice integration">
-		<input_documents>
+		<input>
 			<input name="Script" type="VBAScript" necessary="1"/>
-		</input_documents>
+		</input>
 	</interface>
 </PIKDatabase>

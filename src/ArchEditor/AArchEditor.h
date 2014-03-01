@@ -8,6 +8,8 @@
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QItemDelegate>
 
+class AArchElementFactory;
+
 class AArchEditor : public AGUIEditorInstance
 {
 	Q_OBJECT
@@ -15,7 +17,7 @@ class AArchEditor : public AGUIEditorInstance
 public:
 	AArchEditor(AGUIEditorPlugin * _plug, QWidget *parent = 0);
 	~AArchEditor();
-	void loadAvalibleElements();
+	void loadAvalibleElements(AArchElementFactory * arc_factory);
 	virtual void showDocument() override;
 private:
 	Ui::AArchEditor ui;

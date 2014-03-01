@@ -9,6 +9,8 @@
 #include <string>
 #include <set>
 #include <memory>
+#include <vector>
+#include <map>
 
 class DFDElement;
 class AArchElement;
@@ -23,10 +25,10 @@ public:
 	const std::set<std::shared_ptr<AArchElement>> & children() const;
 	void addChild(const std::shared_ptr<AArchElement> & new_element);
 
-	void serialize(_xmlNode * group_node) const;
-	void deserialize(_xmlNode * group_node);
+	void serialize(_xmlNode * group_node, std::vector<AArchElement*> & els) const;
+	void deserialize(_xmlNode * group_node, std::map<int, AArchElement*> & elements);
 
-	static AArchElementGroup * createAndDeserialize(_xmlNode * group_node);
+	static AArchElementGroup * createAndDeserialize(_xmlNode * group_node, std::map<int, AArchElement*> & elements);
 
 	const DFDElement * dfdElement() const;
 

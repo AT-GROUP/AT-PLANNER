@@ -1,8 +1,14 @@
 #include "AArchEditor.h"
+#include "AGArchElement.h"
+#include "AGDocumentView.h"
+#include "AGArchLink.h"
+#include <ATCore/ACommandExecutor.h>
+#include <ATCore/architecture/AArchElement.h>
+#include <ATCore/architecture/AArchLink.h>
 #include <QtWidgets/QTreeWidgetItem>
 #include <QtWidgets/QListWidget>
 #include <QtCore/QList>
-#include <AGArchElement.h>
+#include <QtCore/QMimeData>
 
 using namespace std;
 
@@ -128,9 +134,29 @@ AArchEditor::AArchEditor(AGUIEditorPlugin * _plug, QWidget *parent)
 				ui.treeItems->expand(index);
 	});
 
-	loadAvalibleElements();
+	loadAvalibleElements(command_executor());
 
 	//ui.gvDocument->setScene(new QGraphicsScene());
+
+	connect(ui.gvDocument, &AGDocumentView::itemAdded, [=](AGArchGroup * gr_group, const std::string & PIK_name, const QPoint & position){
+
+		//Get destination group (others)
+		auto dest_gr = gr_group->group();
+		
+		//Get item interface and create new item
+		auto new_el = command_executor()->createArchPIKInstance(PIK_name);
+
+		//Add item
+		dest_gr->addChild(shared_ptr<AArchElement>(new_el));
+
+		//Reload view
+		showDocument();
+	});
+
+	connect(ui.gvDocument, &AGDocumentView::linkCreatingFinished, [&](AArchElement * source, AArchElement * dest, const std::string slot_name){
+		static_pointer_cast<AArchitectureDocument>(document())->createLink(source, dest, slot_name);
+		showDocument();
+	});
 }
 
 AArchEditor::~AArchEditor()
@@ -138,35 +164,65 @@ AArchEditor::~AArchEditor()
 
 }
 
-void AArchEditor::loadAvalibleElements()
+class QPIKsListWidget : public QListWidget
+{
+public:
+	QPIKsListWidget(QWidget * parent)
+		:QListWidget(parent)
+	{
+
+	}
+protected:
+	virtual QMimeData * mimeData(const QList<QListWidgetItem *> items) const
+	{
+		if(items.size() > 1)
+			return nullptr;
+
+		QListWidgetItem * it = items[0];
+
+		QMimeData * md = new QMimeData();
+		md->setText(it->text());
+		return md;
+	}
+};
+
+template<class PIKType> QTreeWidgetItem * create_PIK_categoty(QString category_name, const vector<PIKType> & elements, QTreeWidget * items_widg, QWidget * parent)
+{
+	QTreeWidgetItem * twi = new QTreeWidgetItem((QTreeWidget*)0, QStringList(category_name));
+
+	QTreeWidgetItem *embed_item = new QTreeWidgetItem(twi);
+	embed_item->setFlags(Qt::ItemIsEnabled);
+	QListWidget *categoryView = new QPIKsListWidget(parent);
+	categoryView->setViewMode(QListView::ListMode);
+	items_widg->setItemWidget(embed_item, 0, categoryView);
+
+	categoryView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	categoryView->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Expanding));// categoryView->setMinimumSize(QSize(1111, 1111));
+		
+	for(auto & pik : elements)
+	{
+		QListWidgetItem * li = new QListWidgetItem();
+		li->setText(QString::fromStdString(pik.name()));
+		li->setIcon(QIcon(QPixmap(64, 64)));
+
+		
+		categoryView->addItem(li);
+	}
+
+
+	categoryView->setDragEnabled(true);
+	categoryView->setDragDropMode(QAbstractItemView::DragOnly);
+
+	return twi;
+}
+
+void AArchEditor::loadAvalibleElements(AArchElementFactory * arc_factory)
 {
 	QList<QTreeWidgetItem *> items;
-	for (int i = 0; i < 10; ++i)
-	{
-		QTreeWidgetItem * twi = new QTreeWidgetItem((QTreeWidget*)0, QStringList(QString("item: %1").arg(i)));
-		items.append(twi);
 
-		QTreeWidgetItem *embed_item = new QTreeWidgetItem(twi);
-		embed_item->setFlags(Qt::ItemIsEnabled);
-		QListWidget *categoryView = new QListWidget(this);
-		categoryView->setViewMode(QListView::ListMode);
-		ui.treeItems->setItemWidget(embed_item, 0, categoryView);
+	items.append(create_PIK_categoty("Document", arc_factory->infPIKs(), ui.treeItems, this));
+	items.append(create_PIK_categoty("Functional PIK", arc_factory->funcPIKs(), ui.treeItems, this));
 
-		categoryView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-		categoryView->setSizePolicy(QSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored)); categoryView->setMinimumSize(QSize(1111, 1111));
-		
-		for(int j = 0; j < 15; ++j)
-		{
-			/*QTreeWidgetItem * ci = new QTreeWidgetItem(twi, QStringList(QString("child: %1").arg(j)));
-			*/
-
-			QListWidgetItem * li = new QListWidgetItem();
-			li->setText(QString("child: %1").arg(j));
-			li->setIcon(QIcon(QPixmap(64, 64)));
-
-			categoryView->addItem(li);
-		}
-	}
 	ui.treeItems->insertTopLevelItems(0, items);
 }
 
@@ -174,10 +230,38 @@ void AArchEditor::showDocument()
 {
 	ui.gvDocument->scene()->clear();
 
+	map<AArchElement*, AGArchElement*> element_index;
+
 	auto doc = static_pointer_cast<AArchitectureDocument>(document());
 	for(auto gr : doc->groups())
 	{
-		QGraphicsItem * new_item = new AGArchGroup(gr);
+		AGArchGroup * new_item = new AGArchGroup(gr);
 		ui.gvDocument->scene()->addItem(new_item);
+
+		for(auto c : new_item->childItems())
+		{
+			AGArchElement * el = qgraphicsitem_cast<AGArchElement*>(c);
+			if(el)
+			{
+				connect(el, &AGArchElement::linkCreatingStarted, ui.gvDocument, &AGDocumentView::startLinkDragging);
+				element_index[el->element()] = el;
+			}
+		}
+	}
+
+	for(auto link : doc->links())
+	{
+		AGArchLink * new_link = new AGArchLink(link.get());
+		ui.gvDocument->scene()->addItem(new_link);
+
+		AGArchElement * dest_ge = element_index[link->destination()], *src_ge = element_index[link->source()];
+		
+		new_link->setStartItem(src_ge->linkStarter());
+		new_link->setEndItem(static_cast<AGArchFuncElement*>(dest_ge)->slotEllipse(link->slotName()));
+
+		dest_ge->notifyLinkAboutMoving(new_link);
+		src_ge->notifyLinkAboutMoving(new_link);
+
+		new_link->updateShape();
 	}
 }
