@@ -17,6 +17,7 @@
 class ADocument;
 class EDFDDocument;
 class APlan;
+class AArchitectureDocument;
 
 class AT_CORE_API APlugin
 {
@@ -53,6 +54,7 @@ class AT_CORE_API AAdapterPlugin : public APlugin
 public:
 	virtual const Type type() const;
 	virtual APlan * buildGeneralizedPlan(const EDFDDocument * common_dfd) = 0;
+	virtual APlan * buildDetailPlan(APlan * plan, const AArchitectureDocument * arch_doc) = 0;
 };
 
 /*

@@ -250,3 +250,10 @@ APlan * LAMAAdapter::buildGeneralizedPlan(const EDFDDocument * common_dfd)
 
 	return plan;
 }
+
+
+APlan * LAMAAdapter::buildDetailPlan(APlan * plan, const AArchitectureDocument * arch_doc)
+{
+
+	return plan;
+}

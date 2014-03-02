@@ -74,7 +74,7 @@ public:
 	virtual AProjectNode::Type type() const;
 	virtual void serialize(xmlNode * parent_node) const override;
 	//virtual AError deserialize(xmlNodePtr xml_ptr) override;
-	ADocument * file();
+	const ADocument * file() const;
 	virtual void serialize (xmlNode* xml_node);
 	virtual void getDocumentNodesWithExtension(std::vector<const ADocumentProjectNode*> & docs, const std::string & ext) const;
 

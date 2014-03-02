@@ -12,6 +12,8 @@ public:
 	virtual const std::string name();
 	virtual const std::string description();
 	virtual APlan * buildGeneralizedPlan(const EDFDDocument * common_dfd);
+	virtual APlan * buildDetailPlan(APlan * plan, const AArchitectureDocument * arch_doc);
+	
 };
 
 #endif

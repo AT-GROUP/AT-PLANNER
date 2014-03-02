@@ -201,7 +201,7 @@ AError ADocumentProjectNode::deserialize(xmlNode * node)
 	return res;
 }*/
 
-ADocument * ADocumentProjectNode::file()
+const ADocument * ADocumentProjectNode::file() const
 {
 	return m_pFile;
 }

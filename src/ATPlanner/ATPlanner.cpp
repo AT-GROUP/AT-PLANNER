@@ -3,9 +3,13 @@
 #include "AStartArchitectureGenerator.h"
 #include <ATCore/plan/APlan.h>
 #include <ATCore/project/AProject.h>
+#include <ATCore/project/AProjectNode.h>
 #include <ATCore/plugin/APluginManager.h>
 #include <ATCore/plugin/APlugin.h>
 #include <ATCore/architecture/AArchitectureDocument.h>
+#include <vector>
+
+using namespace std;
 
 ATPlanner::ATPlanner(APluginManager * plugin_mgr)
 	:m_pCurrentPlan(nullptr), m_pPluginManager(plugin_mgr)
@@ -37,6 +41,7 @@ void ATPlanner::loadProject(AProject * project)
 	m_pProject = project;
 }
 
+
 AError ATPlanner::buildGeneralizedPlan()
 {
 	AError err;
@@ -61,10 +66,8 @@ AError ATPlanner::buildGeneralizedPlan()
 	//Solve task with adapter
 	APlan * plan = adapter->buildGeneralizedPlan(common_dfd.get());
 
-
 	//Show plan and make current
-	m_pCurrentPlan = plan;
-	delegate()->planRebuilt(this, plan);
+	setPlan(plan);
 
 	return AError();
 }
@@ -92,4 +95,45 @@ ADocumentProjectNode * ATPlanner::buildStartingArchitectureModel(AArchElementFac
 
 	//Return saved document
 	return doc_node;
+}
+
+AError ATPlanner::buildDetailPlan()
+{
+	AError res;
+
+	//Check that generalized plan is built
+	if(!m_pCurrentPlan)
+		res = buildGeneralizedPlan();
+	if(!res.OK())
+		return res;
+
+	//Get architecture document
+	vector<const ADocumentProjectNode*> archs;
+	m_pProject->documentsWithExtension(archs, "arch");
+	if(archs.size())
+		return AError(AT_ERROR_PROJECT_DATA, "Architecture docs not found.");
+
+	auto arch_doc = static_cast<const AArchitectureDocument*>(archs[0]->file());
+
+	//Find suitable adapter for planner
+	auto adapters = m_pPluginManager->plugins(APlugin::Type::Adapter);
+	if(adapters.size() == 0)
+		return AError(AT_ERROR_UNKNOWN, "PDDL adapters not loaded");
+
+	auto adapter = static_cast<AAdapterPlugin*>(adapters[0]->plugin());
+
+	//Solve task with adapter, based on generalized plan and architecture
+	APlan * new_plan = adapter->buildDetailPlan(m_pCurrentPlan, arch_doc);
+
+	//Show plan and make current
+	setPlan(new_plan);
+
+
+	return AError();
+}
+
+void ATPlanner::setPlan(APlan * new_plan)
+{
+	m_pCurrentPlan = new_plan;
+	delegate()->planRebuilt(this, new_plan);
 }

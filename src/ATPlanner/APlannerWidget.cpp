@@ -18,6 +18,10 @@ APlannerWidget::APlannerWidget(ATPlanner * _planner, QWidget *parent)
 		auto arch_doc_node = m_pPlanner->buildStartingArchitectureModel(command_executor());
 		emit startArchDocumentCreated(arch_doc_node);
 	});
+
+	connect(ui.bnBuildDetailedPlan, &QPushButton::clicked, [=](){
+		m_pPlanner->buildDetailPlan();
+	});
 }
 
 APlannerWidget::~APlannerWidget()

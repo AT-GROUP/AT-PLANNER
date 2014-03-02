@@ -40,11 +40,18 @@ public:
 	*/
 	AError buildGeneralizedPlan();
 
-
 	/*
 	Generates starting architecture model.
 	*/
 	ADocumentProjectNode * buildStartingArchitectureModel(AArchElementFactory * arch_factory);
+
+	/*
+	Build detailed plan.
+	*/
+	AError buildDetailPlan();
+
+private:
+	void setPlan(APlan * new_plan);
 private:
 	APlan * m_pCurrentPlan;
 	APlannerWidget * m_pPlannerWidget;
