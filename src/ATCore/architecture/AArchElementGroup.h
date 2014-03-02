@@ -34,6 +34,8 @@ public:
 
 	const APoint & pos() const;
 	void setPos(const APoint & new_pos);
+
+	bool removeElement(AArchElement * element);
 private:
 	std::shared_ptr<DFDElement> m_pDfdElement;
 	std::set<std::shared_ptr<AArchElement>> mChildren;

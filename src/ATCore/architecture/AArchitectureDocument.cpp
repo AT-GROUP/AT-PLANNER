@@ -96,11 +96,28 @@ std::shared_ptr<AArchElementGroup> AArchitectureDocument::group(const std::strin
 		return *g_it;
 }
 
+shared_ptr<AArchLink> AArchitectureDocument::link(AArchElement * source, AArchElement * dest, const std::string slot_name)
+{
+	auto l_it = std::find_if(mLinks.begin(), mLinks.end(), [=](const shared_ptr<AArchLink> & ln){
+		return (ln->source() == source) && (ln->destination() == dest) && (ln->slotName() == slot_name);
+	});
+
+	if(l_it == mLinks.end())
+		return nullptr;
+	else
+		return *l_it;
+}
+
 void AArchitectureDocument::createLink(AArchElement * source, AArchElement * dest, const std::string slot_name)
 {
 	//Check type
 	auto slot = dest->slot(slot_name);
 	if(slot.type != source->interfaceDeclaration().name())
+		return;
+
+	//Check that there is no such link
+	auto old_link = link(source, dest, slot_name);
+	if(old_link)
 		return;
 
 	//Create link
@@ -111,4 +128,25 @@ void AArchitectureDocument::createLink(AArchElement * source, AArchElement * des
 const std::vector<std::shared_ptr<AArchLink>> & AArchitectureDocument::links() const
 {
 	return mLinks;
+}
+
+void AArchitectureDocument::removeElement(AArchElement * element)
+{
+	//Remove links
+	auto l = mLinks.begin();
+
+	while(l != mLinks.end())
+	{
+		if((l->get()->source() == element) || (l->get()->destination() == element))
+			l = mLinks.erase(l);
+		else
+			++l;
+	}
+
+	//Remove element
+	for(auto & gr : mElementGroups)
+	{
+		if(gr->removeElement(element))
+			return;
+	}
 }

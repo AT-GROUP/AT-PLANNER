@@ -11,7 +11,9 @@
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QGraphicsRectItem>
+#include <QtWidgets/QInputDialog>
 #include <QtCore/QDebug>
+#include <QtWidgets/QMessageBox>
 
 using namespace std;
 
@@ -45,6 +47,24 @@ AGArchElement::AGArchElement(const std::shared_ptr<AArchElement> & _element)
 	addToGroup(m_pLinkStarter);
 	m_pLinkStarter->setZValue(20.0);
 	//setPos(mElement->pos().x(), mElement->pos().y());
+
+	//Element name
+	m_pLabelName = new QGraphicsTextItem(this);
+	m_pLabelName->setZValue(50);
+
+	//Element type
+	m_pLabelType = new QGraphicsTextItem(this);
+	m_pLabelType->setPlainText(QString::fromStdString(element()->interfaceDeclaration().name()));
+	m_pLabelType->setPos(- m_pLabelType->boundingRect().width() / 2, - m_pLabelType->boundingRect().height() / 2 + 15);
+	m_pLabelType->setZValue(50);
+
+	updateLabel();
+}
+
+void AGArchElement::updateLabel()
+{
+	m_pLabelName->setPlainText(QString::fromStdString(element()->name()));
+	m_pLabelName->setPos(- m_pLabelName->boundingRect().width() / 2, - m_pLabelName->boundingRect().height() / 2);
 }
 
 AArchElement * AGArchElement::element()
@@ -98,11 +118,24 @@ QAction * AGArchElement::showMenuActions(QMenu & menu, const QPoint & pt)
 
 	if(selectedAction == renameAction)
 	{
+		bool ok = false;
+		QString new_name = QInputDialog::getText(0, "Rename", "Input new name:", QLineEdit::Normal, QString::fromStdString(element()->name()), &ok);
+		if(ok)
+		{
+			element()->setName(new_name.toStdString());
+			updateLabel();
+		}
 
+		return nullptr;
 	}
 	else if(selectedAction == deleteAction)
 	{
-
+		int ret = QMessageBox::warning(0, tr("ArchEditor"), tr("Are you sure you want to delete the item?"), QMessageBox::Ok | QMessageBox::Cancel, QMessageBox::Cancel);
+		if(ret == QMessageBox::Ok)
+		{
+			emit elementRemovingRequested(this);
+		}
+		return 0;
 	}
 	else
 		return selectedAction;
@@ -165,7 +198,10 @@ AGArchFuncElement::AGArchFuncElement(const std::shared_ptr<AArchFuncElement> & _
 	:AGArchElement(_element)
 {
 	//Main form
-	auto rect = new QGraphicsRectItem(-50, -25, 100, 50, this);
+
+	float rect_height = max(50.0, 18.0 * fElement()->interfaceDeclaration().inputs.size());
+
+	auto rect = new QGraphicsRectItem(-50, -rect_height/2, 100, rect_height, this);
 	rect->setBrush(QBrush(QColor(200, 200, 180)));
 	rect->setAcceptDrops(true);
 	
@@ -178,14 +214,11 @@ AGArchFuncElement::AGArchFuncElement(const std::shared_ptr<AArchFuncElement> & _
 
 		QGraphicsPixmapItem * config_item = new QGraphicsPixmapItem(config_icon, this);
 		config_item->setPos(- 50 - config_item->boundingRect().width() / 2, - 25 - config_item->boundingRect().height() / 2);
+		config_item->setZValue(100.0);
 	}
 
-	//Element name
-	QGraphicsTextItem * text_item = new QGraphicsTextItem(QString::fromStdString(element()->name()), this);
-	text_item->setPos(- text_item->boundingRect().width() / 2, - text_item->boundingRect().height() / 2);
-
 	//Slots
-	float current_height = -25 + 20;
+	float current_height = - rect_height / 2 + 9;
 	for(auto & slot : fElement()->interfaceDeclaration().inputs)
 	{
 		AGSlotElement * new_slot = new AGSlotElement(slot, this);
@@ -263,11 +296,6 @@ AGArchInfoElement::AGArchInfoElement(const std::shared_ptr<AArchInfoElement> & _
 	:AGArchElement(_element)
 {
 	auto rect = new QGraphicsEllipseItem(-50, -25, 100, 50, this);
-
-
-	//Element name
-	QGraphicsTextItem * text_item = new QGraphicsTextItem(QString::fromStdString(element()->name()), this);
-	text_item->setPos(- text_item->boundingRect().width() / 2, - text_item->boundingRect().height() / 2);
 }
 
 //=========================Group=================================

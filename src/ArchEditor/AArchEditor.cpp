@@ -245,6 +245,11 @@ void AArchEditor::showDocument()
 			{
 				connect(el, &AGArchElement::linkCreatingStarted, ui.gvDocument, &AGDocumentView::startLinkDragging);
 				element_index[el->element()] = el;
+
+				connect(el, &AGArchElement::elementRemovingRequested, [=](AGArchElement * _sender){
+					static_pointer_cast<AArchitectureDocument>(document())->removeElement(_sender->element());
+					showDocument();
+				});
 			}
 		}
 	}

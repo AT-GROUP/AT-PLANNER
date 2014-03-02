@@ -30,6 +30,7 @@ class AGArchElement : public QObject, public QGraphicsItemGroup
 
 public:
 	AGArchElement(const std::shared_ptr<AArchElement> & element);
+	void updateLabel();
 	AArchElement * element();
 	void updateElementPos();
 	virtual QAction * showMenuActions(QMenu & menu, const QPoint & pt);
@@ -48,10 +49,12 @@ protected:
 	}*/
 signals:
 	void linkCreatingStarted(AGArchElement * src, QPoint start_point);
+	void elementRemovingRequested(AGArchElement * sender);
 private:
 	std::shared_ptr<AArchElement> mElement;
 	AGLinkStarter * m_pLinkStarter;
 	std::vector<AGArchLink*> mNotifyableLinks;
+	QGraphicsTextItem * m_pLabelName, *m_pLabelType;
 };
 
 

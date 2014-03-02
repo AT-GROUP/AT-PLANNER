@@ -5,6 +5,7 @@
 #include "../utils/helpers.h"
 #include "../ACommandExecutor.h"
 #include <libxml/tree.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -102,4 +103,16 @@ const APoint & AArchElementGroup::pos() const
 void AArchElementGroup::setPos(const APoint & new_pos)
 {
 	mPos = new_pos;
+}
+
+bool AArchElementGroup::removeElement(AArchElement * element)
+{
+	auto it = std::find_if(mChildren.begin(), mChildren.end(), [=](const std::shared_ptr<AArchElement> & el){return el.get() == element;});
+	if(it == mChildren.end())
+		return false;
+	else
+	{
+		mChildren.erase(it);
+		return true;
+	}
 }

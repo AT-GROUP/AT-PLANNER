@@ -21,6 +21,9 @@
 	<interface type="1" name="ATDialoger" descr="Dialog Inerpreter">
 		<input>
 			<input name="Dialog Scenario" type="ATDialogScenario" necessary="1"/>
+			<input name="Solver" type="ATSolver" necessary="1"/>
+			<input name="DB Driver" type="DBDriver" necessary="0"/>
+			<input name="Scripter" type="ATScripter" necessary="0"/>
 		</input>
 	</interface>
 	<interface type="1" name="DBDriver" descr="Driver for accessing database">
