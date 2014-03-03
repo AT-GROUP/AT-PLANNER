@@ -3,6 +3,12 @@
   <project_root_node type="0" name="TutorIES" expanded="1">
     <node type="3" name="EDFD" expanded="1">
       <node type="1" name="student_model.edfd" expanded="1"/>
+      <node type="1" name="create_learning_actions.edfd" expanded="1"/>
+      <node type="1" name="func_process_monitoring.edfd" expanded="1"/>
+      <node type="1" name="learning_model.edfd" expanded="1"/>
+      <node type="1" name="realize_learning_plan.edfd" expanded="1"/>
+      <node type="1" name="Top_level.edfd" expanded="1"/>
+      <node type="1" name="create_ontology.edfd" expanded="1"/>
     </node>
     <node type="3" name="Architecture" expanded="1">
       <node type="1" name="main.arch" expanded="1"/>
