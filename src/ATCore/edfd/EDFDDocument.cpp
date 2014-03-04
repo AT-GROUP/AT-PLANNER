@@ -11,11 +11,6 @@ using namespace std;
 
 ///////////////////////////////////////////////////////////////////
 
-inline const char * const BoolToString(bool b)
-{
-  return b ? "true" : "false";
-}
-
 bool to_bool(std::string str) {
     std::transform(str.begin(), str.end(), str.begin(), ::tolower);
     std::istringstream is(str);

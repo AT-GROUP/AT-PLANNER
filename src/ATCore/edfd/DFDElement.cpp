@@ -7,6 +7,11 @@
 
 using namespace std;
 
+inline const char * const BoolToString(bool b)
+{
+  return b ? "true" : "false";
+}
+
 DFDElement::DFDElement(const std::string & _name, const std::string & comment, const APoint & m_p)
 	:ANamedObject(_name), mComment(comment), Mouse_pos(m_p)
 {
@@ -24,7 +29,7 @@ void DFDElement::serialize(_xmlNode * element_node) const
 	xmlNewProp (element_node, BAD_CAST "xPos" , BAD_CAST to_string(Mouse_pos.x()).c_str());
 	xmlNewProp (element_node, BAD_CAST "yPos" , BAD_CAST to_string(Mouse_pos.y()).c_str());
 	xmlNewProp(element_node, BAD_CAST "type" , BAD_CAST to_string(static_cast<int>(type())).c_str());
-	xmlNewProp(element_node, BAD_CAST "detal" , BAD_CAST to_string(mDetalization.used).c_str());
+	xmlNewProp(element_node, BAD_CAST "detal" , BAD_CAST BoolToString(mDetalization.used));
 
 	if (mDetalization.used)
 	{
