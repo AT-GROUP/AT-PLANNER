@@ -24,7 +24,7 @@ void DFDElement::serialize(_xmlNode * element_node) const
 	xmlNewProp (element_node, BAD_CAST "xPos" , BAD_CAST to_string(Mouse_pos.x()).c_str());
 	xmlNewProp (element_node, BAD_CAST "yPos" , BAD_CAST to_string(Mouse_pos.y()).c_str());
 	xmlNewProp(element_node, BAD_CAST "type" , BAD_CAST to_string(static_cast<int>(type())).c_str());
-	xmlNewProp(element_node, BAD_CAST "detal" , BAD_CAST to_string((int)mDetalization.used).c_str());
+	xmlNewProp(element_node, BAD_CAST "detal" , BAD_CAST to_string(mDetalization.used).c_str());
 
 	if (mDetalization.used)
 	{
