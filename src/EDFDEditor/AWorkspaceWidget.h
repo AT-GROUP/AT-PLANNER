@@ -28,28 +28,13 @@ public:
 	bool CheckActiveItem(DFDGraphicsElement *Act);
 	void AddConnection(DFDGraphicsConnection *conn);
 
-
 protected:
-    //void dragEnterEvent(QDragEnterEvent *event);
-    //void dragMoveEvent(QDragMoveEvent *event);
-    //void dropEvent(QDropEvent *event);
-    //void mousePressEvent(QMouseEvent *event);
 };
 
 class AWorkspaceWidget : public QGraphicsView
 {
    Q_OBJECT
 public:
-
-	/*DFDEntity e_M [n_M];
-	DFDFunction f_M [n_M];
-	DFDStorage s_M [n_M];
-	DFDNFFunction nf_M [n_M];
-
-	int e;
-	int f;
-	int s;
-	int nf;*/
 
     AWorkspaceScene *Ascene;
     AWorkspaceWidget(QWidget *parent = 0);
@@ -60,6 +45,20 @@ public:
 	void setDocument(const std::shared_ptr<EDFDDocument> & doc)
 	{
 		m_pDoc = doc;
+	}
+
+	void deleteIt(QGraphicsItem *elm);
+
+	virtual void keyPressEvent (QKeyEvent *event)
+	{
+        switch(event->key())
+        {
+		case Qt::Key_Delete :
+			{
+				this->deleteIt(scene()->focusItem());
+			}
+            break;
+        }
 	}
 
 public slots:

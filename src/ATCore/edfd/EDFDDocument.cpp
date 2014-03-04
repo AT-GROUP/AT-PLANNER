@@ -56,6 +56,18 @@ void EDFDDocument::addConnection(const std::shared_ptr<DFDConnection> & new_conn
 	mConnections.push_back(new_connection);
 }
 
+void EDFDDocument::deleteElement(const std::shared_ptr<DFDElement> & element)
+{
+	int el = find(mElements.begin(), mElements.end(), element) - mElements.begin();
+	if (el <mElements.size())
+		mElements.erase(mElements.begin() + el);
+}
+
+void EDFDDocument::deleteConnection(const std::shared_ptr<DFDConnection> & connection)
+{
+	//mConnections.push_back(new_connection);
+}
+
 void EDFDDocument::serialize(_xmlNode * document_node) const
 {
 	int i = 1;

@@ -1,5 +1,6 @@
 #include <QPainter>
 #include <QtCore/qmath.h>
+#include <QString>
 #include "DFDGraphicsConnection.h"
 #include "DFDGraphicsElement.h"
 
@@ -9,7 +10,7 @@ static double TwoPi = 2.0 * Pi;
 DFDGraphicsConnection::DFDGraphicsConnection(const std::shared_ptr<DFDConnection> & conn, DFDGraphicsElement *sourseElement, DFDGraphicsElement *destElement)
 	: m_pConnection(conn), arrowSize(10)
 {
-
+	setFlag(ItemIsSelectable);
 	text = new QGraphicsTextItem(this);
 	setAcceptedMouseButtons(0);
     source = sourseElement;
@@ -17,7 +18,7 @@ DFDGraphicsConnection::DFDGraphicsConnection(const std::shared_ptr<DFDConnection
     source->addConnection(this);
     dest->addConnection(this);
     adjust();
-	text->setPlainText("connection");
+	text->setPlainText(QString::fromUtf8(conn->name().c_str()));
 }
 
 void DFDGraphicsConnection::changeText(QString str)
@@ -133,3 +134,21 @@ void DFDGraphicsConnection::paint(QPainter *painter, const QStyleOptionGraphicsI
     painter->setBrush(Qt::black);
     painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+DFDGraphicsConnection_New::DFDGraphicsConnection_New(const std::shared_ptr<DFDConnection> & conn, DFDGraphicsElement *sourseElement, DFDGraphicsElement *destElement)
+	: m_pConnection(conn), arrowSize(10)
+{
+	setFlag(ItemIsSelectable);
+	setFlag(ItemIsFocusable);
+	//setAcceptedMouseButtons(0);
+    source = sourseElement;
+    dest = destElement;
+
+	/////////////////////////////////////////////////////////
+	text = new QGraphicsTextItem(this);
+	text->setPlainText(QString::fromUtf8(conn->name().c_str()));
+	////////////////////////////////////////////////////////
+}
+*/

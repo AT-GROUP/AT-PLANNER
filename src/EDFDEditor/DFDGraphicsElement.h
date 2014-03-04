@@ -42,6 +42,12 @@ public:
     QList<DFDGraphicsConnection *> connections() const;
 	QList<DFDGraphicsConnection *> connectionList;
 
+	///////////////////////// new ////////////////////////////
+	/*QList<DFDGraphicsConnection_New *> connections_new() const;
+	QList<DFDGraphicsConnection_New *> connectionList_new;
+	void addConnection_new(DFDGraphicsConnection_New *connection);*/
+	///////////////////////// new ///////////////////////////
+
     QPointF newPos;
 	QPointF *m_pp;
 
@@ -55,6 +61,7 @@ public:
 		:m_pObject(el)
 	{
 		setFlag(ItemIsSelectable);
+		setFlag(ItemIsFocusable);
 		setFlag(ItemIsMovable);
 		setFlag(ItemSendsGeometryChanges);
 		setCacheMode(DeviceCoordinateCache);

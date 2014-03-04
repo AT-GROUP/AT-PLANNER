@@ -20,6 +20,9 @@ public:
 	void addElement(const std::shared_ptr<DFDElement> & new_element);
 	void addConnection(const std::shared_ptr<DFDConnection> & new_connection);
 
+	void deleteElement(const std::shared_ptr<DFDElement> & element);
+	void deleteConnection(const std::shared_ptr<DFDConnection> & connection);
+
 	std::vector<std::shared_ptr<DFDElement>> getElements() const;
 	const std::vector<std::shared_ptr<DFDElement>> & elements() const;
 	const std::vector<std::shared_ptr<DFDConnection>> & connections() const;

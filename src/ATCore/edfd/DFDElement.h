@@ -29,16 +29,6 @@ public:
 
 	DFDElement(const std::string & _name = "", const std::string & comment = "", const APoint & m_p = APoint());
 
-/*	std::string GetName()
-	{
-		return mName;
-	}
-
-	void SetName(std::string name)
-	{
-		mName = name;
-	}*/
-
 	std::string GetComment()
 	{
 		return mComment;
@@ -66,6 +56,7 @@ public:
 	virtual AError deserialize(_xmlNode * element_node);
 
 	static DFDElement * createAndDeserialize(_xmlNode * element_node);
+
 private:
 	std::vector<DFDElement*> mChildren;
 

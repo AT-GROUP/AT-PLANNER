@@ -77,6 +77,12 @@ template<class ElementClass, class GrClass> DFDGraphicsElement * create_element(
 	return new GrClass(static_pointer_cast<ElementClass>(new_element), scene);
 }
 
+void AWorkspaceWidget::deleteIt(QGraphicsItem *elm)
+{
+	m_pDoc->deleteElement(static_cast<DFDGraphicsElement*>(elm)->m_pObject);
+	this->scene()->removeItem(static_cast<DFDGraphicsElement*>(elm));
+}
+
 void AWorkspaceWidget::dropEvent(QDropEvent *event)
 {
 

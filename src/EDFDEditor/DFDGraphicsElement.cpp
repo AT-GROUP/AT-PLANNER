@@ -85,7 +85,7 @@ void DFDGraphicsElement::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 	QString str;
 	if (CheckConnectingStatus() == false)
 	{
-		str = "ReName";
+		str = "Rename";
 		reName = new QAction(str,this);
 		reName->setToolTip("Give this object a brand new name!");
 		menu->addAction(reName);
@@ -98,7 +98,6 @@ void DFDGraphicsElement::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		connec->setToolTip("Connect me to another object!");
 		menu->addAction(connec);
 		menu->popup(event->screenPos());
-
 		detMenu = new QMenu;
 		detMenu->setTitle("Detalization");
 		menu->addMenu(detMenu);
@@ -108,7 +107,6 @@ void DFDGraphicsElement::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 			setDet = new QAction(str,this);
 			setDet->setToolTip("HO-HO-HO");
 			detMenu->addAction(setDet);
-
 			connect(setDet, SIGNAL(triggered()), this, SLOT(setDe()));
 		}
 		else
@@ -156,6 +154,19 @@ QList<DFDGraphicsConnection *> DFDGraphicsElement::connections() const
     return connectionList;
 }
 
+//////////////////////////  New Connections  ////////////////////////////
+/*
+void DFDGraphicsElement::addConnection_new(DFDGraphicsConnection_New *connection)
+{
+    connectionList_new << connection;
+    //connection->adjust();
+}
+
+QList<DFDGraphicsConnection_New *> DFDGraphicsElement::connections_new() const
+{
+    return connectionList_new;
+}
+*/
 QVariant DFDGraphicsElement::itemChange(GraphicsItemChange change, const QVariant &value)
 {
     switch (change) {
@@ -198,12 +209,23 @@ DFDGraphicsStorage::DFDGraphicsStorage(const std::shared_ptr<DFDStorage> & stor,
 	:DFDGraphicsElement(stor)
 {
 	AAScene = scene;
-	auto rect = new QGraphicsRectItem(0, 0, 20, 40);
+	auto rect = new QGraphicsRectItem(0, 0, 15, 40);
 	addToGroup(rect);
-	rect = new QGraphicsRectItem(20, 0, 80, 40);
-	addToGroup(rect);
+
+	QPolygonF Triangle1;
+	Triangle1.append(QPointF(15,0));
+	Triangle1.append(QPointF(100,0));
+	QGraphicsPolygonItem *pol1 = new QGraphicsPolygonItem(Triangle1);
+	addToGroup(pol1);
+
+	QPolygonF Triangle2;
+	Triangle2.append(QPointF(15,40));
+	Triangle2.append(QPointF(100,40));
+	QGraphicsPolygonItem *pol2 = new QGraphicsPolygonItem(Triangle2);
+	addToGroup(pol2);
+
 	text->setPlainText(QString::fromStdString(stor->name()));
-	text->setPos(20,0);
+	text->setPos(15,0);
 }
 
 DFDGraphicsNFFuntion::DFDGraphicsNFFuntion(const std::shared_ptr<DFDNFFunction> & nfun, AWorkspaceScene *scene)
