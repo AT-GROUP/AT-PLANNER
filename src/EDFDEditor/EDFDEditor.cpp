@@ -63,39 +63,41 @@ void EDFDEditor::updateScene()
 	
 	for (auto e : static_pointer_cast<EDFDDocument>(document())->getElements())
 	{
-		if (e->type() == DFDElement::Type::Entity)
+		DFDGraphicsElement * el(nullptr);
+
+		switch (e->type())
 		{
-			////////////
-			auto el = new DFDGraphicsEntity(static_pointer_cast<DFDEntity>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
-			////////////
-			el->setPos(static_pointer_cast<DFDEntity>(e)->Mouse_pos.x(), static_pointer_cast<DFDEntity>(e)->Mouse_pos.y());
-			ui.gvDocument->scene()->addItem(el);
-			elem_graph_dictionary[e] = el;
+		case DFDElement::Type::Entity:
+			{
+				el = new DFDGraphicsEntity(static_pointer_cast<DFDEntity>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
+				break;
+			}
+		case DFDElement::Type::Function:
+			{
+				el = new DFDGraphicsFuntion(static_pointer_cast<DFDFunction>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
+				break;
+			}
+		case DFDElement::Type::Storage:
+			{
+				el = new DFDGraphicsStorage(static_pointer_cast<DFDStorage>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
+				break;
+			}
+		case DFDElement::Type::NFFunction:
+			{
+				el = new DFDGraphicsNFFuntion(static_pointer_cast<DFDNFFunction>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
+				break;
+			}
+		default:
+			break;
 		}
-		if (e->type() == DFDElement::Type::Function)
+		
+		if(el)
 		{
-			////////////
-			auto el = new DFDGraphicsFuntion(static_pointer_cast<DFDFunction>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
-			////////////
-			el->setPos(static_pointer_cast<DFDFunction>(e)->Mouse_pos.x(), static_pointer_cast<DFDFunction>(e)->Mouse_pos.y());
-			ui.gvDocument->scene()->addItem(el);
-			elem_graph_dictionary[e] = el;
-		}
-		if (e->type() == DFDElement::Type::Storage)
-		{
-			////////////
-			auto el = new DFDGraphicsStorage(static_pointer_cast<DFDStorage>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
-			////////////
-			el->setPos(static_pointer_cast<DFDStorage>(e)->Mouse_pos.x(), static_pointer_cast<DFDStorage>(e)->Mouse_pos.y());
-			ui.gvDocument->scene()->addItem(el);
-			elem_graph_dictionary[e] = el;
-		}
-		if (e->type() == DFDElement::Type::NFFunction)
-		{
-			////////////
-			auto el = new DFDGraphicsNFFuntion(static_pointer_cast<DFDNFFunction>(e), static_cast<AWorkspaceScene*>(ui.gvDocument->scene()));
-			////////////
-			el->setPos(static_pointer_cast<DFDNFFunction>(e)->Mouse_pos.x(), static_pointer_cast<DFDNFFunction>(e)->Mouse_pos.y());
+			connect(el, &DFDGraphicsElement::detalizationDocumentOpeningRequested, [=](const std::string & doc_name){
+				delegate()->documentOpenRequested(doc_name);
+			});
+			
+			el->setPos(e->Mouse_pos.x(), e->Mouse_pos.y());
 			ui.gvDocument->scene()->addItem(el);
 			elem_graph_dictionary[e] = el;
 		}

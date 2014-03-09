@@ -106,6 +106,25 @@ void AProjectNode::getDocumentNodesWithExtension(std::vector<const ADocumentProj
 	}
 }
 
+ADocumentProjectNode* AProjectNode::findDocumentNode(const std::string & doc_name)
+{
+	if(type() == AProjectNode::Type::File)
+	{
+		if(name() == doc_name)
+			return static_cast<ADocumentProjectNode*>(this);		
+	}
+	
+	ADocumentProjectNode * res(nullptr);
+
+	for(auto c : mChildren)
+	{
+		res = c->findDocumentNode(doc_name);
+		if(res)
+			break;
+	}
+	return res;
+}
+
 //================AGroupProjectNode=====================
 AGroupProjectNode::AGroupProjectNode(const std::string & _name)
 	:AProjectNode(_name), mExpanded(true)

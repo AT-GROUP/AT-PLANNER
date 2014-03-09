@@ -87,12 +87,18 @@ AArchElement * AArchElementFactory::createArchPIKInstance(AArchElement::Type typ
 	if(type == AArchElement::Type::Functional)
 	{
 		auto it = find_if(mFuncInteraces.begin(), mFuncInteraces.end(), [=](const APIKInterfaceFunc & intf){return intf.name() == interface_name;});
-		new_el = new AArchFuncElement(*it, interface_name + " instance");
+		if(it != mFuncInteraces.end())
+			new_el = new AArchFuncElement(*it, interface_name + " instance");
+		else
+			AError::criticalErrorOccured(AError(AT_ERROR_INTERNAL, "Unable to create architecture functional \"" + interface_name + "\" instance"));
 	}
 	else if(type == AArchElement::Type::Informational)
 	{
 		auto it = find_if(mInfoInteraces.begin(), mInfoInteraces.end(), [=](const APIKInterfaceInf & intf){return intf.name() == interface_name;});
-		new_el = new AArchInfoElement(*it, interface_name + " instance");
+		if(it != mInfoInteraces.end())
+			new_el = new AArchInfoElement(*it, interface_name + " instance");
+		else
+			AError::criticalErrorOccured(AError(AT_ERROR_INTERNAL, "Unable to create architecture info \"" + interface_name + "\" instance"));
 	}
 	return new_el;
 }

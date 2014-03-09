@@ -77,3 +77,8 @@ void AEditorInstance::setDelegate(AEditorDelegate * _delegate)
 {
 	m_pDelegate = _delegate;
 }
+
+AEditorDelegate * AEditorInstance::delegate()
+{
+	return m_pDelegate;
+}

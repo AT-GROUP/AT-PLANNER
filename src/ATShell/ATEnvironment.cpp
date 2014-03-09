@@ -35,11 +35,17 @@ ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 				saveProject();
 			}
 		);
-	connect(ui.actionOpen_Project, &QAction::triggered, [=]()
+	connect(ui.actionOpenProject, &QAction::triggered, [=]()
 		{
 			this->openProject();
 	});
 
+	connect(ui.actionOpenFile, &QAction::triggered, [=]()
+		{
+			this->openFile();
+	});
+
+	
 	//Create planner widget
 	auto planner_wdg = m_pApplication->planner()->createInfoWidget();
 	ui.dockPlanner->setWidget((QWidget*)planner_wdg);
@@ -183,11 +189,20 @@ void ATEnvironment::openProject()
 	openProject(file_name.toStdString());
 }
 
-void ATEnvironment::openNodeDocument(ADocumentProjectNode * doc_node)
+void ATEnvironment::openFile()
+{
+	QString file_name = QFileDialog::getOpenFileName(this, tr("Open file"),
+                                                 "D:",
+                                                 tr("All Files (*)"));
+	if(file_name != "")
+		openFile(file_name.toStdString());
+}
+
+void ATEnvironment::openFile(const std::string & file_path)
 {
 	//Check, maybe document is already opened
-	auto oi = mOpenedDocs.find(doc_node);
-	if(oi != mOpenedDocs.end())
+	auto oi = mOpenedFiles.find(file_path);
+	if(oi != mOpenedFiles.end())
 	{
 		ui.mdiArea->setActiveSubWindow(oi->second);
 	}
@@ -196,7 +211,7 @@ void ATEnvironment::openNodeDocument(ADocumentProjectNode * doc_node)
 		ui.mdiArea->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 		//Find suitable editor for file
-		QFileInfo fi(QString::fromStdString(doc_node->name()));
+		QFileInfo fi(QString::fromStdString(file_path));
 		QString ext = fi.completeSuffix();
 
 		auto ed_plug = m_pApplication->editorForExtension(ext.toStdString());
@@ -214,22 +229,16 @@ void ATEnvironment::openNodeDocument(ADocumentProjectNode * doc_node)
 	
 		ui.mdiArea->addSubWindow(mdi_sub_wind);
 		ui.mdiArea->setActiveSubWindow(mdi_sub_wind);
-	
-		/*connect(ed_wdg, &AGUIEditorInstance::windowTitleChanged, [=](const QString & new_title)
-			{
-				mdi_sub_wind->setWindowTitle(new_title);
-		});*/
 
-
-		ed_wdg->openFile(project()->projectDir() + "/" + doc_node->name());
+		ed_wdg->openFile(file_path);
 		mdi_sub_wind->setWindowTitle(ed_wdg->windowTitle());
 
 		connect(mdi_sub_wind, &ATMdiWindow::editorClosed, [=]()
 			{
-				closeMdiWindow(mdi_sub_wind, doc_node);
+				closeMdiWindow(mdi_sub_wind, file_path);
 		});
 
-		mOpenedDocs.insert(pair<ADocumentProjectNode*, ATMdiWindow*>(doc_node, mdi_sub_wind));
+		mOpenedFiles.insert(pair<string, ATMdiWindow*>(file_path, mdi_sub_wind));
 
 		//Connect events
 		connect(mdi_sub_wind, &ATMdiWindow::aboutToActivate, [=]()
@@ -241,18 +250,44 @@ void ATEnvironment::openNodeDocument(ADocumentProjectNode * doc_node)
 	}
 }
 
-void ATEnvironment::closeMdiWindow(ATMdiWindow * mdi_wnd, ADocumentProjectNode * doc_node)
+void ATEnvironment::openNodeDocument(ADocumentProjectNode * doc_node)
+{
+	openFile(project()->documentPath(doc_node));
+}
+
+void ATEnvironment::openDocument(const std::string & document_name)
+{
+	//Find node with document in the project
+	auto doc_node = project()->findDocumentNode(document_name);
+
+	if(doc_node)
+	{
+		//Open it
+		openNodeDocument(doc_node);
+	}
+	else
+	{
+		AError::criticalErrorOccured(AError(AT_ERROR_FILE_NOT_FOUND, "Document \"" + document_name + "\" was not found in the project."));
+	}
+}
+
+void ATEnvironment::closeMdiWindow(ATMdiWindow * mdi_wnd, const std::string & fpath)
 {
 	ui.mdiArea->removeSubWindow(mdi_wnd);
 
-	auto oi = mOpenedDocs.find(doc_node);
-	mOpenedDocs.erase(oi);
+	auto oi = mOpenedFiles.find(fpath);
+	mOpenedFiles.erase(oi);
 }
 
 void ATEnvironment::documentChanged(const std::shared_ptr<ADocument> & doc)
 {
 	if(doc->type() == ADocument::Type::EDFD)
 		m_pApplication->planner()->buildGeneralizedPlan();
+}
+
+void ATEnvironment::documentOpenRequested(const std::string & document_name)
+{
+	openDocument(document_name);
 }
 
 void ATEnvironment::linkFileActions(AGUIEditorInstance * editor_widget)

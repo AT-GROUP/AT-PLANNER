@@ -31,7 +31,11 @@ public:
 	virtual AError deserialize(_xmlNode * document_node) override;
 
 	bool isDetalized() const;
-	void buildDetalizationLinks(std::vector<std::shared_ptr<EDFDDocument>> & edfd_docs);
+	bool isDetalizedWith(const std::shared_ptr<EDFDDocument> & detail_doc) const;
+	AError buildDetalizationLinks(std::vector<std::shared_ptr<EDFDDocument>> & edfd_docs);
+
+	void mergeWith(const std::shared_ptr<EDFDDocument> & detail_doc);
+	void mergeElements(int index1, int index2);
 private:
 	std::vector<std::shared_ptr<DFDElement>> mElements;
 	std::vector<std::shared_ptr<DFDConnection>> mConnections;

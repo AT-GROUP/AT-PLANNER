@@ -26,6 +26,7 @@ public:
 
 	const APoint & pos() const;
 	void setPos(const APoint & new_pos);
+	void setPos(const float x, const float y);
 
 	APIKInterface::Slot & slot(const std::string & slot_name);
 	const APIKInterface & interfaceDeclaration() const;

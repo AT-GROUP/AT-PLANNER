@@ -33,6 +33,8 @@ public:
 	static AProjectNode * createAndDeserialize(xmlNode * project_node);
 
 	virtual void getDocumentNodesWithExtension(std::vector<const ADocumentProjectNode*> & docs, const std::string & ext) const;
+
+	ADocumentProjectNode* findDocumentNode(const std::string & doc_name);
 private:
 	std::vector<AProjectNode*> mChildren;
 };

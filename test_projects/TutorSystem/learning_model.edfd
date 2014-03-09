@@ -5,7 +5,7 @@
     
 <elem name="&#x41E;&#x431;&#x443;&#x447;&#x430;&#x435;&#x43C;&#x44B;&#x439;" xPos="31" yPos="240" type="0" detal="false" id="1"/>
     
-<elem name="&#x420;&#x435;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43F;&#x43B;&#x430;&#x43D; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" xPos="226" yPos="239" type="2" detal="true" detal_doc_name="../test_projects/TutorSystem/realize_learning_plan.edfd" id="2"/>
+<elem name="&#x420;&#x435;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43F;&#x43B;&#x430;&#x43D; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" xPos="226" yPos="239" type="2" detal="true" detal_doc_name="realize_learning_plan.edfd" id="2"/>
     
 <elem name="&#x411;&#x414; &#x43F;&#x43B;&#x430;&#x43D;&#x43E;&#x432; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" xPos="226" yPos="131" type="1" detal="false" id="3"/>
     
@@ -15,7 +15,7 @@
     
 <elem name="&#x411;&#x414; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x435;&#x43C;&#x44B;&#x445;" xPos="607" yPos="70" type="1" detal="false" id="6"/>
     
-<elem name="&#x421;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;" xPos="460" yPos="440" type="2" detal="true" detal_doc_name="../test_projects/TutorSystem/create_learning_actions.edfd" id="7"/>
+<elem name="&#x421;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;" xPos="460" yPos="440" type="2" detal="true" detal_doc_name="create_learning_actions.edfd" id="7"/>
     
 <elem name="&#x41F;&#x440;&#x435;&#x43F;&#x43E;&#x434;&#x430;&#x432;&#x430;&#x442;&#x435;&#x43B;&#x44C;" xPos="279" yPos="472" type="0" detal="false" id="8"/>
 

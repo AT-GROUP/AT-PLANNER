@@ -36,6 +36,8 @@ public:
 	void setPos(const APoint & new_pos);
 
 	bool removeElement(AArchElement * element);
+
+	std::shared_ptr<AArchElement> findElementWithInterface(const std::string & interface_name) const;
 private:
 	std::shared_ptr<DFDElement> m_pDfdElement;
 	std::set<std::shared_ptr<AArchElement>> mChildren;

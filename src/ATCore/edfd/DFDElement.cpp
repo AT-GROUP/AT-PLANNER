@@ -52,6 +52,14 @@ AError DFDElement::deserialize(_xmlNode * element_node)
 	return AError();
 }
 
+bool DFDElement::isSameAs(DFDElement * another) const
+{
+	bool res = true;
+	res = res && (type() == another->type());
+	res = res && (name() == another->name());
+	return res;
+}
+
 DFDElement * DFDElement::createAndDeserialize(_xmlNode * element_node)
 {
 	auto _type = atoi(xml_prop(element_node, "type"));

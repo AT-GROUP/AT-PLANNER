@@ -47,6 +47,7 @@ AError ATPlanner::buildGeneralizedPlan()
 	AError err;
 	
 	//Get preprocessed hierarchy
+	m_pProject->buildCommonEDFD(&err); ///!!!!!!
 	auto common_dfd = m_pProject->commonEDFD(&err);
 
 	if(!common_dfd)

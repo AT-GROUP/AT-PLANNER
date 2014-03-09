@@ -53,8 +53,15 @@
      <addaction name="actionNewProject"/>
      <addaction name="actionNewFile"/>
     </widget>
+    <widget class="QMenu" name="menuOpen">
+     <property name="title">
+      <string>Open</string>
+     </property>
+     <addaction name="actionOpenProject_2"/>
+     <addaction name="actionOpenFile"/>
+    </widget>
     <addaction name="menuNew"/>
-    <addaction name="actionOpen_Project"/>
+    <addaction name="menuOpen"/>
     <addaction name="actionSave_Project"/>
     <addaction name="separator"/>
     <addaction name="actionSaveFile"/>
@@ -160,7 +167,7 @@
     <string>About</string>
    </property>
   </action>
-  <action name="actionOpen_Project">
+  <action name="actionOpenProject">
    <property name="text">
     <string>Open Project...</string>
    </property>
@@ -199,6 +206,16 @@
   <action name="actionSave_all">
    <property name="text">
     <string>Save all</string>
+   </property>
+  </action>
+  <action name="actionOpenProject_2">
+   <property name="text">
+    <string>Project...</string>
+   </property>
+  </action>
+  <action name="actionOpenFile">
+   <property name="text">
+    <string>File...</string>
    </property>
   </action>
  </widget>

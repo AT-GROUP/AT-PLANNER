@@ -166,7 +166,21 @@ bool EDFDDocument::isDetalized() const
 	return false;
 }
 
-void EDFDDocument::buildDetalizationLinks(vector<shared_ptr<EDFDDocument>> & edfd_docs)
+bool EDFDDocument::isDetalizedWith(const std::shared_ptr<EDFDDocument> & detail_doc) const
+{
+	for(auto e : mElements)
+	{
+		if(e->isDetalized())
+		{
+			if(e->mDetalization.document == detail_doc)
+				return true;
+		}
+	}
+
+	return false;
+}
+
+AError EDFDDocument::buildDetalizationLinks(vector<shared_ptr<EDFDDocument>> & edfd_docs)
 {
 	for(auto e : mElements)
 	{
@@ -177,10 +191,91 @@ void EDFDDocument::buildDetalizationLinks(vector<shared_ptr<EDFDDocument>> & edf
 			auto doc_it = find_if(edfd_docs.begin(), edfd_docs.end(), [=](const shared_ptr<EDFDDocument> & doc){ return doc->fileName() == e->mDetalization.document_name;});
 	
 			if(doc_it != edfd_docs.end())
+			{
 				e->mDetalization.document = *doc_it;
-
-			edfd_docs.erase(doc_it);
+				//edfd_docs.erase(doc_it);
+			}
+			else
+			{
+				return AError(AT_ERROR_PROJECT_DATA, "Detalization diagramm document for \"" + e->name() + "\" object in \"" + fileName() + "\" document not found.");
+			}
+			
 		}
 	}
 
+	return AError();
+
+}
+
+void EDFDDocument::mergeWith(const std::shared_ptr<EDFDDocument> & detail_doc)
+{
+	//Find element, which is detalized with this document
+
+	auto detailed_el = std::find_if(mElements.begin(), mElements.end(), [=](const std::shared_ptr<DFDElement> & el){return el->isDetalized() && el->mDetalization.document == detail_doc;});
+
+	if(detailed_el != mElements.end())
+	{
+		//Get all links connected with the element in source document
+
+		vector<shared_ptr<DFDConnection>> connected_links;
+		for(auto l : mConnections)
+		{
+			if(l->connectedTo(*detailed_el))
+			{
+				connected_links.push_back(l);
+			}
+		}
+
+		//Replace element with elements from detail doc
+		mElements.erase(detailed_el);
+		mElements.insert(mElements.end(), detail_doc->mElements.begin(), detail_doc->mElements.end());
+
+		//Get connected to Ext links, other add to current docs
+		vector<shared_ptr<DFDConnection>> ext_links;
+		for(auto l : detail_doc->mConnections)
+		{
+			//If link is connected to Ext
+			if(false)
+			{
+				ext_links.push_back(l);
+			}
+			else
+				mConnections.push_back(l);
+		}
+		
+
+		//Synchronize links
+		//!!!!!
+		for(auto l : connected_links)
+			mConnections.erase(std::find(mConnections.begin(), mConnections.end(), l));
+
+		//Merge elements with similar names
+		for(int i = 0; i < mElements.size(); ++i)
+		{
+			for(int j = i+1; j < mElements.size(); ++j)
+			{
+				if(mElements[i]->isSameAs(mElements[j].get()))
+				{
+					mergeElements(i, j);
+				}
+			}
+		}
+	}
+	else
+	{
+		AError::criticalErrorOccured(AError(AT_ERROR_UNKNOWN, "Failed to merge EDFD documents."));
+	}
+}
+
+void EDFDDocument::mergeElements(int index1, int index2)
+{
+	//Relink connections
+	for(auto c : mConnections)
+	{
+		if(c->connectedTo(mElements[index2]))
+			c->relinkTo(mElements[index2], mElements[index1]);
+	}
+
+	//Remove 2nd element
+	mElements.erase(mElements.begin() + index2);
 }

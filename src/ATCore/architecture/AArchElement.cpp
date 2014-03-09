@@ -81,6 +81,12 @@ void AArchElement::setPos(const APoint & new_pos)
 	mPos = new_pos;
 }
 
+void AArchElement::setPos(const float x, const float y)
+{
+	mPos.setX(x);
+	mPos.setY(y);
+}
+
 APIKInterface::Slot & AArchElement::slot(const std::string & slot_name)
 {
 	auto & it = std::find_if(mInterface.inputs.begin(), mInterface.inputs.end(), [=](const APIKInterface::Slot & slot){return slot.name == slot_name;});

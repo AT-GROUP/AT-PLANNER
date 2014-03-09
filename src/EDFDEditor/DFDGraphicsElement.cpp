@@ -101,28 +101,32 @@ void DFDGraphicsElement::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		detMenu = new QMenu;
 		detMenu->setTitle("Detalization");
 		menu->addMenu(detMenu);
-		if (this->m_pObject->mDetalization.used == false)
+		if (object()->mDetalization.used)
 		{
-			str = "Add detalization file";
-			setDet = new QAction(str,this);
-			setDet->setToolTip("HO-HO-HO");
-			detMenu->addAction(setDet);
-			connect(setDet, SIGNAL(triggered()), this, SLOT(setDe()));
-		}
-		else
-		{
-			str = "Change detalization file";
-			chageDet = new QAction(str,this);
+			chageDet = new QAction("Change detalization file",this);
 			chageDet->setToolTip("HO-HO-HO");
 			detMenu->addAction(chageDet);
 
-			str = "Delete detalization";
-			delDet = new QAction(str,this);
+			delDet = new QAction("Delete detalization", this);
 			delDet->setToolTip("HO-HO-HO");
 			detMenu->addAction(delDet);
 
 			connect(delDet, SIGNAL(triggered()), this, SLOT(delDe()));
 			connect(chageDet, SIGNAL(triggered()), this, SLOT(changeDe()));
+
+			QAction * detail_open_act = new QAction("Open detalization document", this);
+			detMenu->addAction(detail_open_act);
+			connect(detail_open_act, &QAction::triggered, [=](){
+				emit detalizationDocumentOpeningRequested(object()->mDetalization.document_name);
+			});
+		
+		}
+		else
+		{
+			setDet = new QAction("Add detalization file",this);
+			setDet->setToolTip("HO-HO-HO");
+			detMenu->addAction(setDet);
+			connect(setDet, SIGNAL(triggered()), this, SLOT(setDe()));
 		}
 
 		connect(reName, SIGNAL(triggered()), this, SLOT(reNa()));

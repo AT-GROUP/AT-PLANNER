@@ -32,3 +32,4 @@ void AGUIEditorInstance::saveFileInitiated()
 {
 	saveCurrentDocument();
 }
+

@@ -10,7 +10,7 @@
 //====================AArchScene==========================
 
 AArchScene::AArchScene()
-	:QGraphicsScene(0, 0, 300, 300)
+	:QGraphicsScene()
 {
 	
 }
@@ -28,6 +28,8 @@ AGDocumentView::AGDocumentView(QWidget *parent)
 	setScene(new AArchScene());
 	setAcceptDrops(true);
 	mLinkCreating.active = false;
+
+	mDrag.active = false;
 }
 
 void AGDocumentView::dragEnterEvent(QDragEnterEvent *event)
@@ -90,6 +92,20 @@ void AGDocumentView::mouseMoveEvent(QMouseEvent *event)
 	else
 	{
 		QGraphicsView::mouseMoveEvent(event);
+
+		if(mDrag.active)
+		{
+			float dx = event->x() - mDrag.lastPos.x();
+			float dy = event->y() - mDrag.lastPos.y();
+
+			QMatrix mat = matrix();
+
+			float sc = mat.m11();
+
+			translate(dx/sc, dy/sc);
+
+			mDrag.lastPos = event->pos();
+		}
 	}
 }
 
@@ -120,6 +136,11 @@ void AGDocumentView::mouseReleaseEvent(QMouseEvent *event)
 	{
 		QGraphicsView::mouseReleaseEvent(event);
 	}
+
+	if(event->button() == Qt::MidButton)
+	{
+		mDrag.active = false;
+	}
 }
 
 void AGDocumentView::startLinkDragging(AGArchElement * src, QPoint start_point)
@@ -133,20 +154,14 @@ void AGDocumentView::startLinkDragging(AGArchElement * src, QPoint start_point)
 	mLinkCreating.source_item = src;
 	scene()->addItem(mLinkCreating.line);
 }
-/*
+
 void AGDocumentView::mousePressEvent(QMouseEvent *event)
 {
-	QPointF scene_point = mapToScene(event->pos());
+	QGraphicsView::mousePressEvent(event);
 
-	qDebug() << event->pos() << scene_point;
-
-	auto it = itemAt(scene_point.toPoint());
-	AGLinkStarter * link_starter = qgraphicsitem_cast<AGLinkStarter*>(it);
-	if(link_starter)
+	if(event->button() == Qt::MidButton)
 	{
-		event->ignore();
-		qDebug() << "Starting link.";
+		mDrag.active = true;
+		mDrag.lastPos = event->pos();
 	}
-	else
-		QGraphicsView::mousePressEvent(event);
-}*/
+}

@@ -67,6 +67,7 @@ void AError::criticalErrorOccured(const char * text)
 
 void AError::criticalErrorOccured(AError error)
 {
+	error_messenger()->criticalErrorOccured(error);
 	/*char error_code[256];
 	sprintf(error_code, "%d", error.code());
 
@@ -75,4 +76,14 @@ void AError::criticalErrorOccured(AError error)
 	LOG_PRINT("errors", error_text.c_str());
 
 	criticalErrorOccured(error_text.c_str());*/
+}
+
+AErrorMessenger * error_messenger()
+{
+	return ErrorMessenger::singleton();
+}
+
+void set_error_messenger(AErrorMessenger * messenger)
+{
+	ErrorMessenger::setSingleton(messenger);
 }

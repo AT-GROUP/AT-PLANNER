@@ -35,6 +35,8 @@ public:
 		return m_pDest;
 	}
 
+	bool connectedTo(const std::shared_ptr<DFDElement> & element) const;
+	void relinkTo(const std::shared_ptr<DFDElement> & from, const std::shared_ptr<DFDElement> & to);
 private:
 	std::shared_ptr<DFDElement> m_pSource, m_pDest;
 };

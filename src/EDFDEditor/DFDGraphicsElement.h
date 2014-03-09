@@ -90,7 +90,8 @@ private slots:
 	void changeDe();
 
 signals:
-	emit void newConnectionRequested(DFDGraphicsElement * src, DFDGraphicsElement * dest);
+	void newConnectionRequested(DFDGraphicsElement * src, DFDGraphicsElement * dest);
+	void detalizationDocumentOpeningRequested(const std::string & document_name);
 };
 
 class DFDGraphicsEntity : public DFDGraphicsElement

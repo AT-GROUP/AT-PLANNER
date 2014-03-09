@@ -60,22 +60,26 @@ public:
 
 	//void parseDocument(xmlNodePtr _ptr, AProjectNode * _node);
 	
-	void closeMdiWindow(ATMdiWindow * mdi_wnd, ADocumentProjectNode * doc_node);
+	void closeMdiWindow(ATMdiWindow * mdi_wnd, const std::string & fpath);
 
 	//AEditorDelegate implementation
 	virtual void documentChanged(const std::shared_ptr<ADocument> & doc) override;
+	virtual void documentOpenRequested(const std::string & document_name) override;
 public slots:
 	void createNewProject();
 	void createNewFile(AQProjectNode * project_parent_node);
 	void openProject(const std::string & path);
 	void openProject();
+	void openFile();
+	void openFile(const std::string & file_path);
 	void openNodeDocument(ADocumentProjectNode * doc_node);
+	void openDocument(const std::string & document_name);
 
 	void linkFileActions(AGUIEditorInstance * editor_widget);
 private:
 	Ui::ATEnvironmentClass ui;
 	ATApplication * m_pApplication;
-	std::map<ADocumentProjectNode*, ATMdiWindow*> mOpenedDocs;
+	std::map<std::string, ATMdiWindow*> mOpenedFiles;
 };
 
 #endif // ATENVIRONMENT_H

@@ -3,6 +3,7 @@
 #define ATCore_AError_h
 
 #include "config.h"
+#include "ASingleton.h"
 #include <string>
 #include <exception>
 
@@ -74,4 +75,16 @@ public:
 private:
     const std::string mText;
 };
+
+class AErrorMessenger
+{
+public:
+	virtual void criticalErrorOccured(const AError & error){};
+};
+
+typedef ASingleton<AErrorMessenger> ErrorMessenger;
+
+AT_CORE_API AErrorMessenger * error_messenger();
+AT_CORE_API void set_error_messenger(AErrorMessenger * messnger);
+
 #endif

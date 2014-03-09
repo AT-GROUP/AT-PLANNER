@@ -116,3 +116,14 @@ bool AArchElementGroup::removeElement(AArchElement * element)
 		return true;
 	}
 }
+
+std::shared_ptr<AArchElement> AArchElementGroup::findElementWithInterface(const std::string & interface_name) const
+{
+	auto it = std::find_if(mChildren.begin(), mChildren.end(), [=](const std::shared_ptr<AArchElement> & el){return el->interfaceDeclaration().name() == interface_name;});
+	if(it == mChildren.end())
+		return nullptr;
+	else
+	{
+		return *it;
+	}
+}

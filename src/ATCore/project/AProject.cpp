@@ -62,6 +62,14 @@ void AProject::serialize(xmlNodePtr root_node) const
 	//Serialize project tree and save all changed referenced files
 	xmlNode * project_tree_node = xmlNewChild(root_node, NULL, BAD_CAST "project_root_node", BAD_CAST "");
 	m_pRootNode->serialize(project_tree_node);
+
+	//Save current detailed EDFD
+	if(m_pDetailEDFD)
+	{
+		xmlNode * detailed_edfd = xmlNewChild(root_node, NULL, BAD_CAST "detailed_edfd", BAD_CAST "");
+		xmlNewProp(detailed_edfd, BAD_CAST "filename" , BAD_CAST "main.edfd");
+		m_pDetailEDFD->saveToFile(projectDir() + "/main.edfd");
+	}
 }
 
 AError AProject::deserialize(xmlNodePtr root_node)
@@ -71,6 +79,15 @@ AError AProject::deserialize(xmlNodePtr root_node)
 
 	xmlNode * project_tree_node = child_for_path(root_node, "project_root_node");
 	m_pRootNode->deserialize(project_tree_node);
+
+	xmlNode * detailed_edfd = child_for_path(root_node, "detailed_edfd");
+	if(detailed_edfd)
+	{
+		m_pDetailEDFD.reset(new EDFDDocument());
+		auto cfilename = xml_prop(detailed_edfd, "filename");
+
+		m_pDetailEDFD->loadFromFile(projectDir() + "/" + string(cfilename));
+	}
 
 	return AError();
 }
@@ -85,7 +102,56 @@ void AProject::documentsWithExtension(std::vector<const ADocumentProjectNode*> &
 	m_pRootNode->getDocumentNodesWithExtension(doc_nodes, ext);
 }
 
-std::shared_ptr<EDFDDocument> AProject::commonEDFD(AError * err) const
+struct DFDHierarchyNode
+{
+	DFDHierarchyNode(const shared_ptr<EDFDDocument> & _doc)
+		:doc(_doc)
+	{}
+
+	~DFDHierarchyNode()
+	{
+		for(auto c : children)
+			delete c;
+	}
+
+	bool detailWith(const shared_ptr<EDFDDocument> & _doc)
+	{
+		if(doc->isDetalizedWith(_doc))
+		{
+			DFDHierarchyNode * new_child = new DFDHierarchyNode(_doc);
+			children.push_back(new_child);
+			return true;
+		}
+		else
+		{
+			for(auto c : children)
+			{
+				if(c->detailWith(_doc))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+	}
+
+	void merge()
+	{
+		for(auto c : children)
+		{
+			c->merge();
+
+			//Merge documents
+			doc->mergeWith(c->doc);
+		}
+	}
+
+	shared_ptr<EDFDDocument> doc;
+	vector<DFDHierarchyNode*> children;
+};
+
+void AProject::buildCommonEDFD(AError * err) const
 {
 	//Get all EDFD document nodes
 	vector<const ADocumentProjectNode*> edfd_nodes;
@@ -104,28 +170,83 @@ std::shared_ptr<EDFDDocument> AProject::commonEDFD(AError * err) const
 	for(auto & doc : edfd_docs)
 	{
 		if(doc->isDetalized())
-			doc->buildDetalizationLinks(edfd_docs);
+		{
+			AError res = doc->buildDetalizationLinks(edfd_docs);
+			if(!res.OK())
+			{
+				AError::criticalErrorOccured(res);
+				return;
+			}
+		}
 	}
 
-	//Find top-level diagramm - the one left is it
+	//Build detalization tree
+	
+	DFDHierarchyNode * root_node = new DFDHierarchyNode(*edfd_docs.begin());
+	edfd_docs.erase(edfd_docs.begin());
 
-	//Check that it is unique
-	return edfd_docs[0];	///!!!!!!!!!!!!!!!!!!!
-	if(edfd_docs.size() > 1)
+	while(!edfd_docs.empty())
 	{
-		if(err)
-			*err = AError(AT_ERROR_PROJECT_DATA, "More than one EDFD diagramm are top-level, must be only one.");
-		return nullptr;
+		bool something_added = false;
+		auto it = edfd_docs.begin();
+
+		while(it != edfd_docs.end())
+		{
+			//Check that current document can be detalized with root node
+			if((*it)->isDetalizedWith(root_node->doc))
+			{
+				//Create top-level node
+				DFDHierarchyNode * new_root = new DFDHierarchyNode(*it);
+				
+				//Add current root to it's children
+				new_root->children.push_back(root_node);
+
+				root_node = new_root;
+
+				//Remove doc from src list
+				
+				something_added = true;
+			}
+			else
+			{
+				something_added = root_node->detailWith(*it);
+			}
+
+			if(something_added)
+			{
+				edfd_docs.erase(it);
+				break;
+			}
+			else
+				++it;
+		}
+
+		if(!something_added)
+		{
+			AError::criticalErrorOccured(AError(AT_ERROR_PROJECT_DATA, "Invalid EDFD Hierarchy structure, cannon build detailed diagramm. Maybe bore than one EDFD diagramm are top-level, must be only one."));
+			return;
+		}
 	}
 
-	//Perform detalization
+	//Recursively merge tree children
+	root_node->merge();
+	m_pDetailEDFD = root_node->doc;
 
-	shared_ptr<EDFDDocument> detailed_doc;
+	//Delete tree structure
+	delete root_node;
 
 	if(err)
 		*err = AError();
 
-	return detailed_doc;
+	
+}
+
+std::shared_ptr<EDFDDocument> AProject::commonEDFD(AError * err)
+{
+	if(!m_pDetailEDFD)
+		buildCommonEDFD(err);
+
+	return m_pDetailEDFD;
 }
 
 ADocumentProjectNode * AProject::addDocument(ADocument * doc)
@@ -133,4 +254,14 @@ ADocumentProjectNode * AProject::addDocument(ADocument * doc)
 	ADocumentProjectNode * new_node = new ADocumentProjectNode(doc);
 	m_pRootNode->addChild(new_node);
 	return new_node;
+}
+
+ADocumentProjectNode* AProject::findDocumentNode(const std::string & doc_name)
+{
+	return m_pRootNode->findDocumentNode(doc_name);
+}
+
+std::string AProject::documentPath(ADocumentProjectNode * doc_node) const
+{
+	return mProjectDir + "/" + doc_node->name();
 }

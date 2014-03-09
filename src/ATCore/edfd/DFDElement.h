@@ -55,6 +55,9 @@ public:
 	void serialize(_xmlNode * element_node) const;
 	virtual AError deserialize(_xmlNode * element_node);
 
+	//True, if elelemt is same as given
+	bool isSameAs(DFDElement * another) const;
+
 	static DFDElement * createAndDeserialize(_xmlNode * element_node);
 
 private:

@@ -44,8 +44,20 @@
     </item>
     <item>
      <widget class="AGDocumentView" name="gvDocument">
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
       <property name="dragMode">
-       <enum>QGraphicsView::RubberBandDrag</enum>
+       <enum>QGraphicsView::NoDrag</enum>
+      </property>
+      <property name="transformationAnchor">
+       <enum>QGraphicsView::NoAnchor</enum>
+      </property>
+      <property name="viewportUpdateMode">
+       <enum>QGraphicsView::MinimalViewportUpdate</enum>
       </property>
      </widget>
     </item>

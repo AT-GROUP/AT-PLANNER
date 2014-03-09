@@ -1,5 +1,8 @@
 #include "AConsoleWidget.h"
 #include <ATCore/AError.h>
+#include <string>
+
+using namespace std;
 
 AConsoleWidget::AConsoleWidget(QWidget *parent)
 	: QWidget(parent), m_pDelegate(nullptr)
@@ -8,6 +11,8 @@ AConsoleWidget::AConsoleWidget(QWidget *parent)
 
 	//Bind enter to command execution
 	connect(ui.edInput, &QLineEdit::returnPressed, this, &AConsoleWidget::commandExecutionRequested);
+
+	set_error_messenger(this);
 }
 
 AConsoleWidget::~AConsoleWidget()
@@ -47,4 +52,9 @@ void AConsoleWidget::commandExecutionRequested()
 	{
 		printString("Cannot execute command, interpreter not set.");
 	}
+}
+
+void AConsoleWidget::criticalErrorOccured(const AError & error)
+{
+	printString("Error" + string(error.text()));
 }

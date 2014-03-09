@@ -24,6 +24,7 @@
 			<input name="Solver" type="ATSolver" necessary="1"/>
 			<input name="DB Driver" type="DBDriver" necessary="0"/>
 			<input name="Scripter" type="ATScripter" necessary="0"/>
+			<input name="Explainer" type="ATExplainer" necessary="0"/>
 		</input>
 	</interface>
 	<interface type="1" name="DBDriver" descr="Driver for accessing database">
@@ -42,6 +43,11 @@
 	<interface type="1" name="ATScripter" descr="Script interpreter for MSOffice integration">
 		<input>
 			<input name="Script" type="VBAScript" necessary="1"/>
+		</input>
+	</interface>
+	<interface type="1" name="SimpleOperation" descr="Component representing any formalizable operation">
+		<input>
+			<input name="DB Driver" type="DBDriver" necessary="0"/>
 		</input>
 	</interface>
 </PIKDatabase>

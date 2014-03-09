@@ -50,14 +50,22 @@ public:
 	/*
 	Performs EDFD detalization, creates new document and returns it.
 	*/
-	std::shared_ptr<EDFDDocument> commonEDFD(AError * err = nullptr) const;
+	void buildCommonEDFD(AError * err = nullptr) const;
 
+	std::shared_ptr<EDFDDocument> commonEDFD(AError * err = nullptr);
 	/*
 	Adds document to project, creates document node
 	in project root and returns created node.
 	*/
 	ADocumentProjectNode * addDocument(ADocument * doc);
 
+	/*
+	Searches for document node in the project tree.
+	*/
+	ADocumentProjectNode* findDocumentNode(const std::string & doc_name);
+
+	//
+	std::string documentPath(ADocumentProjectNode * doc_node) const;
 private:
 	ARootProjectNode * m_pRootNode;
 	//AProjectNode * m_pProject;
@@ -71,6 +79,8 @@ private:
 	Project filename with extension.
 	*/
 	std::string mProjectFileName;
+
+	mutable std::shared_ptr<EDFDDocument> m_pDetailEDFD;
 };
 
 #endif

@@ -6,7 +6,7 @@
 #include <ATCore/AError.h>
 #include <ATCore/ACommandExecutor.h>
 
-class AConsoleWidget : public QWidget
+class AConsoleWidget : public QWidget, public AErrorMessenger
 {
 	Q_OBJECT
 
@@ -15,6 +15,9 @@ public:
 	~AConsoleWidget();
 	void setDelegate(AIConsoleDelegate * _delegate);
 	void printString(const std::string & str);
+	
+	//Messenger implementation
+	virtual void criticalErrorOccured(const AError & error) override;
 public slots:
 	void commandExecutionRequested();
 private:

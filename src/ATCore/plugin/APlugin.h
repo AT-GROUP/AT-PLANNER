@@ -94,6 +94,7 @@ class AEditorDelegate
 {
 public:
 	virtual void documentChanged(const std::shared_ptr<ADocument> & doc) = 0;
+	virtual void documentOpenRequested(const std::string & document_name) = 0;
 };
 
 class AT_CORE_API AEditorInstance
@@ -107,6 +108,7 @@ public:
 	const std::shared_ptr<ADocument> & document() const;
 	void saveCurrentDocument();
 	void setDelegate(AEditorDelegate * _delegate);
+	AEditorDelegate * delegate();
 	virtual void showDocument() = 0;
 private:
 	AEditorPlugin * m_pPlugin;

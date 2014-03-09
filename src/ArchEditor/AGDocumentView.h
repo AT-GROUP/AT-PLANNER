@@ -32,10 +32,7 @@ protected:
 	virtual void mouseMoveEvent(QMouseEvent *event);
 	virtual void mouseReleaseEvent(QMouseEvent *event);
 
-	/*virtual void mousePressEvent(QGraphicsSceneMouseEvent *event)
-	{
-		event->ignore();
-	}*/
+	virtual void mousePressEvent(QMouseEvent *event);
 	
 public slots:
 	void startLinkDragging(AGArchElement * src, QPoint start_point);
@@ -50,6 +47,12 @@ private:
 		QPoint startPoint;
 		AGArchElement * source_item;
 	} mLinkCreating;
+
+	struct
+	{
+		bool active;
+		QPoint lastPos;
+	} mDrag;
 };
 
 #endif

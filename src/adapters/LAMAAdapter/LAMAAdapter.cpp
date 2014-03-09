@@ -205,7 +205,8 @@ APlan * LAMAAdapter::buildGeneralizedPlan(const EDFDDocument * common_dfd)
 
 	//=====================Call planner to solve the problem=======================
 	_chdir("temp");
-	system("\"C:\\Program Files\\Emscripten\\python\\2.7.5.3_64bit\\python\" ..\\planners\\tfd\\translate\\translate.py generalized_plan_domain.pddl generalized_plan_problem.pddl");
+	string python_cmd = "\"C:\\Program Files (x86)\\Python26\\python.exe\" ..\\planners\\tfd\\translate\\translate.py generalized_plan_domain.pddl generalized_plan_problem.pddl";
+	system(python_cmd.c_str());
 	system(" ..\\planners\\tfd\\preprocess.exe < output.sas");
 	system(" ..\\planners\\tfd\\search.exe ay t 3 p plan.tfd < output");
 
@@ -240,6 +241,7 @@ APlan * LAMAAdapter::buildGeneralizedPlan(const EDFDDocument * common_dfd)
 		int e_id = atoi(el_id.c_str());
 
 		auto el = elements[e_id];
+
 
 		AGeneralTask * gtask = new AGeneralTask(2, "Develop \"" + el->name() + "\"");
 		plan->addTask(gtask);
