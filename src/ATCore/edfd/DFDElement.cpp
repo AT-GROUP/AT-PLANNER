@@ -31,6 +31,8 @@ void DFDElement::serialize(_xmlNode * element_node) const
 	xmlNewProp(element_node, BAD_CAST "type" , BAD_CAST to_string(static_cast<int>(type())).c_str());
 	xmlNewProp(element_node, BAD_CAST "detal" , BAD_CAST BoolToString(mDetalization.used));
 
+	xmlNewProp (element_node, BAD_CAST "id" , BAD_CAST to_string(id()).c_str());
+
 	if (mDetalization.used)
 	{
 		xmlNewProp(element_node, BAD_CAST "detal_doc_name" , BAD_CAST mDetalization.document_name.c_str());
@@ -49,6 +51,9 @@ AError DFDElement::deserialize(_xmlNode * element_node)
 	Mouse_pos.setX(atoi(_xPos));
 	Mouse_pos.setY(atoi(_yPos));
 
+	const char * cid = xml_prop(element_node, "id");
+	setId(atoi(cid));
+
 	return AError();
 }
 
@@ -58,6 +63,16 @@ bool DFDElement::isSameAs(DFDElement * another) const
 	res = res && (type() == another->type());
 	res = res && (name() == another->name());
 	return res;
+}
+
+int DFDElement::id() const
+{
+	return mId;
+}
+
+void DFDElement::setId(const int new_id)
+{
+	mId = new_id;
 }
 
 DFDElement * DFDElement::createAndDeserialize(_xmlNode * element_node)

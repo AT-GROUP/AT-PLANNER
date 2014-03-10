@@ -238,7 +238,8 @@ void AProject::buildCommonEDFD(AError * err) const
 	if(err)
 		*err = AError();
 
-	
+	//For building IDs!
+	m_pDetailEDFD->saveToFile(projectDir() + "/main.cache.edfd");
 }
 
 std::shared_ptr<EDFDDocument> AProject::commonEDFD(AError * err)
@@ -261,7 +262,7 @@ ADocumentProjectNode* AProject::findDocumentNode(const std::string & doc_name)
 	return m_pRootNode->findDocumentNode(doc_name);
 }
 
-std::string AProject::documentPath(ADocumentProjectNode * doc_node) const
+std::string AProject::documentPath(const ADocumentProjectNode * doc_node) const
 {
 	return mProjectDir + "/" + doc_node->name();
 }

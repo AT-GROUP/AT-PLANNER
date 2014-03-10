@@ -58,10 +58,13 @@ public:
 	//True, if elelemt is same as given
 	bool isSameAs(DFDElement * another) const;
 
-	static DFDElement * createAndDeserialize(_xmlNode * element_node);
+	int id() const;
+	void setId(const int new_id);
 
+	static DFDElement * createAndDeserialize(_xmlNode * element_node);
 private:
 	std::vector<DFDElement*> mChildren;
+	int mId;
 
 public:
 	struct

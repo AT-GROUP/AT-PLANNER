@@ -65,7 +65,7 @@ public:
 	ADocumentProjectNode* findDocumentNode(const std::string & doc_name);
 
 	//
-	std::string documentPath(ADocumentProjectNode * doc_node) const;
+	std::string documentPath(const ADocumentProjectNode * doc_node) const;
 private:
 	ARootProjectNode * m_pRootNode;
 	//AProjectNode * m_pProject;

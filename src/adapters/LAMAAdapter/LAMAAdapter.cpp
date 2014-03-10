@@ -2,6 +2,9 @@
 #include "LAMAAdapter.h"
 #include <ATCore/edfd/EDFDDocument.h>
 #include <ATCore/plan/APlan.h>
+#include <ATCore/architecture/AArchitectureDocument.h>
+#include <ATCore/architecture/AArchElement.h>
+#include <ATCore/architecture/AArchLink.h>
 #include <direct.h>
 #include <string>
 #include <windows.h>
@@ -32,6 +35,9 @@ APlan * LAMAAdapter::buildGeneralizedPlan(const EDFDDocument * common_dfd)
 	//Create temp directory
 	_mkdir("temp");
 
+	//clear files
+	bool res = DeleteFile(L"temp/plan.tfd.best");
+
 	//Get domain file from KB
 	string domain_file_path = "kb/TFD/generalized_plan.pddl";
 	CopyFileA(domain_file_path.c_str(), "temp/generalized_plan_domain.pddl", false);
@@ -57,6 +63,7 @@ APlan * LAMAAdapter::buildGeneralizedPlan(const EDFDDocument * common_dfd)
 	{
 		elements.push_back(e.get());
 		typed_elements[e->type()].push_back(e.get());
+
 	}
 
 	for(auto eg : typed_elements)
@@ -232,6 +239,7 @@ APlan * LAMAAdapter::buildGeneralizedPlan(const EDFDDocument * common_dfd)
 
 	plan_file.close();
 
+
 	APlan * plan = new APlan();
 
 	for(auto act : plan_actions)
@@ -243,7 +251,7 @@ APlan * LAMAAdapter::buildGeneralizedPlan(const EDFDDocument * common_dfd)
 		auto el = elements[e_id];
 
 
-		AGeneralTask * gtask = new AGeneralTask(2, "Develop \"" + el->name() + "\"");
+		AGeneralTask * gtask = new AGeneralTask(el->id(), "Develop \"" + el->name() + "\"");
 		plan->addTask(gtask);
 	}
 
@@ -256,6 +264,252 @@ APlan * LAMAAdapter::buildGeneralizedPlan(const EDFDDocument * common_dfd)
 
 APlan * LAMAAdapter::buildDetailPlan(APlan * plan, const AArchitectureDocument * arch_doc)
 {
+	//Create temp directory
+	_mkdir("temp");
 
-	return plan;
+	//Get domain file from KB
+	string domain_file_path = "kb/TFD/detail_plan.pddl";
+	CopyFileA(domain_file_path.c_str(), "temp/detail_plan_domain.pddl", false);
+
+	//Remove old files
+	bool res = DeleteFile(L"temp/plan.tfd.best");
+
+	//====================Generate problem file==============================
+	ofstream problem_file;
+	problem_file.open("temp/detail_plan_problem.pddl" , fstream::out);     
+
+	//Head
+
+	problem_file << "(define (problem detail-plan-building)\n"
+				<<	"(:domain AT-detail-plan-LAMA)\n\n";
+
+
+	//=================================
+	//Objects
+	problem_file << "(:objects\n";
+
+	//Global tasks
+	problem_file << "\t";
+	for(int g = 0; g < plan->tasks().size(); ++g)
+	{
+		auto gtask = plan->tasks()[g];		
+		problem_file << "gt" << g << " ";
+	}
+	
+	problem_file << " - global-task\n";
+
+	
+	//Architecture instances
+	vector<AArchElement*> arch_index;
+	map<string, vector<AArchElement*>> arch_elements;
+	vector<AArchElement*> configurable_elements;
+	map<int, vector<AArchElement*>> task_assignation;
+	for(auto gr : arch_doc->groups())
+	{
+		int dfd_el_id = gr->dfdElement()->id();
+
+		for(auto e : gr->children())
+		{
+			task_assignation[dfd_el_id].push_back(e.get());
+			arch_index.push_back(e.get());
+			arch_elements[e->interfaceDeclaration().name()].push_back(e.get());
+			
+			if(e->type() == AArchElement::Type::Functional)
+			{
+				auto fe = static_cast<AArchFuncElement*>(e.get());
+				if(fe->hasConfig())
+				{
+					configurable_elements.push_back(fe);
+				}
+			}
+		}
+	}
+
+	for(auto gr : arch_elements)
+	{
+		problem_file << "\t";
+
+		for(auto e : gr.second)
+		{
+			int e_index = std::distance(arch_index.begin(), std::find(arch_index.begin(), arch_index.end(), e));
+			problem_file << "e" << e_index << " ";
+		}
+		
+		problem_file << "- " << gr.first << "\n";
+	}
+	//gtask->dfdElementId();
+
+	problem_file << ")\n";
+
+	//==================================================
+	//Initial state
+	problem_file << "\n(:init\n";
+
+	//Global task sequence
+	problem_file << "\t";
+	for(int g = 0; g < plan->tasks().size() - 1; ++g)
+	{
+		problem_file << "(is-after gt" << g << " gt" << g+1 << ") ";
+	}
+	problem_file << "\n";
+
+	//Current task - first task
+	problem_file << "\t(current-global-task gt0)\n";
+
+	//Total-cost = 0
+	problem_file << "\t(= (total-cost) 0)\n";
+
+	//Configurations
+	problem_file << "\n\t";
+	for(auto ce : configurable_elements)
+	{
+		int e_index = std::distance(arch_index.begin(), std::find(arch_index.begin(), arch_index.end(), ce));
+		problem_file << "(must-be-configured e" << e_index << ") ";
+	}
+	problem_file << "\n\n";
+
+	//What is necessary to develop
+	problem_file << "\t";
+	for(int i = 0; i < arch_index.size(); ++i)
+	{
+		if(arch_index[i]->mustBeDeveloped())
+		{
+			int e_index = std::distance(arch_index.begin(), std::find(arch_index.begin(), arch_index.end(), arch_index[i]));
+			problem_file << "(must-be-developed e" << e_index << ") ";
+		}
+	}
+	problem_file << "\n\n";
+	
+	//Task assignations
+	for(int g = 0; g < plan->tasks().size(); ++g)
+	{
+		auto task = plan->tasks()[g];
+
+		int dfd_el_id = task->dfdElementId();
+		
+		problem_file << "\t";
+
+		for(auto el : task_assignation[dfd_el_id])
+		{
+			int e_index = std::distance(arch_index.begin(), std::find(arch_index.begin(), arch_index.end(), el));
+			problem_file << "(assigned-to-task e" << e_index << " gt" << g << ") ";
+		}
+		
+		problem_file << "\n";
+	}
+
+	//Inputs
+	problem_file << "\n\t";
+	for(auto l : arch_doc->links())
+	{
+		int src_index = std::distance(arch_index.begin(), std::find(arch_index.begin(), arch_index.end(), l->source())), 
+			dst_index = std::distance(arch_index.begin(), std::find(arch_index.begin(), arch_index.end(), l->destination()));
+
+		problem_file << "(is-input-for e" << src_index << " e" << dst_index << ") ";
+	}
+	problem_file << "\n";
+
+	problem_file << ")\n";
+
+	//===================================
+	//Goals
+	problem_file <<	"\n(:goal\n";
+	problem_file <<	"\t(project-finished)\n";
+	problem_file <<	")\n";
+
+	//============================
+	//Metric
+	problem_file <<	"\n(:metric minimize (total-cost))\n\n";
+
+	problem_file <<	")\n";
+
+	problem_file.close();
+
+	//=====================Call planner to solve the problem=======================
+	_chdir("temp");
+	system("\"C:\\Program Files (x86)\\Python26\\python.exe\" ..\\planners\\tfd\\translate\\translate.py detail_plan_domain.pddl detail_plan_problem.pddl");
+	system(" ..\\planners\\tfd\\preprocess.exe < output.sas");
+	system(" ..\\planners\\tfd\\search.exe ay t 3 p plan.tfd < output");
+
+	//====================Parse the plan===================
+	ifstream plan_file;
+	plan_file.open("plan.tfd.best", istream::in);
+
+	vector<string> executable_actions;
+	executable_actions.push_back("project-database");
+	executable_actions.push_back("configure-pik");
+	executable_actions.push_back("acquire-knowledges-kmpz");
+	executable_actions.push_back("write-dialog-scenario");
+	executable_actions.push_back("develop-simple-operation");
+
+	vector<string> plan_actions;
+
+	while(plan_file)
+	{
+		string line;
+		getline(plan_file, line);
+
+		for(auto ea : executable_actions)
+		{
+			if(line.find(ea) != string::npos)
+			{
+				plan_actions.push_back(line);
+				break;
+			}
+		}
+	}
+	
+	vector<ASubTask*> detail_sequence;
+
+	for(auto act : plan_actions)
+	{
+		size_t pos_start = act.find("(");
+		act = act.substr(pos_start + 1, act.length() - pos_start - 1);
+
+		pos_start = act.find(' ');
+		string act_name = act.substr(0, pos_start);
+
+		act = act.substr(pos_start + 1, act.length() - pos_start - 1);
+		
+		pos_start = act.find(' ');
+		string selement_id = act.substr(1, pos_start - 1);
+		act = act.substr(pos_start + 1, act.length() - pos_start - 1);
+
+		pos_start = act.find(')');
+		string sglobal_task_id = act.substr(2, pos_start - 1);
+		
+		int element_index = atoi(selement_id.c_str()), 
+			global_task_index = atoi(sglobal_task_id.c_str());
+
+		AGeneralTask * gtask = plan->tasks()[global_task_index];
+		AArchElement * el = arch_index[element_index];
+
+		ASubTask * subTask = new ASubTask(gtask, act_name + ": " + el->name());
+		gtask->addSubTask(subTask);
+
+		detail_sequence.push_back(subTask);
+	}
+
+	plan_file.close();
+
+	//Build correct display groups
+	int start_index = 0;
+
+	while(start_index < detail_sequence.size())
+	{
+		//find end_index
+		int end_index = start_index;
+		while((end_index < detail_sequence.size()) && (detail_sequence[start_index]->parent() == detail_sequence[end_index]->parent()))
+			++end_index;
+
+		DisplayTaskGroup dg;
+		dg.general_task = detail_sequence[start_index]->parent();
+		dg.sub_tasks.insert(dg.sub_tasks.end(), detail_sequence.begin() + start_index, detail_sequence.begin() + end_index);
+
+		plan->addDisplayGroup(dg);
+
+		start_index = end_index;
+	}
+
+ 	return plan;
 }

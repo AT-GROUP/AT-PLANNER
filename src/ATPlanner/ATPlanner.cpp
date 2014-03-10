@@ -111,10 +111,14 @@ AError ATPlanner::buildDetailPlan()
 	//Get architecture document
 	vector<const ADocumentProjectNode*> archs;
 	m_pProject->documentsWithExtension(archs, "arch");
-	if(archs.size())
+	if(archs.size() == 0)
 		return AError(AT_ERROR_PROJECT_DATA, "Architecture docs not found.");
+	else if(archs.size() > 1)
+		return AError(AT_ERROR_PROJECT_DATA, "There must be only 1 architecture document.");
 
-	auto arch_doc = static_cast<const AArchitectureDocument*>(archs[0]->file());
+	auto doc_path = m_pProject->documentPath(archs[0]);
+	shared_ptr<AArchitectureDocument> arch_doc(new AArchitectureDocument());
+	arch_doc->loadFromFile(doc_path);
 
 	//Find suitable adapter for planner
 	auto adapters = m_pPluginManager->plugins(APlugin::Type::Adapter);
@@ -124,7 +128,7 @@ AError ATPlanner::buildDetailPlan()
 	auto adapter = static_cast<AAdapterPlugin*>(adapters[0]->plugin());
 
 	//Solve task with adapter, based on generalized plan and architecture
-	APlan * new_plan = adapter->buildDetailPlan(m_pCurrentPlan, arch_doc);
+	APlan * new_plan = adapter->buildDetailPlan(m_pCurrentPlan, arch_doc.get());
 
 	//Show plan and make current
 	setPlan(new_plan);

@@ -140,6 +140,18 @@ APIKConfigInstance & AArchFuncElement::config()
 	return mConfig;
 }
 
+bool AArchFuncElement::mustBeDeveloped() const
+{
+	if(hasConfig())
+		return true;
+	else
+	{
+		if(interfaceDeclaration().name() == "SimpleOperation")
+			return true;
+		else
+			return false;
+	}
+}
 //=====================Informational element==========================
 
 AArchInfoElement::AArchInfoElement(APIKInterfaceInf & intf, const std::string & _name)

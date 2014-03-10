@@ -20,7 +20,9 @@ APlannerWidget::APlannerWidget(ATPlanner * _planner, QWidget *parent)
 	});
 
 	connect(ui.bnBuildDetailedPlan, &QPushButton::clicked, [=](){
-		m_pPlanner->buildDetailPlan();
+		AError res = m_pPlanner->buildDetailPlan();
+		if(!res.OK())
+			AError::criticalErrorOccured(res);
 	});
 }
 
@@ -38,12 +40,28 @@ void APlannerWidget::displayPlan(APlan * new_plan)
 {
 	ui.treeCurrentPlan->clear();
 
-	for(auto & t : new_plan->tasks())
+	
+	/*for(auto & t : new_plan->tasks())
 	{
 		QStringList row;
 		row << QString::fromStdString(t->name());
 		QTreeWidgetItem * gtask_item = new QTreeWidgetItem(ui.treeCurrentPlan, row);
 
 		ui.treeCurrentPlan->addTopLevelItem(gtask_item);
+	}*/
+
+	for(auto & dg : new_plan->displayGroups())
+	{
+		QStringList row;
+		row << QString::fromStdString(dg.general_task->name());
+		QTreeWidgetItem * gtask_item = new QTreeWidgetItem(ui.treeCurrentPlan, row);
+		ui.treeCurrentPlan->addTopLevelItem(gtask_item);
+
+
+		for(auto st : dg.sub_tasks)
+		{
+			QTreeWidgetItem * sub_item = new QTreeWidgetItem(gtask_item);
+			sub_item->setText(0, QString::fromStdString(st->name()));
+		}
 	}
 }

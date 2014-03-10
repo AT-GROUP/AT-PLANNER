@@ -30,6 +30,7 @@ public:
 
 	APIKInterface::Slot & slot(const std::string & slot_name);
 	const APIKInterface & interfaceDeclaration() const;
+	virtual bool mustBeDeveloped() const = 0;
 protected:
 	APIKInterface & mInterface;
 private:
@@ -74,7 +75,7 @@ public:
 	const APIKConfigInstance & config() const;
 	APIKConfigInstance & config();
 
-	
+	virtual bool mustBeDeveloped() const;
 private:
 	APIKConfigInstance mConfig;
 };
@@ -88,6 +89,11 @@ class AT_CORE_API AArchInfoElement : public AArchElement
 public:
 	AArchInfoElement(APIKInterfaceInf & intf, const std::string & _name = "");
 	virtual Type type() const override;
+
+	virtual bool mustBeDeveloped() const
+	{
+		return true;
+	}
 };
 
 #endif

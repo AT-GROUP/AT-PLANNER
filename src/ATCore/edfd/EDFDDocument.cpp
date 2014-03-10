@@ -75,9 +75,8 @@ void EDFDDocument::serialize(_xmlNode * document_node) const
 	for(auto e : mElements)
 	{
 		xmlNodePtr child_node = xmlNewChild(doc_node1, NULL, BAD_CAST "elem", BAD_CAST "");
+		e->setId(i);
 		e->serialize(child_node);
-		xmlNewProp (child_node, BAD_CAST "id" , BAD_CAST to_string(i).c_str());
-
 		i++;
 	}
 
