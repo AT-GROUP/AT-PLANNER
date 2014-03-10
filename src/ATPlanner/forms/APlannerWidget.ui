@@ -30,7 +30,17 @@
     <widget class="QTreeWidget" name="treeCurrentPlan">
      <column>
       <property name="text">
-       <string notr="true">1</string>
+       <string notr="true">Task Name</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Done</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Execute</string>
       </property>
      </column>
     </widget>
@@ -83,6 +93,8 @@
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../../../ATPlanner/ATPlanner.qrc"/>
+ </resources>
  <connections/>
 </ui>

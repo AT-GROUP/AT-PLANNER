@@ -1,8 +1,8 @@
 
 #include "APlan.h"
 
-AGeneralTask::AGeneralTask(int dfd_element_id, std::string _name)
-	:ANamedObject(_name), mDFDElementId(dfd_element_id)
+AGeneralTask::AGeneralTask(int dfd_element_id, DFDElement::Type dfd_type, std::string _name)
+	:ANamedObject(_name), mDfdType(dfd_type), mDFDElementId(dfd_element_id)
 {
 
 }
@@ -17,9 +17,14 @@ void AGeneralTask::addSubTask(ASubTask * sub_task)
 	mSubTasks.push_back(sub_task);
 }
 
+const DFDElement::Type AGeneralTask::dfdType() const
+{
+	return mDfdType;
+}
+
 //================ASubTask=====================
 ASubTask::ASubTask(AGeneralTask * parent_task, std::string _name)
-	:ANamedObject(_name), m_pParent(parent_task)
+	:ANamedObject(_name), m_pParent(parent_task), mDone(false)
 {
 
 }
@@ -27,6 +32,21 @@ ASubTask::ASubTask(AGeneralTask * parent_task, std::string _name)
 AGeneralTask * ASubTask::parent() const
 {
 	return m_pParent;
+}
+
+void ASubTask::setExecutionString(const std::string & execution_string)
+{
+	mExecutionString = execution_string;
+}
+
+const std::string & ASubTask::executionString() const
+{
+	return mExecutionString;
+}
+
+bool ASubTask::done() const
+{
+	return mDone;
 }
 
 //================APlan======================

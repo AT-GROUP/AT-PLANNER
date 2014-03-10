@@ -251,7 +251,7 @@ APlan * LAMAAdapter::buildGeneralizedPlan(const EDFDDocument * common_dfd)
 		auto el = elements[e_id];
 
 
-		AGeneralTask * gtask = new AGeneralTask(el->id(), "Develop \"" + el->name() + "\"");
+		AGeneralTask * gtask = new AGeneralTask(el->id(), el->type(), "Develop \"" + el->name() + "\"");
 		plan->addTask(gtask);
 	}
 
@@ -485,6 +485,20 @@ APlan * LAMAAdapter::buildDetailPlan(APlan * plan, const AArchitectureDocument *
 		AArchElement * el = arch_index[element_index];
 
 		ASubTask * subTask = new ASubTask(gtask, act_name + ": " + el->name());
+		
+		string execution_string;
+		
+		if(act_name == "project-database")
+		{
+			execution_string = "exec-tpp project-database \"" + el->name() + "\"";
+		}
+		else if(act_name == "configure-pik")
+		{
+			execution_string = "configure \"" + el->name() + "\"";
+		}
+		
+		subTask->setExecutionString(execution_string);
+
 		gtask->addSubTask(subTask);
 
 		detail_sequence.push_back(subTask);

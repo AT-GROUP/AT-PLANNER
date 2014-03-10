@@ -7,6 +7,7 @@
 #include <ATCore/plugin/APluginManager.h>
 #include <ATCore/plugin/APlugin.h>
 #include <ATCore/architecture/AArchitectureDocument.h>
+#include <ATCore/ACommandExecutor.h>
 #include <vector>
 
 using namespace std;
@@ -135,6 +136,14 @@ AError ATPlanner::buildDetailPlan()
 
 
 	return AError();
+}
+
+int ATPlanner::executeTask(ASubTask * task)
+{
+	string res;
+	command_executor()->executeCommand(task->executionString(), res);
+
+	return 0;
 }
 
 void ATPlanner::setPlan(APlan * new_plan)

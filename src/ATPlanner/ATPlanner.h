@@ -12,6 +12,7 @@ class AProject;
 class APluginManager;
 class ADocumentProjectNode;
 class AArchElementFactory;
+class ASubTask;
 
 class AT_PLANNER_API APlannerDelegate
 {
@@ -50,6 +51,13 @@ public:
 	*/
 	AError buildDetailPlan();
 
+	/*
+	Tryies to execute task and returns:
+	0 - task was executed;
+	1 - was cancelled
+	2 - failed to execute
+	*/
+	int executeTask(ASubTask * task);
 private:
 	void setPlan(APlan * new_plan);
 private:

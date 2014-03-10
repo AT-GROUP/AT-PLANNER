@@ -18,6 +18,7 @@ public:
 	
 	//Messenger implementation
 	virtual void criticalErrorOccured(const AError & error) override;
+	virtual void printMessage(const std::string & msg) override;
 public slots:
 	void commandExecutionRequested();
 private:

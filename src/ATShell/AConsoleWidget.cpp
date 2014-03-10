@@ -56,5 +56,10 @@ void AConsoleWidget::commandExecutionRequested()
 
 void AConsoleWidget::criticalErrorOccured(const AError & error)
 {
-	printString("Error" + string(error.text()));
+	printString("Error: " + string(error.text()));
+}
+
+void AConsoleWidget::printMessage(const std::string & msg)
+{
+	printString(msg);
 }

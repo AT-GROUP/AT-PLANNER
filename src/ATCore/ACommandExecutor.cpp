@@ -9,6 +9,8 @@ ACommandExecutor::ACommandExecutor()
 
 AError ACommandExecutor::executeCommand(const std::string & cmd_text, std::string & answer)
 {
+	error_messenger()->printMessage("Executing command: " + cmd_text);
+
 	AUtilityPlugin * plug = getPluginForCommand(cmd_text);
 	if(plug == nullptr)
 	{
@@ -18,9 +20,8 @@ AError ACommandExecutor::executeCommand(const std::string & cmd_text, std::strin
 	
 	AError res = plug->executeCommand(cmd_text, answer);
 
+	error_messenger()->printMessage("Result: " + answer);
 	return res;
-
-	
 }
 
 
