@@ -54,7 +54,9 @@ void DFDGraphicsElement::connTo()
 
 void DFDGraphicsElement::setDe()
 {
-	auto fname = QFileDialog::getOpenFileName(0, "Select file to open", QDir::currentPath(), "EDFD document (*.edfd)");
+	auto fpath = QFileDialog::getOpenFileName(0, "Select file to open", QDir::currentPath(), "EDFD document (*.edfd)");
+	QFileInfo fi(fpath);
+	auto fname = fi.fileName();
 	if(fname == "")
 		return;
 	this->m_pObject->mDetalization.used = true;
@@ -69,7 +71,9 @@ void DFDGraphicsElement::delDe()
 
 void DFDGraphicsElement::changeDe()
 {
-	auto fname = QFileDialog::getOpenFileName(0, "Select file to open", QDir::currentPath(), "EDFD document (*.edfd)");
+	auto fpath = QFileDialog::getOpenFileName(0, "Select file to open", QDir::currentPath(), "EDFD document (*.edfd)");
+	QFileInfo fi(fpath);
+	auto fname = fi.fileName();
 	if(fname == "")
 		return;
 
