@@ -1,13 +1,13 @@
-
 #ifndef ATEnvironment_EDFDDocument_h
 #define ATEnvironment_EDFDDocument_h
 
+#include <vector>
+#include <memory>
 #include "../config.h"
 #include "../ADocument.h"
 #include "DFDElement.h"
 #include "DFDConnection.h"
-#include <vector>
-#include <memory>
+#include "DFDAnchor.h"
 
 struct _xmlNode;
 
@@ -36,9 +36,11 @@ public:
 
 	void mergeWith(const std::shared_ptr<EDFDDocument> & detail_doc);
 	void mergeElements(int index1, int index2);
+
 private:
 	std::vector<std::shared_ptr<DFDElement>> mElements;
 	std::vector<std::shared_ptr<DFDConnection>> mConnections;
+	std::shared_ptr<DFDAnchor> mAnchor;
 };
 
 #endif
