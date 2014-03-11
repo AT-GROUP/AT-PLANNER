@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="ATPlanner">
+    <file>Resources/db.png</file>
+    <file>Resources/rounded-rectangle.png</file>
+    <file>Resources/trapeze.png</file>
+  </qresource>
+</RCC>
