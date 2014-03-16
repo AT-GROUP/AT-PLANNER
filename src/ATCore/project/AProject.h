@@ -47,6 +47,8 @@ public:
 	*/
 	void documentsWithExtension(std::vector<const ADocumentProjectNode*> & doc_nodes, const std::string & ext) const;
 
+	void removeDocumentsWithExtension(const std::string & ext);
+
 	/*
 	Performs EDFD detalization, creates new document and returns it.
 	*/
@@ -66,6 +68,9 @@ public:
 
 	//
 	std::string documentPath(const ADocumentProjectNode * doc_node) const;
+
+	const ADocumentProjectNode * architectureDocument(AError * err = nullptr) const;
+
 private:
 	ARootProjectNode * m_pRootNode;
 	//AProjectNode * m_pProject;

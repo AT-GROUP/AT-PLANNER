@@ -35,6 +35,7 @@ public:
 	virtual void getDocumentNodesWithExtension(std::vector<const ADocumentProjectNode*> & docs, const std::string & ext) const;
 
 	ADocumentProjectNode* findDocumentNode(const std::string & doc_name);
+	std::vector<AProjectNode*> & children();
 private:
 	std::vector<AProjectNode*> mChildren;
 };
@@ -51,6 +52,7 @@ public:
 	bool expanded() const;
 	virtual void serialize(xmlNode * xml_node) const override;
 	virtual AError deserialize(xmlNodePtr xml_ptr) override;
+	void removeDocumentsWithExtension(const std::string & ext);
 private:
 	bool mExpanded;
 };

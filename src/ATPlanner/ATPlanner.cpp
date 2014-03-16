@@ -42,6 +42,10 @@ void ATPlanner::loadProject(AProject * project)
 	m_pProject = project;
 }
 
+AProject * ATPlanner::project() const
+{
+	return m_pProject;
+}
 
 AError ATPlanner::buildGeneralizedPlan()
 {
@@ -110,14 +114,12 @@ AError ATPlanner::buildDetailPlan()
 		return res;
 
 	//Get architecture document
-	vector<const ADocumentProjectNode*> archs;
-	m_pProject->documentsWithExtension(archs, "arch");
-	if(archs.size() == 0)
-		return AError(AT_ERROR_PROJECT_DATA, "Architecture docs not found.");
-	else if(archs.size() > 1)
-		return AError(AT_ERROR_PROJECT_DATA, "There must be only 1 architecture document.");
+	AError err;
+	const ADocumentProjectNode* old_arch_doc = m_pProject->architectureDocument(&err);
+	if(!err.OK())
+		return err;
 
-	auto doc_path = m_pProject->documentPath(archs[0]);
+	auto doc_path = m_pProject->documentPath(old_arch_doc);
 	shared_ptr<AArchitectureDocument> arch_doc(new AArchitectureDocument());
 	arch_doc->loadFromFile(doc_path);
 

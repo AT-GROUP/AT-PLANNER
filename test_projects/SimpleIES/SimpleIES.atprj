@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<at_project name="Simple">
+  <project_root_node type="0" name="Simple" expanded="1">
+    <node type="3" name="EDFD" expanded="1">
+      <node type="1" name="main.edfd" expanded="1"/>
+    </node>
+  </project_root_node>
+  <detailed_edfd filename="main.edfd"/>
+</at_project>

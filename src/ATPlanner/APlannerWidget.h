@@ -26,6 +26,7 @@ public:
 	void displayPlan(APlan * new_plan);
 signals:
 	void startArchDocumentCreated(ADocumentProjectNode * arch_doc_node);
+	void projectStructureChanged();
 
 private:
 	Ui::APlannerWidget ui;

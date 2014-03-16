@@ -52,6 +52,10 @@ ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 	m_pApplication->setPlannerWidget(planner_wdg);
 	connect(planner_wdg, &APlannerWidget::startArchDocumentCreated, this, &ATEnvironment::openNodeDocument);
 
+	connect(planner_wdg, &APlannerWidget::projectStructureChanged, [=](){
+		displayProject(project());
+	});
+
 	/*
 	Create switching menus in View menu.
 	*/

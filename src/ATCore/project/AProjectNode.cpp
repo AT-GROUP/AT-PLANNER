@@ -125,6 +125,11 @@ ADocumentProjectNode* AProjectNode::findDocumentNode(const std::string & doc_nam
 	return res;
 }
 
+std::vector<AProjectNode*> & AProjectNode::children()
+{
+	return mChildren;
+}
+
 //================AGroupProjectNode=====================
 AGroupProjectNode::AGroupProjectNode(const std::string & _name)
 	:AProjectNode(_name), mExpanded(true)
@@ -165,6 +170,32 @@ AError AGroupProjectNode::deserialize(xmlNodePtr xml_ptr)
 	}
 
 	return res;
+}
+
+void AGroupProjectNode::removeDocumentsWithExtension(const std::string & ext)
+{
+	auto c = children().begin();
+
+	while(c != children().end())
+	{
+		bool current_removed = false;
+
+		if(auto doc_node = dynamic_cast<ADocumentProjectNode*>(*c))
+		{
+			if(doc_node->extension() == ext)
+			{
+				c = children().erase(c);
+				current_removed = true;
+			}
+		}
+		else if(auto gr_node = dynamic_cast<AGroupProjectNode*>(*c))
+		{
+			gr_node->removeDocumentsWithExtension(ext);
+		}
+		
+		if(!current_removed)
+			++c;
+	}
 }
 
 //==============ARootProjectNode=================

@@ -3,7 +3,9 @@
 #include "ATPlanner.h"
 #include <ATCore/plan/APlan.h>
 #include <ATCore/ACommandExecutor.h>
+#include <ATCore/project/AProject.h>
 #include <QtWidgets/QCheckBox>
+#include <QtWidgets/QMessageBox>
 
 APlannerWidget::APlannerWidget(ATPlanner * _planner, QWidget *parent)
 	: QWidget(parent), m_pPlanner(_planner)
@@ -16,8 +18,21 @@ APlannerWidget::APlannerWidget(ATPlanner * _planner, QWidget *parent)
 
 	//Build start architecture model
 	connect(ui.bnBuildStartModel, &QPushButton::clicked, [=](){
+
+		//Check if architecture model already exists in project
+		auto old_arch = m_pPlanner->project()->architectureDocument();
+		if(old_arch)
+		{
+			auto res = QMessageBox::warning(this, tr("Warning"), tr("Architecture model document already is in project. Would you like to rebuild new and overwrite it?."), QMessageBox::Ok | QMessageBox::Cancel);
+			if(res == QMessageBox::Cancel)
+				return;
+			else
+				m_pPlanner->project()->removeDocumentsWithExtension("arch");
+		}
+
 		auto arch_doc_node = m_pPlanner->buildStartingArchitectureModel(command_executor());
 		emit startArchDocumentCreated(arch_doc_node);
+		emit projectStructureChanged();
 	});
 
 	connect(ui.bnBuildDetailedPlan, &QPushButton::clicked, [=](){

@@ -102,6 +102,11 @@ void AProject::documentsWithExtension(std::vector<const ADocumentProjectNode*> &
 	m_pRootNode->getDocumentNodesWithExtension(doc_nodes, ext);
 }
 
+void AProject::removeDocumentsWithExtension(const std::string & ext)
+{
+	m_pRootNode->removeDocumentsWithExtension(ext);
+}
+
 struct DFDHierarchyNode
 {
 	DFDHierarchyNode(const shared_ptr<EDFDDocument> & _doc)
@@ -265,4 +270,25 @@ ADocumentProjectNode* AProject::findDocumentNode(const std::string & doc_name)
 std::string AProject::documentPath(const ADocumentProjectNode * doc_node) const
 {
 	return mProjectDir + "/" + doc_node->name();
+}
+
+const ADocumentProjectNode * AProject::architectureDocument(AError * err) const
+{
+	vector<const ADocumentProjectNode*> archs;
+	documentsWithExtension(archs, "arch");
+
+	if(archs.size() == 0)
+	{
+		if(err)
+			*err = AError(AT_ERROR_PROJECT_DATA, "Architecture docs not found.");
+		return nullptr;
+	}
+	else if(archs.size() > 1)
+	{
+		if(err)
+		*err = AError(AT_ERROR_PROJECT_DATA, "There must be only 1 architecture document.");
+		return nullptr;
+	}
+
+	return archs[0];
 }

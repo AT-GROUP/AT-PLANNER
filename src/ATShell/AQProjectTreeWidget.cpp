@@ -109,6 +109,8 @@ void AQProjectTreeWidget::loadProjectTree(ARootProjectNode * project_root)
 
 void AQProjectTreeWidget::updateData()
 {
+	clear();
+
 	if(m_pProjectRoot)
 	{
 		//Create root project node

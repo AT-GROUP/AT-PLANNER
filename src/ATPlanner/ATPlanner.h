@@ -35,6 +35,7 @@ public:
 	AError rebuildPlan();
 
 	void loadProject(AProject * project);
+	AProject * project() const;
 
 	/*
 	Builds generalized plan based on EDFD hierarchy.
