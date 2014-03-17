@@ -157,3 +157,5 @@ DFDElement::Type DFDNFFunction::type() const
 {
 	return Type::NFFunction;
 }
+
+

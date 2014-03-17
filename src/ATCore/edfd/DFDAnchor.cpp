@@ -1,20 +1,14 @@
-#include "DFDAnchor.h"
 #include "DFDConnection.h"
+#include "DFDAnchor.h"
 
 
-void DFDAnchor::addConnection(const std::shared_ptr<DFDConnection> & conn)
+DFDAnchor::DFDAnchor(const std::string & _name, const std::string & comment, const APoint & m_p, const std::vector<std::shared_ptr<DFDConnection>> connList)
+	:DFDElement(_name, comment, m_p), connectionList(connList)
 {
-    connectionList.push_back(conn);
 }
 
-std::vector<std::shared_ptr<DFDConnection>> DFDAnchor::connections() const
-{
-    return connectionList;
-}
 
-void DFDAnchor::deleteConnection(const std::shared_ptr<DFDConnection> & conn)
+DFDElement::Type DFDAnchor::type() const
 {
-	int el = find(connectionList.begin(), connectionList.end(), conn) - connectionList.begin();
-	if (el <connectionList.size())
-		connectionList.erase(connectionList.begin() + el);
+	return Type::Anchor;
 }

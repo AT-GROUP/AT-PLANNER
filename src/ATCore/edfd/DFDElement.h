@@ -22,7 +22,7 @@ public:
 	//std::string mName;
 	std::string mComment;
 
-	enum class Type {Entity, Storage, Function, NFFunction};
+	enum class Type {Entity, Storage, Function, NFFunction, Anchor};
 	virtual Type type() const=0;
 
 	APoint Mouse_pos;
