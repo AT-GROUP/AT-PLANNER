@@ -19,6 +19,11 @@ bool to_bool(std::string str) {
     return b;
 }
 
+inline const char * const BoolToString(bool b)
+{
+  return b ? "true" : "false";
+}
+
 EDFDDocument::EDFDDocument()
 {
 
@@ -85,6 +90,16 @@ void EDFDDocument::serialize(_xmlNode * document_node) const
 		int i_c = 1;
 		xmlNodePtr child_node = xmlNewChild(doc_node2, NULL, BAD_CAST "con", BAD_CAST "");
 		xmlNewProp (child_node, BAD_CAST "name" , BAD_CAST c->name().c_str());
+		xmlNewProp(child_node, BAD_CAST "std?" , BAD_CAST BoolToString(c->std()));
+		if (c->std())
+		{
+			xmlNewProp (child_node, BAD_CAST "source-to-dest_data" , BAD_CAST c->std_d().c_str());
+		}
+		xmlNewProp(child_node, BAD_CAST "dts?" , BAD_CAST BoolToString(c->dts()));
+		if(c->dts())
+		{
+			xmlNewProp (child_node, BAD_CAST "dest-to-source_data" , BAD_CAST c->dts_d().c_str());
+		}
 		for (auto e_c : mElements)
 		{
 			if (e_c->name() == c->sourceName())
@@ -138,16 +153,43 @@ AError EDFDDocument::deserialize(_xmlNode * document_node)
 	xml_for_each_child(conn_nodes, conn_node)
 	{
 		const char *_cname = xml_prop(conn_node, "name");
+
 		//Get linked element indices
 		int source_id = atoi(xml_prop(conn_node, "source_id")), dest_id = atoi(xml_prop(conn_node, "dest_id"));
 		
 		//Get links to real elements
 		shared_ptr<DFDElement> src_elem = element_dictionary[source_id], dest_elem = element_dictionary[dest_id];
 
-		shared_ptr<DFDConnection> conn(new DFDConnection(_cname, src_elem, dest_elem));
+		
+		bool std = to_bool(xml_prop(conn_node, "std?"));
+		bool dts = to_bool(xml_prop(conn_node, "dts?"));
+
+		shared_ptr<DFDConnection> conn(new DFDConnection(_cname, src_elem, dest_elem, std, dts)); ////////////////////////////!!!!!!!!!
+
+		if (std) 
+			conn->setSTD_data(xml_prop(conn_node, "source-to-dest_data"));
+		if (dts)
+			conn->setDTS_data(xml_prop(conn_node, "dest-to-source_data"));
 
 		mConnections.push_back(conn);
 	}
+
+	/* old des
+	xml_for_each_child(conn_nodes, conn_node)
+	{
+		const char *_cname = xml_prop(conn_node, "name");
+
+		//Get linked element indices
+		int source_id = atoi(xml_prop(conn_node, "source_id")), dest_id = atoi(xml_prop(conn_node, "dest_id"));
+		
+		//Get links to real elements
+		shared_ptr<DFDElement> src_elem = element_dictionary[source_id], dest_elem = element_dictionary[dest_id];
+
+		shared_ptr<DFDConnection> conn(new DFDConnection(_cname, src_elem, dest_elem, true, false)); ////////////////////////////!!!!!!!!!
+
+		mConnections.push_back(conn);
+	}
+	*/
 
 	return AError();
 }
