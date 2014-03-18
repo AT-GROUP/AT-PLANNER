@@ -44,20 +44,6 @@ void DFDGraphicsConnection::adjust()
 {
     if (!source || !dest)
         return;
-	/*
-	QLineF line(mapFromItem(source, 50, 20), mapFromItem(dest, 50, 20));
-    qreal length = line.length();
-
-	auto line1 = new QGraphicsLineItem(sourcePoint.x(), sourcePoint.y(), sourcePoint.x() + line.length()/2, sourcePoint.y());
-	auto line2 = new QGraphicsLineItem(sourcePoint.x() + line.length()/2, sourcePoint.y(), sourcePoint.x() + line.length()/2, destPoint.y());
-	auto line3 = new QGraphicsLineItem(sourcePoint.x() + line.length()/2, sourcePoint.y() - line.length()/10, destPoint.x(), destPoint.y());
-	
-	addToGroup(line1);
-	addToGroup(line2);
-	addToGroup(line3);
-	
-	source->sceneA()->addItem(this);*/
-
 	prepareGeometryChange();
     QLineF line(mapFromItem(source, 50, 20), mapFromItem(dest, 50, 20));
     qreal length = line.length();
@@ -130,20 +116,29 @@ void DFDGraphicsConnection::paint(QPainter *painter, const QStyleOptionGraphicsI
         return;
     painter->setPen(QPen(Qt::black, 1, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     painter->drawLine(line);
+	painter->setBrush(Qt::black);
 
 	QPointF pt = line.pointAt(0.5);
 	//text->setPos(pt.x(),pt.y());
 
-    double angle = ::acos(line.dx() / line.length());
-    if (line.dy() >= 0)
-        angle = TwoPi - angle;
-    QPointF destArrowP1 = destPoint + QPointF(sin(angle - Pi / 3) * arrowSize,
-                                              cos(angle - Pi / 3) * arrowSize);
-    QPointF destArrowP2 = destPoint + QPointF(sin(angle - Pi + Pi / 3) * arrowSize,
-                                              cos(angle - Pi + Pi / 3) * arrowSize);
+	if (m_pConnection->std())
+	{
+		double angle = ::acos(line.dx() / line.length());
+		if (line.dy() >= 0) angle = TwoPi - angle;
+		QPointF destArrowP1 = destPoint + QPointF(sin(angle - Pi / 3) * arrowSize, cos(angle - Pi / 3) * arrowSize);
+		QPointF destArrowP2 = destPoint + QPointF(sin(angle - Pi + Pi / 3) * arrowSize, cos(angle - Pi + Pi / 3) * arrowSize);
+		painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
+	}
+	if (m_pConnection->dts())
+	{
+		double angle = ::acos(line.dx() / line.length());
+		if (line.dy() >= 0) angle = TwoPi - angle;
+		QPointF sourceArrowP1 = sourcePoint - QPointF(sin(angle - Pi / 3) * arrowSize,cos(angle - Pi / 3) * arrowSize);
+		QPointF sourceArrowP2 = sourcePoint - QPointF(sin(angle - Pi + Pi / 3) * arrowSize,cos(angle - Pi + Pi / 3) * arrowSize);
+		painter->drawPolygon(QPolygonF() << line.p1() << sourceArrowP1 << sourceArrowP2);
+	}
 
-    painter->setBrush(Qt::black);
-    painter->drawPolygon(QPolygonF() << line.p2() << destArrowP1 << destArrowP2);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
