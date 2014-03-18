@@ -15,5 +15,8 @@ ADrawWidget::ADrawWidget(QWidget *parent)
 	QListWidgetItem * item_4 = new QListWidgetItem("NF Function");
     addItem(item_4);
 
+	QListWidgetItem * item_5 = new QListWidgetItem("Anchor");
+    addItem(item_5);
+
     //setDragDropMode(QAbstractItemView::DragOnly);
 }

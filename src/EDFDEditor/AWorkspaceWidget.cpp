@@ -85,18 +85,6 @@ void AWorkspaceWidget::deleteIt(QGraphicsItem *elm)
 
 void AWorkspaceWidget::dropEvent(QDropEvent *event)
 {
-
-	/////////////////// отладка //////////////////////////
-	auto es = event->source();
-	auto eso = event->source()->objectName();
-	auto esm = event->source()->metaObject();
-	auto en = event->mimeData();
-	auto e1 = en->parent();
-	auto e2 = en->objectName();
-	auto e3 = en->urls();
-	auto md = event->mimeData()->text();
-	//////////////////  отладка  /////////////////////
-
 	QPoint m_p = event->pos();
 	APoint ap(m_p.x(), m_p.y());
 
@@ -116,11 +104,24 @@ void AWorkspaceWidget::dropEvent(QDropEvent *event)
 		if (event->mimeData()->text() == "Storage")
 		{
 			new_gr_el = create_element<DFDStorage, DFDGraphicsStorage>(m_pDoc, "storage ", "Input storage name", new_el, ap, Ascene);
-
 		}
 		if (event->mimeData()->text() == "NF Function")
 		{
 			new_gr_el = create_element<DFDNFFunction, DFDGraphicsNFFuntion>(m_pDoc, "nffunction ", "Input nffunction name", new_el, ap, Ascene);
+		}
+		if (event->mimeData()->text() == "Anchor")
+		{
+			int it_1 = 0;
+			for (auto a : m_pDoc->getElements())
+				if (a->type() == DFDElement::Type::Anchor)
+				{
+					it_1++;
+					break;
+				}
+				if (it_1 == 0)
+				{
+					new_gr_el = create_element<DFDAnchor, DFDGraphicsAnchor>(m_pDoc, "anchor ", "Input anchor name", new_el, ap, Ascene);
+				}
 		}
 
 		if(new_el)
@@ -149,12 +150,24 @@ void AWorkspaceWidget::dragMoveEvent(QDragMoveEvent *event)
 
 void AWorkspaceWidget::createConnection(DFDGraphicsElement * src, DFDGraphicsElement * dest)
 {
-	QString con_name = QInputDialog::getText(0, "Input connection name", "Name:", QLineEdit::Normal, "");
-
-	shared_ptr<DFDConnection> conn(new DFDConnection(con_name.toStdString(), src->object(), dest->object(), true, false));
-	m_pDoc->addConnection(conn);
-
-	DFDGraphicsConnection *gconn = new DFDGraphicsConnection(conn, src, dest);
-	Ascene->AddConnection(gconn);
-	Ascene->SetConnectingStatus(false);
+	int it_1 = 0;
+	for (auto a : m_pDoc->connections())
+		if ((a->nameSource() == src->m_pObject && a->nameDest() == dest->m_pObject) || (a->nameSource() == dest->m_pObject && a->nameDest() == src->m_pObject))
+		{
+			it_1++;
+			break;
+		}
+		if (it_1 == 0)
+		{
+			QString con_name = QInputDialog::getText(0, "Input connection name", "Name:", QLineEdit::Normal, "");
+			shared_ptr<DFDConnection> conn(new DFDConnection(con_name.toStdString(), src->object(), dest->object(), true, false));
+			m_pDoc->addConnection(conn);
+			DFDGraphicsConnection *gconn = new DFDGraphicsConnection(conn, src, dest);
+			Ascene->AddConnection(gconn);
+			Ascene->SetConnectingStatus(false);
+		}
+		else
+		{
+			QMessageBox::information(NULL,QObject::tr("Information"),tr("This objects are already connected"));
+		}
 }

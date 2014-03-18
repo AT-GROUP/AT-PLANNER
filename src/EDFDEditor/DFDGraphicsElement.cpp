@@ -3,6 +3,7 @@
 #include "DFDGraphicsConnection.h"
 #include "AWorkspaceWidget.h"
 #include <ATCore/edfd/DFDElement.h>
+#include <ATCore/edfd/DFDAnchor.h>
 
 APoint to_apoint(QPoint q_p)
 {
@@ -253,4 +254,46 @@ DFDGraphicsNFFuntion::DFDGraphicsNFFuntion(const std::shared_ptr<DFDNFFunction> 
 	text->setPlainText(QString::fromStdString(nfun->name()));
 	text->setPos(15,10);
 	
+}
+
+/////////////////////////////////// Anchor //////////////////////////////////////////////////////
+
+void DFDGraphicsAnchor::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
+{
+    menu = new QMenu;
+	QString str;
+	if (CheckConnectingStatus() == false)
+	{
+		str = "Connect";
+		connec = new QAction(str,this);
+		connec->setToolTip("Connect me to another object!");
+		menu->addAction(connec);
+		menu->popup(event->screenPos());
+		
+		connect(connec, SIGNAL(triggered()), this, SLOT(conn()));
+	}
+	else
+	{
+		str = "Connect To";
+		connectTo = new QAction(str,this);
+		connectTo->setToolTip("But wait, there's more!");
+		menu->addAction(connectTo);
+		menu->popup(event->screenPos());
+
+		connect(connectTo, SIGNAL(triggered()), this, SLOT(connTo()));
+	}
+}
+
+DFDGraphicsAnchor::DFDGraphicsAnchor(const std::shared_ptr<DFDAnchor> & an, AWorkspaceScene *scene)
+		:DFDGraphicsElement(an)
+{
+	AAScene = scene;
+
+	QPolygonF Triangle1;
+	Triangle1.append(QPointF(20,0));
+	Triangle1.append(QPointF(30,40));
+	Triangle1.append(QPointF(40,0));
+	Triangle1.append(QPointF(20,0));
+	QGraphicsPolygonItem *pol1 = new QGraphicsPolygonItem(Triangle1);
+	addToGroup(pol1);
 }

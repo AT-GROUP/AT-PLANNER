@@ -10,10 +10,10 @@
 
 class DFDConnection;
 
-class DFDAnchor : public DFDElement
+class AT_CORE_API DFDAnchor : public DFDElement
 {
 public:
-	DFDAnchor(const std::string & _name, const std::string & comment, const APoint & m_p, const std::vector<std::shared_ptr<DFDConnection>> connectionList);
+	DFDAnchor(const std::string & _name, const std::string & comment, const APoint & m_p);
 	std::vector<std::shared_ptr<DFDConnection>> connections() const;
 
 	virtual Type type() const;

@@ -17,6 +17,7 @@ class DFDEntity;
 class DFDFunction;
 class DFDStorage;
 class DFDNFFunction;
+class DFDAnchor;
 
 /////////////////// graphics layer //////////////////////////////////////
 
@@ -76,14 +77,16 @@ public:
 	void addConnection(DFDGraphicsConnection *connection);
 
 protected:
-	void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+	virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 	QVariant itemChange(GraphicsItemChange change, const QVariant &value);
+
+public slots:
+	void conn();
+	void connTo();
 
 private slots:
 	void reNa();
 	void addComm();
-	void conn();
-	void connTo();
 
 	void setDe();
 	void delDe();
@@ -116,6 +119,15 @@ class DFDGraphicsNFFuntion : public DFDGraphicsElement
 {
 public:
 	DFDGraphicsNFFuntion(const std::shared_ptr<DFDNFFunction> & nfun, AWorkspaceScene *scene);
+};
+
+class DFDGraphicsAnchor : public DFDGraphicsElement
+{
+	Q_OBJECT
+public:
+	DFDGraphicsAnchor(const std::shared_ptr<DFDAnchor> & anch, AWorkspaceScene *scene);
+protected:
+	virtual void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
 };
 
 #endif
