@@ -276,3 +276,20 @@ void DFDGraphicsConnection::deleteDTS()
 	text_DTS->hide();
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+QtRectItem::QtRectItem(QGraphicsItem *parent, QGraphicsScene *scene)
+ : QGraphicsRectItem(parent)
+{
+  this->setFlags(
+      QGraphicsItem::ItemIsSelectable
+    | QGraphicsItem::ItemIsMovable);
+
+  const double length = 8;
+  this->setRect(-length/2.0,-length/2.0,length,length);
+}
+
+void QtRectItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
+{
+  m_signal_mouse_move();
+  QGraphicsRectItem::mouseMoveEvent(event);
+}*/

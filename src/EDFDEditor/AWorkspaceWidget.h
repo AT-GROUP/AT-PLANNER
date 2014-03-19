@@ -14,7 +14,6 @@ class DFDGraphicsConnection;
 
 class AWorkspaceScene : public QGraphicsScene
 {
-   //Q_OBJECT
 public:
     AWorkspaceScene(QWidget *parent = 0);
 	

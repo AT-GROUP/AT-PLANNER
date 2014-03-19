@@ -1,4 +1,5 @@
 #include <QtWidgets>
+#include <QPainter>
 #include "DFDGraphicsElement.h"
 #include "DFDGraphicsConnection.h"
 #include "AWorkspaceWidget.h"
@@ -208,7 +209,21 @@ DFDGraphicsFuntion::DFDGraphicsFuntion(const std::shared_ptr<DFDFunction> & fun,
 	:DFDGraphicsElement(fun)
 {
 	AAScene = scene;
-	auto elem = new QGraphicsEllipseItem(0, 0, 100, 40); 
+	QPainterPath roundRectPath;
+    roundRectPath.moveTo(100.0, 10.0);
+    roundRectPath.arcTo(80.0, 0.0, 20.0, 20.0, 0.0, 90.0);
+	
+	roundRectPath.lineTo(10.0, 0.0);
+	roundRectPath.arcTo(0.0, 0.0, 20.0, 20.0, 90.0, 90.0);
+
+	roundRectPath.lineTo(0.0, 20.0);
+    roundRectPath.arcTo(0.0, 20.0, 20.0, 20.0, 180.0, 90.0);
+
+    roundRectPath.lineTo(80.0, 40.0);
+    roundRectPath.arcTo(80.0, 20.0, 20.0, 20.0, 270.0, 90.0);
+    roundRectPath.closeSubpath();
+
+	auto elem = new QGraphicsPathItem(roundRectPath);
 	addToGroup(elem);
 	text->setPlainText(QString::fromStdString(fun->name()));
 	text->setPos(10,10);
@@ -291,8 +306,8 @@ DFDGraphicsAnchor::DFDGraphicsAnchor(const std::shared_ptr<DFDAnchor> & an, AWor
 
 	QPolygonF Triangle1;
 	Triangle1.append(QPointF(20,0));
-	Triangle1.append(QPointF(30,40));
-	Triangle1.append(QPointF(40,0));
+	Triangle1.append(QPointF(40,40));
+	Triangle1.append(QPointF(60,0));
 	Triangle1.append(QPointF(20,0));
 	QGraphicsPolygonItem *pol1 = new QGraphicsPolygonItem(Triangle1);
 	addToGroup(pol1);
