@@ -28,6 +28,9 @@
    </property>
    <item>
     <widget class="QTreeWidget" name="treeCurrentPlan">
+     <attribute name="headerDefaultSectionSize">
+      <number>140</number>
+     </attribute>
      <column>
       <property name="text">
        <string notr="true">Task Name</string>
