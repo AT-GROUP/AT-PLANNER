@@ -16,5 +16,4 @@
     <node type="3" name="KB" expanded="1"/>
     <node type="3" name="DB" expanded="1"/>
   </project_root_node>
-  <detailed_edfd filename="main.edfd"/>
 </at_project>

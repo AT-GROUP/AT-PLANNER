@@ -57,7 +57,7 @@
      <property name="title">
       <string>Open</string>
      </property>
-     <addaction name="actionOpenProject_2"/>
+     <addaction name="actionOpenProject"/>
      <addaction name="actionOpenFile"/>
     </widget>
     <addaction name="menuNew"/>
@@ -167,11 +167,6 @@
     <string>About</string>
    </property>
   </action>
-  <action name="actionOpenProject">
-   <property name="text">
-    <string>Open Project...</string>
-   </property>
-  </action>
   <action name="actionSave_Project">
    <property name="text">
     <string>Save Project</string>
@@ -208,7 +203,7 @@
     <string>Save all</string>
    </property>
   </action>
-  <action name="actionOpenProject_2">
+  <action name="actionOpenProject">
    <property name="text">
     <string>Project...</string>
    </property>

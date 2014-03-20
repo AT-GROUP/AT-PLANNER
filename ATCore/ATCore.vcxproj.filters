@@ -102,6 +102,9 @@
     <ClCompile Include="..\src\ATCore\architecture\AArchLink.cpp">
       <Filter>src\architecture</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ATCore\edfd\DFDAnchor.cpp">
+      <Filter>src\edfd</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ATCore\AError.h">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ATCore\architecture\AArchLink.h">
       <Filter>src\architecture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\edfd\DFDAnchor.h">
+      <Filter>src\edfd</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,16 +1,15 @@
 #pragma once
 #include <QtWidgets>
-#include <QGraphicsItem>
+#include <QtWidgets/QGraphicsItem>
 #include <memory>
 #include <ATCore/edfd/DFDConnection.h>
-#include <QGraphicsRectItem>
-#include <QGraphicsPathItem>
+#include <QtWidgets/QGraphicsRectItem>
+#include <QtWidgets/QGraphicsPathItem>
 //#include <boost/signals2.hpp>
 
 class DFDGraphicsElement;
 
-class DFDGraphicsConnection : 
-	public QObject, public QGraphicsItemGroup
+class DFDGraphicsConnection : public QObject, public QGraphicsItemGroup
 {
 	Q_OBJECT
 public:
