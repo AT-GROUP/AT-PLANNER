@@ -90,12 +90,12 @@ void EDFDDocument::serialize(_xmlNode * document_node) const
 		int i_c = 1;
 		xmlNodePtr child_node = xmlNewChild(doc_node2, NULL, BAD_CAST "con", BAD_CAST "");
 		xmlNewProp (child_node, BAD_CAST "name" , BAD_CAST c->name().c_str());
-		xmlNewProp(child_node, BAD_CAST "std?" , BAD_CAST BoolToString(c->std()));
+		xmlNewProp(child_node, BAD_CAST "std" , BAD_CAST BoolToString(c->std()));
 		if (c->std())
 		{
 			xmlNewProp (child_node, BAD_CAST "source-to-dest_data" , BAD_CAST c->std_d().c_str());
 		}
-		xmlNewProp(child_node, BAD_CAST "dts?" , BAD_CAST BoolToString(c->dts()));
+		xmlNewProp(child_node, BAD_CAST "dts" , BAD_CAST BoolToString(c->dts()));
 		if(c->dts())
 		{
 			xmlNewProp (child_node, BAD_CAST "dest-to-source_data" , BAD_CAST c->dts_d().c_str());
@@ -161,8 +161,8 @@ AError EDFDDocument::deserialize(_xmlNode * document_node)
 		shared_ptr<DFDElement> src_elem = element_dictionary[source_id], dest_elem = element_dictionary[dest_id];
 
 		
-		bool std = to_bool(xml_prop(conn_node, "std?"));
-		bool dts = to_bool(xml_prop(conn_node, "dts?"));
+		bool std = to_bool(xml_prop(conn_node, "std"));
+		bool dts = to_bool(xml_prop(conn_node, "dts"));
 
 		shared_ptr<DFDConnection> conn(new DFDConnection(_cname, src_elem, dest_elem, std, dts)); ////////////////////////////!!!!!!!!!
 

@@ -1,50 +1,25 @@
 <?xml version="1.0"?>
 <document>
-  
-<Elements>
-    
-<elem name="&#x41E;&#x431;&#x443;&#x447;&#x430;&#x435;&#x43C;&#x44B;&#x439;" xPos="31" yPos="240" type="0" detal="false" id="1"/>
-    
-<elem name="&#x420;&#x435;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43F;&#x43B;&#x430;&#x43D; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" xPos="226" yPos="239" type="2" detal="true" detal_doc_name="realize_learning_plan.edfd" id="2"/>
-    
-<elem name="&#x411;&#x414; &#x43F;&#x43B;&#x430;&#x43D;&#x43E;&#x432; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" xPos="226" yPos="131" type="1" detal="false" id="3"/>
-    
-<elem name="&#x421;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x441;&#x442;&#x440;&#x430;&#x442;&#x435;&#x433;&#x438;&#x44E; (&#x43F;&#x43B;&#x430;&#x43D;) &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" xPos="413" yPos="190" type="2" detal="false" id="4"/>
-    
-<elem name="&#x411;&#x430;&#x437;&#x430; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x445; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x439;" xPos="395" yPos="354" type="1" detal="false" id="5"/>
-    
-<elem name="&#x411;&#x414; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x435;&#x43C;&#x44B;&#x445;" xPos="607" yPos="70" type="1" detal="false" id="6"/>
-    
-<elem name="&#x421;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;" xPos="460" yPos="440" type="2" detal="true" detal_doc_name="create_learning_actions.edfd" id="7"/>
-    
-<elem name="&#x41F;&#x440;&#x435;&#x43F;&#x43E;&#x434;&#x430;&#x432;&#x430;&#x442;&#x435;&#x43B;&#x44C;" xPos="279" yPos="472" type="0" detal="false" id="8"/>
-
-<elem name="&#x411;&#x430;&#x437;&#x430; &#x43E;&#x43D;&#x442;&#x43E;&#x43B;&#x43E;&#x433;&#x438;&#x439;" xPos="467" yPos="551" type="1" detal="false" id="10"/>
-  
-</Elements>
-  
-<Connections>
-    
-<con name="&#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;" dest_id="1" source_id="2"/>
-    
-<con name="&#x440;&#x435;&#x448;&#x435;&#x43D;&#x438;&#x44F;" source_id="1" dest_id="2"/>
-    
-<con name="&#x43F;&#x43B;&#x430;&#x43D; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" dest_id="2" source_id="3"/>
-    
-<con name="&#x43F;&#x43B;&#x430;&#x43D; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" dest_id="3" source_id="4"/>
-    
-<con name="&#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;" dest_id="2" source_id="5"/>
-    
-<con name="&#x43C;&#x43E;&#x434;&#x435;&#x43B;&#x44C; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x435;&#x43C;&#x43E;&#x433;&#x43E; &#x442;&#x435;&#x43A;&#x443;&#x449;&#x430;&#x44F; + &#x43D;&#x430;&#x447;&#x430;&#x43B;&#x44C;&#x43D;&#x430;&#x44F;" dest_id="4" source_id="6"/>
-    
-<con name="&#x438;&#x43D;&#x444;&#x43E;&#x440;&#x43C;&#x430;&#x446;&#x438;&#x44F; &#x43E;&#x431; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x445; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;&#x445;" dest_id="4" source_id="5"/>
-    
-<con name="&#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;" dest_id="5" source_id="7"/>
-    
-<con name="&#x437;&#x43D;&#x430;&#x43D;&#x438;&#x44F;,&#x43E;&#x43F;&#x44B;&#x442;" dest_id="7" source_id="8"/>
-    
-<con name="&#x43E;&#x43D;&#x442;&#x43E;&#x43B;&#x43E;&#x433;&#x438;&#x438;" dest_id="7" source_id="10"/>
-  
-</Connections>
-
+  <Elements>
+    <elem name="&#x43E;&#x431;&#x443;&#x447;&#x430;&#x435;&#x43C;&#x44B;&#x439;" xPos="9" yPos="149" type="0" detal="false" id="1"/>
+    <elem name="&#x440;&#x435;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43F;&#x43B;&#x430;&#x43D; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" xPos="176" yPos="145" type="2" detal="true" id="2" detal_doc_name="realize_learning_plan.edfd"/>
+    <elem name="&#x411;&#x414; &#x43F;&#x43B;&#x430;&#x43D;&#x43E;&#x432; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" xPos="175" yPos="35" type="1" detal="false" id="3"/>
+    <elem name="&#x411;&#x414; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x445; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x439;" xPos="302" yPos="276" type="1" detal="false" id="4"/>
+    <elem name="&#x43F;&#x440;&#x435;&#x43F;&#x43E;&#x434;&#x430;&#x432;&#x430;&#x442;&#x435;&#x43B;&#x44C;" xPos="249" yPos="452" type="0" detal="false" id="5"/>
+    <elem name="&#x441;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;" xPos="462" yPos="443" type="2" detal="true" id="6" detal_doc_name="create_learning_actions.edfd"/>
+    <elem name="&#x411;&#x414; &#x43E;&#x43D;&#x442;&#x43E;&#x43B;&#x43E;&#x433;&#x438;&#x439;" xPos="449" yPos="564" type="1" detal="false" id="7"/>
+    <elem name="&#x411;&#x414; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x435;&#x43C;&#x44B;&#x445;" xPos="450" yPos="32" type="1" detal="false" id="8"/>
+    <elem name="&#x441;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x441;&#x442;&#x440;&#x430;&#x442;&#x435;&#x433;&#x438;&#x44E;(&#x43F;&#x43B;&#x430;&#x43D;) &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" xPos="359" yPos="137" type="2" detal="false" id="9"/>
+  </Elements>
+  <Connections>
+    <con name="con" std="true" source-to-dest_data="&#x440;&#x435;&#x448;&#x435;&#x43D;&#x438;&#x44F;" dts="true" dest-to-source_data="&#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;" source_id="1" dest_id="2"/>
+    <con name="con" std="true" source-to-dest_data="&#x43F;&#x43B;&#x430;&#x43D; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" dts="false" dest_id="2" source_id="3"/>
+    <con name="con" std="true" source-to-dest_data="&#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;" dts="false" dest_id="2" source_id="4"/>
+    <con name="con" std="true" source-to-dest_data="&#x43C;&#x43E;&#x434;&#x435;&#x43B;&#x44C; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x435;&#x43C;&#x43E;&#x433;&#x43E; &#x442;&#x435;&#x43A;&#x443;&#x449;&#x430;&#x44F;+&#x43D;&#x430;&#x447;&#x430;&#x43B;&#x44C;&#x43D;&#x430;&#x44F;" dts="false" source_id="8" dest_id="9"/>
+    <con name="con" std="true" source-to-dest_data="&#x43F;&#x43B;&#x430;&#x43D; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" dts="false" dest_id="3" source_id="9"/>
+    <con name="con" std="true" source-to-dest_data="&#x438;&#x43D;&#x444;&#x43E;&#x440;&#x43C;&#x430;&#x446;&#x438;&#x44F; &#x43E;&#x431; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x445; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;&#x445;" dts="false" source_id="4" dest_id="9"/>
+    <con name="con" std="true" source-to-dest_data="&#x437;&#x43D;&#x430;&#x43D;&#x438;&#x44F;,&#x43E;&#x43F;&#x44B;&#x442;" dts="false" source_id="5" dest_id="6"/>
+    <con name="con" std="true" source-to-dest_data="&#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x44F;" dts="false" dest_id="4" source_id="6"/>
+    <con name="con" std="true" source-to-dest_data="&#x43E;&#x43D;&#x442;&#x43E;&#x43B;&#x43E;&#x433;&#x438;&#x438;" dts="false" dest_id="6" source_id="7"/>
+  </Connections>
 </document>
