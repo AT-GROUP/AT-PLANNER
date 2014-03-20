@@ -15,6 +15,8 @@
 
 using namespace std;
 
+const std::string python_path = "..\\python\\python.exe";
+
 APlugin * AT_CREATE_PLUGIN_FN()
 {
 	return new LAMAAdapter();
@@ -212,7 +214,7 @@ APlan * LAMAAdapter::buildGeneralizedPlan(const EDFDDocument * common_dfd)
 
 	//=====================Call planner to solve the problem=======================
 	_chdir("temp");
-	string python_cmd = "\"C:\\Program Files (x86)\\Python26\\python.exe\" ..\\planners\\tfd\\translate\\translate.py generalized_plan_domain.pddl generalized_plan_problem.pddl";
+	string python_cmd = "\"" + python_path + "\" ..\\planners\\tfd\\translate\\translate.py generalized_plan_domain.pddl generalized_plan_problem.pddl";
 	system(python_cmd.c_str());
 	system(" ..\\planners\\tfd\\preprocess.exe < output.sas");
 	system(" ..\\planners\\tfd\\search.exe ay t 3 p plan.tfd < output");
@@ -427,7 +429,8 @@ APlan * LAMAAdapter::buildDetailPlan(APlan * plan, const AArchitectureDocument *
 
 	//=====================Call planner to solve the problem=======================
 	_chdir("temp");
-	system("\"C:\\Program Files (x86)\\Python26\\python.exe\" ..\\planners\\tfd\\translate\\translate.py detail_plan_domain.pddl detail_plan_problem.pddl");
+	string python_cmd = "\"" + python_path + "\" ..\\planners\\tfd\\translate\\translate.py detail_plan_domain.pddl detail_plan_problem.pddl";
+	system(python_cmd.c_str());
 	system(" ..\\planners\\tfd\\preprocess.exe < output.sas");
 	system(" ..\\planners\\tfd\\search.exe ay t 3 p plan.tfd < output");
 

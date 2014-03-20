@@ -1,12 +1,10 @@
 <?xml version="1.0"?>
 <document>
   <Elements>
-    <elem name="&#x41F;&#x43E;&#x43B;&#x44C;&#x437;&#x43E;&#x432;&#x430;&#x442;&#x435;&#x43B;&#x44C;" xPos="209" yPos="332" type="0" detal="false" id="1"/>
-    <elem name="Material DB" xPos="586" yPos="496" type="1" detal="false" id="2"/>
-    <elem name="&#x41D;&#x424;-&#x437;&#x430;&#x434;&#x430;&#x447;&#x430;" xPos="368" yPos="528" type="3" detal="false" id="3"/>
+    <elem name="&#x41D;&#x424;-&#x43E;&#x43F;&#x435;&#x440;&#x430;&#x446;&#x438;&#x44F;" xPos="283" yPos="457" type="3" detal="false" id="1"/>
+    <elem name="&#x411;&#x414; &#x43C;&#x430;&#x442;&#x435;&#x440;&#x438;&#x430;&#x43B;&#x43E;&#x432;" xPos="380" yPos="273" type="1" detal="false" id="2"/>
   </Elements>
   <Connections>
-    <con name="xxx" source_id="2" dest_id="3"/>
-    <con name="xxx" source_id="1" dest_id="3"/>
+    <con name="&#x41C;&#x430;&#x442;&#x435;&#x440;&#x438;&#x430;&#x43B;&#x44B;" std="true" source-to-dest_data="" dts="false" dest_id="1" source_id="2"/>
   </Connections>
 </document>

@@ -216,7 +216,7 @@ void ATEnvironment::openFile(const std::string & file_path)
 
 		//Find suitable editor for file
 		QFileInfo fi(QString::fromStdString(file_path));
-		QString ext = fi.completeSuffix();
+		QString ext = fi.suffix();
 
 		auto ed_plug = m_pApplication->editorForExtension(ext.toStdString());
 		if(!ed_plug)
