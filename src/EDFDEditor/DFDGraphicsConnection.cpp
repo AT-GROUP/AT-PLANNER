@@ -5,6 +5,7 @@
 #include "DFDGraphicsConnection.h"
 #include "DFDGraphicsElement.h"
 #include "AWorkspaceWidget.h"
+#include "ADatastreamDialog.h"
 
 static const double Pi = 3.14159265358979323846264338327950288419717;
 static double TwoPi = 2.0 * Pi;
@@ -161,7 +162,10 @@ DFDGraphicsConnection_New::DFDGraphicsConnection_New(const std::shared_ptr<DFDCo
 
 void DFDGraphicsConnection::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 {
-	QString str;
+	ADatastreamDialog dial(m_pConnection);
+	dial.exec();
+
+	/*QString str;
     menu = new QMenu;
 
 	menuSTD = new QMenu;
@@ -214,10 +218,11 @@ void DFDGraphicsConnection::contextMenuEvent(QGraphicsSceneContextMenuEvent *eve
 		connect(act_slot_6, SIGNAL(triggered()), this, SLOT(deleteDTS()));
 	}
 
-	menu->popup(event->screenPos());
+	menu->popup(event->screenPos());*/
 }
 
 //////////////////////////////////////////// SLOTS /////////////////////////////////////////////////////
+/*
 void DFDGraphicsConnection::addSTD()
 {
 	QString std_data = QInputDialog::getText(0, "Input source-to-dest data", "Data:", QLineEdit::Normal, QString::fromStdString(m_pConnection->std_d()));
@@ -275,6 +280,7 @@ void DFDGraphicsConnection::deleteDTS()
 	text_DTS->setPlainText("");
 	text_DTS->hide();
 }
+*/
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
 QtRectItem::QtRectItem(QGraphicsItem *parent, QGraphicsScene *scene)

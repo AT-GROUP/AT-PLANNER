@@ -160,7 +160,7 @@ void AWorkspaceWidget::createConnection(DFDGraphicsElement * src, DFDGraphicsEle
 		if (it_1 == 0)
 		{
 			QString con_name = QInputDialog::getText(0, "Input connection name", "Name:", QLineEdit::Normal, "");
-			shared_ptr<DFDConnection> conn(new DFDConnection(con_name.toStdString(), src->object(), dest->object(), true, false));
+			shared_ptr<DFDConnection> conn(new DFDConnection(con_name.toStdString(), src->object(), dest->object()));
 			m_pDoc->addConnection(conn);
 			DFDGraphicsConnection *gconn = new DFDGraphicsConnection(conn, src, dest);
 			Ascene->AddConnection(gconn);

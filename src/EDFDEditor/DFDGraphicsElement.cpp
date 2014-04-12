@@ -202,6 +202,7 @@ DFDGraphicsEntity::DFDGraphicsEntity(const std::shared_ptr<DFDEntity> & ent, AWo
 	auto rect = new QGraphicsRectItem(0, 0, 100, 40);
 	addToGroup(rect);
 	text->setPlainText(QString::fromStdString(ent->name()));
+	text->setTextWidth(90);
 	text->setPos(0,0);
 }
 
@@ -226,7 +227,8 @@ DFDGraphicsFuntion::DFDGraphicsFuntion(const std::shared_ptr<DFDFunction> & fun,
 	auto elem = new QGraphicsPathItem(roundRectPath);
 	addToGroup(elem);
 	text->setPlainText(QString::fromStdString(fun->name()));
-	text->setPos(10,10);
+	text->setTextWidth(90);
+	text->setPos(0,5);
 }
 
 DFDGraphicsStorage::DFDGraphicsStorage(const std::shared_ptr<DFDStorage> & stor, AWorkspaceScene *scene)
@@ -249,6 +251,7 @@ DFDGraphicsStorage::DFDGraphicsStorage(const std::shared_ptr<DFDStorage> & stor,
 	addToGroup(pol2);
 
 	text->setPlainText(QString::fromStdString(stor->name()));
+	text->setTextWidth(75);
 	text->setPos(15,0);
 }
 
@@ -267,6 +270,7 @@ DFDGraphicsNFFuntion::DFDGraphicsNFFuntion(const std::shared_ptr<DFDNFFunction> 
 	addToGroup(pol1);
 
 	text->setPlainText(QString::fromStdString(nfun->name()));
+	text->setTextWidth(75);
 	text->setPos(15,10);
 	
 }

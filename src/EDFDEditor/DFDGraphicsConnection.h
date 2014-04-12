@@ -5,6 +5,7 @@
 #include <ATCore/edfd/DFDConnection.h>
 #include <QtWidgets/QGraphicsRectItem>
 #include <QtWidgets/QGraphicsPathItem>
+#include "ADatastreamDialog.h"
 //#include <boost/signals2.hpp>
 
 class DFDGraphicsElement;
@@ -13,7 +14,6 @@ class DFDGraphicsConnection : public QObject, public QGraphicsItemGroup
 {
 	Q_OBJECT
 public:
-	
 	QMenu *menu;
 	QMenu *menuSTD;
 	QMenu *menuDTS;
@@ -52,12 +52,14 @@ private:
 	std::shared_ptr<DFDConnection> m_pConnection;
 
 private slots:
+	/*
 	void addSTD();
 	void changeSTD();
 	void deleteSTD();
 	void addDTS();
 	void changeDTS();
 	void deleteDTS();
+	*/
 };
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

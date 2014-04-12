@@ -1,10 +1,11 @@
 
 #include "DFDConnection.h"
 
-DFDConnection::DFDConnection(const std::string & _name, const std::shared_ptr<DFDElement> src, const std::shared_ptr<DFDElement> dest, const bool s_t_d, const bool d_t_s)
-	:ANamedObject(_name), m_pSource(src), m_pDest(dest), s_t_dest(s_t_d), dest_t_s(d_t_s)
+DFDConnection::DFDConnection(const std::string & _name, const std::shared_ptr<DFDElement> src, const std::shared_ptr<DFDElement> dest)
+	:ANamedObject(_name), m_pSource(src), m_pDest(dest)
 {
-	
+	s_t_d_data.push_back("data1"); 
+	d_t_s_data.push_back("data2");
 }
 
 const std::shared_ptr<DFDElement> & DFDConnection::source() const
@@ -53,40 +54,39 @@ std::shared_ptr<DFDElement> DFDConnection::nameDest()
 
 bool DFDConnection::std()
 {
-	return s_t_dest;
+	return !s_t_d_data.empty();
 }
 
 bool DFDConnection::dts()
 {
-	return dest_t_s;
+	return !d_t_s_data.empty();
 }
 
-void DFDConnection::setSTD(bool t_f)
+void DFDConnection::addSTD_data(const std::string & _data)
 {
-	s_t_dest = t_f;
+	s_t_d_data.push_back(_data);
 }
 
-void DFDConnection::setDTS(bool t_f)
+void DFDConnection::addDTS_data(const std::string & _data)
 {
-	dest_t_s = t_f;
+	d_t_s_data.push_back(_data);
 }
 
-void DFDConnection::setSTD_data(const std::string & _data)
-{
-	s_t_d_data = _data;
-}
-
-void DFDConnection::setDTS_data(const std::string & _data)
-{
-	d_t_s_data = _data;
-}
-
-std::string DFDConnection::std_d()
+std::vector<std::string> DFDConnection::std_d()
 {
 	return s_t_d_data;
 }
 
-std::string DFDConnection::dts_d()
+std::vector<std::string> DFDConnection::dts_d()
 {
 	return d_t_s_data;
+}
+
+void DFDConnection::clearSTD()
+{
+	s_t_d_data.clear();
+}
+void DFDConnection::clearDTS()
+{
+	d_t_s_data.clear();
 }

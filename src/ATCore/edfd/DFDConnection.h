@@ -10,7 +10,7 @@
 class AT_CORE_API DFDConnection : public ANamedObject
 {
 public:
-	DFDConnection(const std::string & _name, std::shared_ptr<DFDElement> src, const std::shared_ptr<DFDElement> dest, const bool s_t_d, const bool d_t_s);
+	DFDConnection(const std::string & _name, std::shared_ptr<DFDElement> src, const std::shared_ptr<DFDElement> dest);
 
 	const std::shared_ptr<DFDElement> & source() const;
 	const std::shared_ptr<DFDElement> & dest() const;
@@ -25,11 +25,14 @@ public:
 	bool dts();
 	void setSTD(bool t_f);
 	void setDTS(bool t_f);
-	void setSTD_data(const std::string & _data);
-	void setDTS_data(const std::string & _data);
+	void addSTD_data(const std::string & _data);
+	void addDTS_data(const std::string & _data);
 
-	std::string std_d();
-	std::string dts_d();
+	void clearSTD();
+	void clearDTS();
+
+	std::vector<std::string> std_d();
+	std::vector<std::string> dts_d();
 
 	double x_to_y;
 	///////////////////////////////
@@ -38,8 +41,7 @@ public:
 	void relinkTo(const std::shared_ptr<DFDElement> & from, const std::shared_ptr<DFDElement> & to);
 private:
 	std::shared_ptr<DFDElement> m_pSource, m_pDest;
-	bool s_t_dest, dest_t_s;
-	std::string s_t_d_data,d_t_s_data;
+	std::vector<std::string> s_t_d_data, d_t_s_data;
 };
 
 #endif
