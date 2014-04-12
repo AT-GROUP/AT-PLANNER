@@ -90,28 +90,41 @@ void EDFDDocument::serialize(_xmlNode * document_node) const
 		int i_c = 1;
 		xmlNodePtr child_node = xmlNewChild(doc_node2, NULL, BAD_CAST "con", BAD_CAST "");
 		xmlNewProp (child_node, BAD_CAST "name" , BAD_CAST c->name().c_str());
-		xmlNewProp(child_node, BAD_CAST "std" , BAD_CAST BoolToString(c->std()));
+
+		xmlNodePtr child_node_std = xmlNewChild(child_node, NULL, BAD_CAST "std", BAD_CAST "");
+
+		xmlNewProp(child_node_std, BAD_CAST "name" , BAD_CAST "std");
+		xmlNewProp(child_node_std, BAD_CAST "std" , BAD_CAST BoolToString(c->std()));
 		if (c->std())
 		{
 			int i_cc = 1;
 			for (auto cc : c->std_d())
 			{
-				xmlNewProp (child_node, BAD_CAST "std" + i_cc , BAD_CAST cc.c_str());
+				std::string str = "std" + std::to_string(i_cc);
+				xmlNewProp (child_node_std, BAD_CAST str.c_str(), BAD_CAST cc.c_str());
 				i_cc++;
 			}
-			xmlNewProp (child_node, BAD_CAST "std_number", BAD_CAST (i_cc - 1));
+			std::string str_num = std::to_string(i_cc - 1);
+			xmlNewProp (child_node_std, BAD_CAST "std_number", BAD_CAST str_num.c_str());
 		}
-		xmlNewProp(child_node, BAD_CAST "dts" , BAD_CAST BoolToString(c->dts()));
+
+		xmlNodePtr child_node_dts = xmlNewChild(child_node, NULL, BAD_CAST "dts", BAD_CAST "");
+
+		xmlNewProp(child_node_dts, BAD_CAST "name" , BAD_CAST "dts");
+		xmlNewProp(child_node_dts, BAD_CAST "dts" , BAD_CAST BoolToString(c->dts()));
 		if(c->dts())
 		{
 			int i_cc = 1;
 			for (auto cc : c->dts_d())
 			{
-				xmlNewProp (child_node, BAD_CAST "dts" + i_cc , BAD_CAST cc.c_str());
+				std::string str = "dts" + std::to_string(i_cc);
+				xmlNewProp (child_node_dts, BAD_CAST str.c_str(), BAD_CAST cc.c_str());
 				i_cc++;
 			}
-			xmlNewProp (child_node, BAD_CAST "dts_number", BAD_CAST (i_cc - 1));
+			std::string str_num = std::to_string(i_cc - 1);
+			xmlNewProp (child_node_dts, BAD_CAST "dts_number", BAD_CAST str_num.c_str());
 		}
+
 		for (auto e_c : mElements)
 		{
 			if (e_c->name() == c->sourceName())
@@ -172,37 +185,44 @@ AError EDFDDocument::deserialize(_xmlNode * document_node)
 		//Get links to real elements
 		shared_ptr<DFDElement> src_elem = element_dictionary[source_id], dest_elem = element_dictionary[dest_id];
 
-		
-		bool std = to_bool(xml_prop(conn_node, "std"));
-		bool dts = to_bool(xml_prop(conn_node, "dts"));
+		//Create connection
+		shared_ptr<DFDConnection> conn(new DFDConnection(_cname, src_elem, dest_elem));
 
-		shared_ptr<DFDConnection> conn(new DFDConnection(_cname, src_elem, dest_elem)); ////////////////////////////!!!!!!!!!
-
-		if (std) 
-			conn->addSTD_data(xml_prop(conn_node, "source-to-dest_data"));
-		if (dts)
-			conn->addDTS_data(xml_prop(conn_node, "dest-to-source_data"));
+		//Check for source-to-dest and dest-to-source datastreams
+		xml_for_each_child(conn_node, d_node)
+		{
+			const char *_cname = xml_prop(d_node, "name");
+			std::string sttr = _cname;
+			if (sttr == "std")
+			{
+				bool std = to_bool(xml_prop(d_node, "std"));
+				if (std) 
+				{
+					int std_number = atoi(xml_prop(d_node, "std_number"));
+					for (int i = 1; i < std_number + 1; i++)
+					{
+						std::string str = "std" + std::to_string(i);
+						conn->addSTD_data(xml_prop(d_node, str.c_str()));
+					}
+				}
+			}
+			else
+			{
+				bool dts = to_bool(xml_prop(d_node, "dts"));
+				if (dts)
+				{
+					int dts_number = atoi(xml_prop(d_node, "dts_number"));
+					for (int i = 1; i < dts_number + 1; i++)
+					{
+						std::string str = "dts" + std::to_string(i);
+						conn->addDTS_data(xml_prop(d_node, str.c_str()));
+					}
+				}
+			}
+		}
 
 		mConnections.push_back(conn);
 	}
-
-	/* old des
-	xml_for_each_child(conn_nodes, conn_node)
-	{
-		const char *_cname = xml_prop(conn_node, "name");
-
-		//Get linked element indices
-		int source_id = atoi(xml_prop(conn_node, "source_id")), dest_id = atoi(xml_prop(conn_node, "dest_id"));
-		
-		//Get links to real elements
-		shared_ptr<DFDElement> src_elem = element_dictionary[source_id], dest_elem = element_dictionary[dest_id];
-
-		shared_ptr<DFDConnection> conn(new DFDConnection(_cname, src_elem, dest_elem, true, false)); ////////////////////////////!!!!!!!!!
-
-		mConnections.push_back(conn);
-	}
-	*/
-
 	return AError();
 }
 

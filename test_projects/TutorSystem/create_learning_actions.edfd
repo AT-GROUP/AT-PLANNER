@@ -1,22 +1,98 @@
 <?xml version="1.0"?>
 <document>
-  <Elements>
-    <elem name="&#x43F;&#x440;&#x435;&#x43F;&#x43E;&#x434;&#x430;&#x432;&#x430;&#x442;&#x435;&#x43B;&#x44C;" xPos="50" yPos="230" type="0" detal="false" id="1"/>
-    <elem name="&#x441;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &#x423;&#x422;&#x417;" xPos="254" yPos="305" type="2" detal="false" id="2"/>
+  
+<Elements>
+    
+<elem name="&#x43F;&#x440;&#x435;&#x43F;&#x43E;&#x434;&#x430;&#x432;&#x430;&#x442;&#x435;&#x43B;&#x44C;" xPos="21" yPos="310" type="0" detal="false" id="1"/>
+    <elem name="&#x441;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &#x423;&#x422;&#x417;" xPos="204" yPos="317" type="2" detal="false" id="2"/>
     <elem name="&#x441;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &#x413;&#x422;-&#x443;&#x447;&#x435;&#x431;&#x43D;&#x438;&#x43A;" xPos="310" yPos="70" type="2" detal="false" id="3"/>
-    <elem name="&#x441;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &quot;&#x442;&#x440;&#x435;&#x43D;&#x438;&#x43D;&#x433; &#x441; &#x418;&#x42D;&#x421;&quot;" xPos="333" yPos="420" type="3" detal="false" id="4"/>
-    <elem name="&#x411;&#x414; &#x43E;&#x43D;&#x442;&#x43E;&#x43B;&#x43E;&#x433;&#x438;&#x439;" xPos="312" yPos="186" type="1" detal="false" id="5"/>
-    <elem name="&#x411;&#x414; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x445; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x439;" xPos="495" yPos="165" type="1" detal="false" id="6"/>
+    <elem name="&#x441;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &quot;&#x442;&#x440;&#x435;&#x43D;&#x438;&#x43D;&#x433; &#x441; &#x418;&#x42D;&#x421;&quot;" xPos="306" yPos="516" type="3" detal="false" id="4"/>
+    <elem name="&#x411;&#x414; &#x43E;&#x43D;&#x442;&#x43E;&#x43B;&#x43E;&#x433;&#x438;&#x439;" xPos="362" yPos="167" type="1" detal="false" id="5"/>
+    <elem name="&#x411;&#x414; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x445; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x439;" xPos="623" yPos="207" type="1" detal="false" id="6"/>
   </Elements>
-  <Connections>
-    <con name="con" std="true" source-to-dest_data="&#x437;&#x430;&#x434;&#x430;&#x43D;&#x438;&#x435;" dts="false" source_id="1" dest_id="2"/>
-    <con name="con" std="true" source-to-dest_data="&#x437;&#x43D;&#x430;&#x43D;&#x438;&#x44F;" dts="false" source_id="1" dest_id="3"/>
-    <con name="con" std="true" source-to-dest_data="&#x437;&#x43D;&#x430;&#x43D;&#x438;&#x44F;,&#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435;" dts="false" source_id="1" dest_id="4"/>
-    <con name="con" std="true" source-to-dest_data="&#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442; &#x43A;&#x443;&#x440;&#x441;&#x430;" dts="false" dest_id="3" source_id="5"/>
-    <con name="con" std="true" source-to-dest_data="&#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442; &#x43A;&#x443;&#x440;&#x441;&#x430;" dts="false" dest_id="2" source_id="5"/>
-    <con name="con" std="true" source-to-dest_data="&#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442; &#x43A;&#x443;&#x440;&#x441;&#x430;" dts="false" dest_id="4" source_id="5"/>
-    <con name="con" std="true" source-to-dest_data="&#x423;&#x422;&#x417;" dts="false" source_id="2" dest_id="6"/>
-    <con name="con" std="true" source-to-dest_data="&#x413;&#x422;-&#x443;&#x447;&#x435;&#x431;&#x43D;&#x438;&#x43A;" dts="false" source_id="3" dest_id="6"/>
-    <con name="con" std="true" source-to-dest_data="&#x442;&#x440;&#x435;&#x43D;&#x438;&#x43D;&#x433;" dts="false" source_id="4" dest_id="6"/>
-  </Connections>
+  
+<Connections>
+    
+<con name="con" source_id="1" dest_id="2">
+      
+	<std name="std" std="true" std1="&#x437;&#x430;&#x434;&#x430;&#x43D;&#x438;&#x435;" std_number="1"/>
+      
+	<dts name="dts" dts="false"/>
+    
+</con>
+
+    
+<con name="con" source_id="1" dest_id="3">
+      
+	<std name="std" std="true" std1="&#x437;&#x43D;&#x430;&#x43D;&#x438;&#x44F;" std_number="1"/>
+      
+	<dts name="dts" dts="false"/>
+    
+</con>
+
+    
+<con name="con" source_id="1" dest_id="4">
+      
+	<std name="std" std="true" std1="&#x437;&#x43D;&#x430;&#x43D;&#x438;&#x44F;" std2="&#x434;&#x430;&#x43D;&#x43D;&#x44B;&#x435;" std_number="2"/>
+      
+	<dts name="dts" dts="false"/>
+    
+</con>
+
+    
+<con name="con" dest_id="3" source_id="5">
+      
+	<std name="std" std="true" std1="&#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442; &#x43A;&#x443;&#x440;&#x441;&#x430;" std_number="1"/>
+      
+	<dts name="dts" dts="false"/>
+    
+</con>
+
+    
+<con name="con" dest_id="2" source_id="5">
+      
+	<std name="std" std="true" std1="&#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442; &#x43A;&#x443;&#x440;&#x441;&#x430;" std_number="1"/>
+      
+	<dts name="dts" dts="false"/>
+    
+</con>
+
+    
+<con name="con" dest_id="4" source_id="5">
+      
+	<std name="std" std="true" std1="&#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442; &#x43A;&#x443;&#x440;&#x441;&#x430;" std_number="1"/>
+      
+	<dts name="dts" dts="false"/>
+    
+</con>
+
+    
+<con name="con" source_id="2" dest_id="6">
+      
+	<std name="std" std="true" std1="&#x423;&#x422;&#x417;" std_number="1"/>
+      
+	<dts name="dts" dts="false"/>
+    
+</con>
+    
+<con name="con" source_id="3" dest_id="6">
+      
+	<std name="std" std="true" std1="&#x413;&#x422;-&#x443;&#x447;&#x435;&#x431;&#x43D;&#x438;&#x43A;" std_number="1"/>
+      
+	<dts name="dts" dts="false"/>
+    
+</con>
+
+    
+<con name="con" source_id="4" dest_id="6">
+      
+	<std name="std" std="true" std1="&#x442;&#x440;&#x435;&#x43D;&#x438;&#x43D;&#x433;" std_number="1"/>
+      
+	<dts name="dts" dts="false"/>
+    
+</con>
+
+  
+</Connections>
+
 </document>

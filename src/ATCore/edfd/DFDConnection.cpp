@@ -4,8 +4,7 @@
 DFDConnection::DFDConnection(const std::string & _name, const std::shared_ptr<DFDElement> src, const std::shared_ptr<DFDElement> dest)
 	:ANamedObject(_name), m_pSource(src), m_pDest(dest)
 {
-	s_t_d_data.push_back("data1"); 
-	d_t_s_data.push_back("data2");
+
 }
 
 const std::shared_ptr<DFDElement> & DFDConnection::source() const
