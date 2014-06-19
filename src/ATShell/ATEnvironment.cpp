@@ -285,8 +285,8 @@ void ATEnvironment::closeMdiWindow(ATMdiWindow * mdi_wnd, const std::string & fp
 
 void ATEnvironment::documentChanged(const std::shared_ptr<ADocument> & doc)
 {
-	if(doc->type() == ADocument::Type::EDFD)
-		m_pApplication->planner()->buildGeneralizedPlan();
+//	if(doc->type() == ADocument::Type::EDFD)
+//		m_pApplication->planner()->buildGeneralizedPlan();
 }
 
 void ATEnvironment::documentOpenRequested(const std::string & document_name)
