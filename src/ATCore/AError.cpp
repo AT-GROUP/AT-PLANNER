@@ -87,3 +87,9 @@ void set_error_messenger(AErrorMessenger * messenger)
 {
 	ErrorMessenger::setSingleton(messenger);
 }
+
+AErrorMessenger & operator<<(AErrorMessenger & os, const std::string & msg)
+{
+	os.printMessage(msg);
+	return os;
+}

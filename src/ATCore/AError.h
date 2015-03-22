@@ -81,6 +81,7 @@ class AErrorMessenger
 public:
 	virtual void criticalErrorOccured(const AError & error){};
 	virtual void printMessage(const std::string & msg){};
+	friend AErrorMessenger & operator<<(AErrorMessenger & os, const std::string & msg);
 };
 
 typedef ASingleton<AErrorMessenger> ErrorMessenger;

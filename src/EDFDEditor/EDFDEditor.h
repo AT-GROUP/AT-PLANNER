@@ -11,23 +11,6 @@
 #include <memory>
 
 class EDFDDocument;
-/*
-namespace BlockScheme
-{
-	class AScheme;
-	class ABlock;
-};
-
-namespace BlockScheme
-{
-	class AQBlock : public QGraphicsItemGroup
-	{
-	public:
-		AQBlock(BlockScheme::ABlock * block, QGraphicsItem * parent = 0);
-	private:
-		BlockScheme::ABlock * m_pBlock;
-	};
-};*/
 
 class AGUIEditorInstance;
 
@@ -55,28 +38,11 @@ private:
 
 class EDFDEditorPlugin : public AGUITEditorPlugin<EDFDDocument, EDFDEditor>
 {
+	using _Base = AGUITEditorPlugin<EDFDDocument, EDFDEditor>;
 public:
-	virtual const std::string name()
-	{
-		return "Extended DFD Editor";
-	}
-
-	virtual const std::string description()
-	{
-		return "Base AT Editor for editing Extended DFD diagrams.";
-	}
-
-	virtual const std::string documentDescription() const
-	{
-		return "Extended Data Flow Diagramm";
-	}
-
-	virtual const std::string editorTitle() const
-	{
-		return "EDFD Editor";
-	}
-
-	virtual const std::string documentExtension() const override;
+	EDFDEditorPlugin()
+		:_Base("edfd", "Extended Data Flow Diagramm", "EDFD Editor", "Extended DFD Editor", "Base AT Editor for editing Extended DFD diagrams.")
+	{}
 
 	virtual AError init(QToolBar * tb, QMenu * menu);
 	virtual void openFile(ADocument * file);

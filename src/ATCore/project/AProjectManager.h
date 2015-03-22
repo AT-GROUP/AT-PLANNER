@@ -18,6 +18,8 @@ public:
 	AProject * createProject(const std::string & project_path);
 	AError saveProject() const;
 	AProject * openProject(const std::string & path);
+	void buildProject(AErrorMessenger & os);
+	void buildClean(AErrorMessenger & os) const;
 private:
 	AProject * m_pProject;
 };

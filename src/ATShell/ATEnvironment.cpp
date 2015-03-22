@@ -76,11 +76,20 @@ ATEnvironment::ATEnvironment(ATApplication * app, QWidget *parent)
 
 	ui.wdgConsole->setDelegate(m_pApplication);
 
-	connect(ui.actionPlugins, &QAction::triggered, [=]()
-		{
+	connect(ui.actionPlugins, &QAction::triggered, [=](){
 			auto wdg = new APluginsWidget(m_pApplication);
 			wdg->show();
 	});
+
+	connect(ui.actionBuildProject, &QAction::triggered, [=](){
+		this->buildProject(*ui.wdgConsole);
+	});
+
+	connect(ui.actionBuildCleanProject, &QAction::triggered, [=](){
+		this->buildClean(*ui.wdgConsole);
+	});
+
+	
 
 	/*auto arch_plugin = static_cast<AGUIEditorPlugin*>(m_pApplication->editorForExtension("arch"));
 	auto ed = static_cast<AGUIEditorInstance*>(arch_plugin->createEditorInstance());

@@ -24,9 +24,15 @@ class AT_CORE_API APlugin
 public:
 	enum class Type {Utility, Editor, Adapter, Count};
 
-	virtual const std::string name() = 0;
-	virtual const std::string description() = 0;
-	virtual const Type type() const = 0;
+	APlugin(Type _type, const std::string & _name, const std::string & _description);
+
+	const std::string & name() const;
+	const std::string & description() const;
+	Type type() const;
+
+private:
+	const Type m_type;
+	const std::string m_name, m_description;
 };
 
 extern "C"
@@ -41,7 +47,7 @@ plugin can be registered for several commands.
 class AT_CORE_API AUtilityPlugin : public APlugin
 {
 public:
-	virtual const Type type() const;
+	AUtilityPlugin(const std::string & _name, const std::string & _description);
 	virtual const std::vector<std::string> getCommands() = 0;
 	virtual AError executeCommand(const std::string & script, std::string & answer)=0;
 };
@@ -52,7 +58,7 @@ Plugin for PDDL-planners integration.
 class AT_CORE_API AAdapterPlugin : public APlugin
 {
 public:
-	virtual const Type type() const;
+	AAdapterPlugin(const std::string & _name, const std::string & _description);
 	virtual APlan * buildGeneralizedPlan(const EDFDDocument * common_dfd) = 0;
 	virtual APlan * buildDetailPlan(APlan * plan, const AArchitectureDocument * arch_doc) = 0;
 };
@@ -66,10 +72,11 @@ class AEditorInstance;
 class AT_CORE_API AEditorPlugin : public APlugin
 {
 public:
-	virtual const Type type() const;
-	virtual const std::string documentExtension() const = 0;
-	virtual const std::string documentDescription() const = 0;
-	virtual const std::string editorTitle() const = 0;
+	AEditorPlugin(const std::string document_extension, const std::string & document_description, const std::string & editor_title, const std::string & _name, const std::string & _description);
+
+	const std::string & documentExtension() const;
+	const std::string & documentDescription() const;
+	const std::string & editorTitle() const;
 	
 	/*
 	Creates new document, without any saving.
@@ -88,6 +95,8 @@ public:
 	Creates editor instance (window).
 	*/
 	virtual AEditorInstance * createEditorInstance() = 0;
+private:
+	const std::string m_docExt, m_docDescr, m_editorTitle;
 };
 
 class AEditorDelegate

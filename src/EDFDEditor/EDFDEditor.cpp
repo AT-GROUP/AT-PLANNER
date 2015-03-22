@@ -162,8 +162,3 @@ void EDFDEditorPlugin::openFile(ADocument * file)
 	updateScene();*/
 }
 
-const std::string EDFDEditorPlugin::documentExtension() const
-{
-	return "edfd";
-}
-

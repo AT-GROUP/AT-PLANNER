@@ -3,20 +3,33 @@
 
 using namespace std;
 
-const APlugin::Type AUtilityPlugin::type() const
+APlugin::APlugin(Type _type, const std::string & _name, const std::string & _description)
+	:m_type(_type), m_name(_name), m_description(_description)
 {
-	return APlugin::Type::Utility;
 }
 
-const APlugin::Type AAdapterPlugin::type() const
+const std::string & APlugin::name() const
 {
-	return APlugin::Type::Adapter;
+	return m_name;
 }
 
-const APlugin::Type AEditorPlugin::type() const
+const std::string & APlugin::description() const
 {
-	return APlugin::Type::Editor;
+	return m_description;
 }
+
+APlugin::Type APlugin::type() const
+{
+	return m_type;
+}
+
+AUtilityPlugin::AUtilityPlugin(const std::string & _name, const std::string & _description)
+	:APlugin(APlugin::Type::Utility, _name, _description)
+{}
+
+AAdapterPlugin::AAdapterPlugin(const std::string & _name, const std::string & _description)
+	: APlugin(APlugin::Type::Adapter, _name, _description)
+{}
 
 ADocument * AEditorPlugin::openFile(const std::string & directory, const std::string & filename)
 {
@@ -24,6 +37,26 @@ ADocument * AEditorPlugin::openFile(const std::string & directory, const std::st
 	new_doc->loadFromFile(directory + "/" + filename);
 
 	return new_doc;
+}
+
+AEditorPlugin::AEditorPlugin(const std::string document_extension, const std::string & document_description, const std::string & editor_title, const std::string & _name, const std::string & _description)
+	:APlugin(APlugin::Type::Editor, _name, _description), m_docExt(document_extension), m_docDescr(document_description), m_editorTitle(editor_title)
+{
+}
+
+const std::string & AEditorPlugin::documentExtension() const
+{
+	return m_docExt;
+}
+
+const std::string & AEditorPlugin::documentDescription() const
+{
+	return m_docDescr;
+}
+
+const std::string & AEditorPlugin::editorTitle() const
+{
+	return m_editorTitle;
 }
 
 ADocument * AEditorPlugin::createFile(const std::string & directory, const std::string & filename)

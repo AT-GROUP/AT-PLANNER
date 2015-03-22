@@ -19,35 +19,35 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{98073DBF-A3B0-4134-B6C8-3C67732F4FA2}</ProjectGuid>
-    <RootNamespace>ATCore</RootNamespace>
+    <ProjectGuid>{DCEBDC14-F21E-4289-859B-F687DE9101B6}</ProjectGuid>
+    <RootNamespace>ATLinker</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -71,13 +71,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../include;../include/iconv;../include/libxml</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>AT_CORE_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -85,14 +81,9 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>../include;../include/iconv;../include/libxml</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>AT_CORE_EXPORT;_CRT_SECURE_NO_WARNINGS;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -102,14 +93,11 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>../include;../include/iconv;../include/libxml</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -119,72 +107,20 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <AdditionalIncludeDirectories>../include;../include/iconv;../include/libxml</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>AT_CORE_EXPORT;_CRT_SECURE_NO_WARNINGS;WIN64;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>libxml2.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\ATCore\ACommandExecutor.cpp" />
-    <ClCompile Include="..\src\ATCore\ADocument.cpp" />
-    <ClCompile Include="..\src\ATCore\AError.cpp" />
-    <ClCompile Include="..\src\ATCore\ALogManager.cpp" />
-    <ClCompile Include="..\src\ATCore\ANamedObject.cpp" />
-    <ClCompile Include="..\src\ATCore\architecture\AArchElement.cpp" />
-    <ClCompile Include="..\src\ATCore\architecture\AArchElementFactory.cpp" />
-    <ClCompile Include="..\src\ATCore\architecture\AArchElementGroup.cpp" />
-    <ClCompile Include="..\src\ATCore\architecture\AArchitectureDocument.cpp" />
-    <ClCompile Include="..\src\ATCore\architecture\AArchLink.cpp" />
-    <ClCompile Include="..\src\ATCore\architecture\APIKInterface.cpp" />
-    <ClCompile Include="..\src\ATCore\documents\AKBDocument.cpp" />
-    <ClCompile Include="..\src\ATCore\edfd\DFDAnchor.cpp" />
-    <ClCompile Include="..\src\ATCore\edfd\DFDConnection.cpp" />
-    <ClCompile Include="..\src\ATCore\edfd\DFDElement.cpp" />
-    <ClCompile Include="..\src\ATCore\edfd\EDFDDocument.cpp" />
-    <ClCompile Include="..\src\ATCore\plan\APlan.cpp" />
-    <ClCompile Include="..\src\ATCore\plugin\APlugin.cpp" />
-    <ClCompile Include="..\src\ATCore\plugin\APluginManager.cpp" />
-    <ClCompile Include="..\src\ATCore\project\AProject.cpp" />
-    <ClCompile Include="..\src\ATCore\project\AProjectManager.cpp" />
-    <ClCompile Include="..\src\ATCore\project\AProjectNode.cpp" />
-    <ClCompile Include="..\src\ATCore\utils\geometry.cpp" />
-    <ClCompile Include="..\src\ATCore\utils\helpers.cpp" />
+    <ClCompile Include="..\src\ATLinker\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\ATCore\ACommandExecutor.h" />
-    <ClInclude Include="..\src\ATCore\ADelegatedObject.h" />
-    <ClInclude Include="..\src\ATCore\ADocument.h" />
-    <ClInclude Include="..\src\ATCore\AError.h" />
-    <ClInclude Include="..\src\ATCore\ALogManager.h" />
-    <ClInclude Include="..\src\ATCore\ANamedObject.h" />
-    <ClInclude Include="..\src\ATCore\architecture\AArchElement.h" />
-    <ClInclude Include="..\src\ATCore\architecture\AArchElementFactory.h" />
-    <ClInclude Include="..\src\ATCore\architecture\AArchElementGroup.h" />
-    <ClInclude Include="..\src\ATCore\architecture\AArchitectureDocument.h" />
-    <ClInclude Include="..\src\ATCore\architecture\AArchLink.h" />
-    <ClInclude Include="..\src\ATCore\architecture\APIKInterface.h" />
-    <ClInclude Include="..\src\ATCore\ASingleton.h" />
-    <ClInclude Include="..\src\ATCore\config.h" />
-    <ClInclude Include="..\src\ATCore\documents\AKBDocument.h" />
-    <ClInclude Include="..\src\ATCore\edfd\DFDAnchor.h" />
-    <ClInclude Include="..\src\ATCore\edfd\DFDConnection.h" />
-    <ClInclude Include="..\src\ATCore\edfd\DFDElement.h" />
-    <ClInclude Include="..\src\ATCore\edfd\EDFDDocument.h" />
-    <ClInclude Include="..\src\ATCore\plan\APlan.h" />
-    <ClInclude Include="..\src\ATCore\plugin\APlugin.h" />
-    <ClInclude Include="..\src\ATCore\plugin\APluginManager.h" />
-    <ClInclude Include="..\src\ATCore\project\AProject.h" />
-    <ClInclude Include="..\src\ATCore\project\AProjectManager.h" />
-    <ClInclude Include="..\src\ATCore\project\AProjectNode.h" />
-    <ClInclude Include="..\src\ATCore\utils\geometry.h" />
-    <ClInclude Include="..\src\ATCore\utils\helpers.h" />
+    <ProjectReference Include="..\ATCore\ATCore.vcxproj">
+      <Project>{98073dbf-a3b0-4134-b6c8-3c67732f4fa2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

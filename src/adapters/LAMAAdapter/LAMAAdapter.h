@@ -9,11 +9,12 @@ class APlan;
 class AT_PLUGIN_EXPORT LAMAAdapter : public AAdapterPlugin
 {
 public:
-	virtual const std::string name();
-	virtual const std::string description();
+	LAMAAdapter()
+		:AAdapterPlugin("LAMA planner adapter", "PDDL adapter for planner LAMA 2011")
+	{}
+
 	virtual APlan * buildGeneralizedPlan(const EDFDDocument * common_dfd);
 	virtual APlan * buildDetailPlan(APlan * plan, const AArchitectureDocument * arch_doc);
-	
 };
 
 #endif

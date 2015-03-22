@@ -34,6 +34,9 @@
     <Filter Include="src\plan">
       <UniqueIdentifier>{a9713b95-4f8d-4bfc-b066-ce5ddec4d9f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\documents">
+      <UniqueIdentifier>{2f27bc84-e29e-4849-8c6a-5b1bdcb5cf7f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ATCore\AError.cpp">
@@ -104,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="..\src\ATCore\edfd\DFDAnchor.cpp">
       <Filter>src\edfd</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ATCore\documents\AKBDocument.cpp">
+      <Filter>src\documents</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ATCore\edfd\DFDAnchor.h">
       <Filter>src\edfd</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ATCore\documents\AKBDocument.h">
+      <Filter>src\documents</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

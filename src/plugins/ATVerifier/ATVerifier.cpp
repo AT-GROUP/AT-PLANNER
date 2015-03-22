@@ -8,16 +8,6 @@ APlugin * AT_CREATE_PLUGIN_FN()
 	return new ATVerifierPlugin();
 }
 
-const std::string ATVerifierPlugin::name()
-{
-	return "ATVerifier";
-}
-
-const std::string ATVerifierPlugin::description()
-{
-	return "Verifies Knowledge Base written on AT-Language";
-}
-
 const std::vector<std::string> ATVerifierPlugin::getCommands()
 {
 	vector<string> result;

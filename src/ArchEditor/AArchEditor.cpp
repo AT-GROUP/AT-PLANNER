@@ -27,10 +27,6 @@ void ArchEditorPlugin::openFile(ADocument * file)
 {
 }
 
-const std::string ArchEditorPlugin::documentExtension() const
-{
-	return "arch";
-}
 
 //================Editor===================
 //C:\Qt\Qt5.1.1\5.1.1\Src\qttools\src\designer\src\components\widgetbox

@@ -40,13 +40,22 @@ class AT_GUI_API AGUIEditorPlugin : public AEditorPlugin
 //	Q_OBJECT
 
 public:
+	AGUIEditorPlugin(const std::string document_extension, const std::string & document_description, const std::string & editor_title, const std::string & _name, const std::string & _description)
+		:AEditorPlugin(document_extension, document_description, editor_title, _name, _description)
+	{}
 	//AEditor();
 	virtual AError init(QToolBar * tb, QMenu * menu)=0;
 };
 
-template<class DocType, class EdInstType> class AGUITEditorPlugin : public AGUIEditorPlugin
+template<class DocType, class EdInstType>
+class AGUITEditorPlugin : public AGUIEditorPlugin
 {
 public:
+	AGUITEditorPlugin(const std::string document_extension, const std::string & document_description, const std::string & editor_title, const std::string & _name, const std::string & _description)
+		:AGUIEditorPlugin(document_extension, document_description, editor_title, _name, _description)
+	{
+	}
+
 	virtual EdInstType * createEditorInstance()
 	{
 		return new EdInstType(this, 0);

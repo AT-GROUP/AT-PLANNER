@@ -26,31 +26,15 @@ private:
 
 class ArchEditorPlugin : public AGUITEditorPlugin<AArchitectureDocument, AArchEditor>
 {
+	using _Base = AGUITEditorPlugin<AArchitectureDocument, AArchEditor>;
 public:
-	virtual const std::string name()
-	{
-		return "Extended DFD Editor";
-	}
 
-	virtual const std::string description()
-	{
-		return "Base AT Editor for editing Extended DFD diagrams.";
-	}
-
-	virtual const std::string documentDescription() const
-	{
-		return "Architecture Model";
-	}
-
-	virtual const std::string editorTitle() const
-	{
-		return "Architecture Model Editor";
-	}
+	ArchEditorPlugin()
+		:_Base("arch", "Architecture Model", "EDFD Editor", "Architecture Model Editor", "Base AT Editor for editing Extended DFD diagrams.")
+	{}
 
 	virtual AError init(QToolBar * tb, QMenu * menu);
 	virtual void openFile(ADocument * file);
-
-	virtual const std::string documentExtension() const override;
 };
 
 
