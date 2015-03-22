@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<document>
+  <groups>
+    <group child_count="6" x="0" y="0">
+      <dfd_element name="&#x41D;&#x424;-&#x43E;&#x43F;&#x435;&#x440;&#x430;&#x446;&#x438;&#x44F;" xPos="283" yPos="457" type="3" detal="false" id="1"/>
+      <elements>
+        <element name="ATDialogScenario instance" x="-150" y="-60" type="1" id="0">
+          <interface name="ATDialogScenario"/>
+        </element>
+        <element name="ATExplanations instance" x="-210" y="140" type="1" id="1">
+          <interface name="ATExplanations"/>
+        </element>
+        <element name="ATKnowledgeBase instance" x="-240" y="10" type="1" id="2">
+          <interface name="ATKnowledgeBase"/>
+        </element>
+        <element name="ATDialoger instance" x="0" y="0" type="0" id="3">
+          <interface name="ATDialoger"/>
+        </element>
+        <element name="ATExplainer instance" x="-150" y="90" type="0" id="4">
+          <interface name="ATExplainer"/>
+        </element>
+        <element name="ATSolver instance" x="-150" y="-10" type="0" id="5">
+          <interface name="ATSolver"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="2" x="300" y="0">
+      <dfd_element name="&#x411;&#x414; &#x43C;&#x430;&#x442;&#x435;&#x440;&#x438;&#x430;&#x43B;&#x43E;&#x432;" xPos="380" yPos="273" type="1" detal="false" id="2"/>
+      <elements>
+        <element name="DBDriver instance" x="60" y="60" type="0" id="6">
+          <interface name="DBDriver"/>
+        </element>
+        <element name="DataBase instance" x="-60" y="-60" type="1" id="7">
+          <interface name="DataBase"/>
+        </element>
+      </elements>
+    </group>
+  </groups>
+  <links>
+    <link src_id="5" dest_id="3" slot_name="Solver"/>
+    <link src_id="2" dest_id="5" slot_name="Knowledge Base"/>
+    <link src_id="0" dest_id="3" slot_name="Dialog Scenario"/>
+    <link src_id="4" dest_id="3" slot_name="Explainer"/>
+    <link src_id="1" dest_id="4" slot_name="Explanations"/>
+    <link src_id="7" dest_id="6" slot_name="DataBase"/>
+    <link src_id="6" dest_id="3" slot_name="DB Driver"/>
+  </links>
+</document>

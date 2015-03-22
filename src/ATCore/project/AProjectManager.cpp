@@ -33,7 +33,7 @@ AProject * AProjectManager::createProject(const std::string & project_path)
 	string dir_path, fname;
 	split_file_path(project_path, dir_path, fname);
 
-	m_pProject = new AProject(fname, dir_path);
+	m_pProject = new AProject(fname, project_path);
 	saveProject();
 
 	return m_pProject;

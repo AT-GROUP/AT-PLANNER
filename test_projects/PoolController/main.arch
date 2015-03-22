@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<document>
+  <groups>
+    <group child_count="1" x="0" y="0">
+      <dfd_element name="Read sensor values" xPos="364" yPos="361" type="2" detal="false" id="1"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="0">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="300" y="0">
+      <dfd_element name="Save measurement" xPos="191" yPos="297" type="2" detal="false" id="4"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="1">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="2" x="600" y="0">
+      <dfd_element name="Measurements DB" xPos="180" yPos="193" type="1" detal="false" id="5"/>
+      <elements>
+        <element name="DataBase instance" x="-60" y="-60" type="1" id="2">
+          <interface name="DataBase"/>
+        </element>
+        <element name="DBDriver instance" x="60" y="60" type="0" id="3">
+          <interface name="DBDriver"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="6" x="0" y="300">
+      <dfd_element name="Diagnosis of requiered action" xPos="191" yPos="394" type="3" detal="false" id="6"/>
+      <elements>
+        <element name="ATDialoger instance" x="0" y="0" type="0" id="4">
+          <interface name="ATDialoger"/>
+        </element>
+        <element name="ATSolver instance" x="-150" y="-10" type="0" id="5">
+          <interface name="ATSolver"/>
+        </element>
+        <element name="ATDialogScenario instance" x="-150" y="-60" type="1" id="6">
+          <interface name="ATDialogScenario"/>
+        </element>
+        <element name="ATExplainer instance" x="-150" y="90" type="0" id="7">
+          <interface name="ATExplainer"/>
+        </element>
+        <element name="ATKnowledgeBase instance" x="-240" y="10" type="1" id="8">
+          <interface name="ATKnowledgeBase"/>
+        </element>
+        <element name="ATExplanations instance" x="-210" y="140" type="1" id="9">
+          <interface name="ATExplanations"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="300" y="300">
+      <dfd_element name="Generate driver command" xPos="190" yPos="515" type="2" detal="false" id="7"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="10">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+  </groups>
+  <links>
+    <link src_id="2" dest_id="3" slot_name="DataBase"/>
+    <link src_id="5" dest_id="4" slot_name="Solver"/>
+    <link src_id="8" dest_id="5" slot_name="Knowledge Base"/>
+    <link src_id="6" dest_id="4" slot_name="Dialog Scenario"/>
+    <link src_id="7" dest_id="4" slot_name="Explainer"/>
+    <link src_id="9" dest_id="7" slot_name="Explanations"/>
+    <link src_id="3" dest_id="1" slot_name="DB Driver"/>
+  </links>
+</document>

@@ -1,0 +1,315 @@
+<?xml version="1.0"?>
+<document>
+  <groups>
+    <group child_count="2" x="0" y="0">
+      <dfd_element name="&#x411;&#x414; &#x43A;&#x43E;&#x43D;&#x442;&#x440;&#x43E;&#x43B;&#x44C;&#x43D;&#x44B;&#x445; &#x43C;&#x435;&#x440;&#x43E;&#x43F;&#x440;&#x438;&#x44F;&#x442;&#x438;&#x439;" xPos="233" yPos="214" type="1" detal="false" id="2"/>
+      <elements>
+        <element name="DataBase instance" x="-60" y="-60" type="1" id="0">
+          <interface name="DataBase"/>
+        </element>
+        <element name="DBDriver instance" x="60" y="60" type="0" id="1">
+          <interface name="DBDriver"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="2" x="300" y="0">
+      <dfd_element name="&#x411;&#x430;&#x437;&#x430; &#x43E;&#x43D;&#x442;&#x43E;&#x43B;&#x43E;&#x433;&#x438;&#x439;" xPos="455" yPos="28" type="1" detal="false" id="3"/>
+      <elements>
+        <element name="DataBase instance" x="-60" y="-60" type="1" id="2">
+          <interface name="DataBase"/>
+        </element>
+        <element name="DBDriver instance" x="60" y="60" type="0" id="3">
+          <interface name="DBDriver"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="2" x="600" y="0">
+      <dfd_element name="&#x411;&#x414; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x435;&#x43C;&#x44B;&#x445;" xPos="400" yPos="250" type="1" detal="false" id="5"/>
+      <elements>
+        <element name="DataBase instance" x="-60" y="-60" type="1" id="4">
+          <interface name="DataBase"/>
+        </element>
+        <element name="DBDriver instance" x="60" y="60" type="0" id="5">
+          <interface name="DBDriver"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="900" y="0">
+      <dfd_element name="&#x412;&#x44B;&#x44F;&#x432;&#x438;&#x442;&#x44C; &#x443;&#x440;&#x43E;&#x432;&#x435;&#x43D;&#x44C; &#x443;&#x43C;&#x435;&#x43D;&#x438;&#x439;" xPos="276" yPos="141" type="2" detal="false" id="6"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="6">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="1200" y="0">
+      <dfd_element name="&#x412;&#x44B;&#x44F;&#x432;&#x438;&#x442;&#x44C; &#x443;&#x440;&#x43E;&#x432;&#x435;&#x43D;&#x44C; &#x437;&#x43D;&#x430;&#x43D;&#x438;&#x439;" xPos="244" yPos="304" type="2" detal="false" id="7"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="7">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="1500" y="0">
+      <dfd_element name="&#x41F;&#x43E;&#x441;&#x442;&#x440;&#x43E;&#x438;&#x442;&#x44C; &#x43F;&#x441;&#x438;&#x445;&#x43E;&#x43B;&#x43E;&#x433;&#x438;&#x447;&#x435;&#x441;&#x43A;&#x438;&#x439; &#x43F;&#x43E;&#x440;&#x442;&#x440;&#x435;&#x442;" xPos="68" yPos="466" type="2" detal="false" id="8"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="8">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="2" x="0" y="300">
+      <dfd_element name="&#x411;&#x430;&#x437;&#x430; &#x43F;&#x441;&#x438;&#x445;&#x43E;&#x43B;&#x43E;&#x433;&#x438;&#x447;&#x435;&#x441;&#x43A;&#x438;&#x445; &#x442;&#x435;&#x441;&#x442;&#x43E;&#x432;" xPos="364" yPos="465" type="1" detal="false" id="9"/>
+      <elements>
+        <element name="DataBase instance" x="-60" y="-60" type="1" id="9">
+          <interface name="DataBase"/>
+        </element>
+        <element name="DBDriver instance" x="60" y="60" type="0" id="10">
+          <interface name="DBDriver"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="2" x="300" y="300">
+      <dfd_element name="&#x411;&#x414; &#x43E;&#x43D;&#x442;&#x43E;&#x43B;&#x43E;&#x433;&#x438;&#x439;" xPos="131" yPos="361" type="1" detal="false" id="10"/>
+      <elements>
+        <element name="DBDriver instance" x="60" y="60" type="0" id="11">
+          <interface name="DBDriver"/>
+        </element>
+        <element name="DataBase instance" x="-60" y="-60" type="1" id="12">
+          <interface name="DataBase"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="600" y="300">
+      <dfd_element name="&#x421;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x432;&#x435;&#x434;&#x43E;&#x43C;&#x43E;&#x441;&#x442;&#x438;" xPos="296" yPos="303" type="2" detal="false" id="11"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="13">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="900" y="300">
+      <dfd_element name="&#x41A;&#x43E;&#x43D;&#x442;&#x440;&#x43E;&#x43B;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x443;&#x447;&#x435;&#x442;&#x43D;&#x443;&#x44E; &#x438;&#x43D;&#x444;&#x43E;&#x440;&#x43C;&#x430;&#x446;&#x438;&#x44E;" xPos="258" yPos="212" type="2" detal="false" id="12"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="14">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="1200" y="300">
+      <dfd_element name="&#x41F;&#x440;&#x43E;&#x432;&#x435;&#x441;&#x442;&#x438; &#x430;&#x43D;&#x430;&#x43B;&#x438;&#x442;&#x438;&#x43A;&#x43E;-&#x441;&#x442;&#x430;&#x442;&#x438;&#x441;&#x442;&#x438;&#x447;&#x435;&#x441;&#x43A;&#x443;&#x44E; &#x43E;&#x431;&#x440;&#x430;&#x431;&#x43E;&#x442;&#x43A;&#x443;" xPos="267" yPos="412" type="2" detal="false" id="13"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="15">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="2" x="1500" y="300">
+      <dfd_element name="&#x411;&#x414; &#x43F;&#x43B;&#x430;&#x43D;&#x43E;&#x432; &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" xPos="226" yPos="131" type="1" detal="false" id="14"/>
+      <elements>
+        <element name="DBDriver instance" x="60" y="60" type="0" id="16">
+          <interface name="DBDriver"/>
+        </element>
+        <element name="DataBase instance" x="-60" y="-60" type="1" id="17">
+          <interface name="DataBase"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="0" y="600">
+      <dfd_element name="&#x421;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x441;&#x442;&#x440;&#x430;&#x442;&#x435;&#x433;&#x438;&#x44E; (&#x43F;&#x43B;&#x430;&#x43D;) &#x43E;&#x431;&#x443;&#x447;&#x435;&#x43D;&#x438;&#x44F;" xPos="413" yPos="190" type="2" detal="false" id="15"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="18">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="2" x="300" y="600">
+      <dfd_element name="&#x411;&#x430;&#x437;&#x430; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x445; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x439;" xPos="395" yPos="354" type="1" detal="false" id="16"/>
+      <elements>
+        <element name="DataBase instance" x="-60" y="-60" type="1" id="19">
+          <interface name="DataBase"/>
+        </element>
+        <element name="DBDriver instance" x="60" y="60" type="0" id="20">
+          <interface name="DBDriver"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="600" y="600">
+      <dfd_element name="&#x421;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &#x423;&#x422;&#x417;" xPos="194" yPos="75" type="2" detal="false" id="17"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="21">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="900" y="600">
+      <dfd_element name="&#x441;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &#x413;&#x422;-&#x443;&#x447;&#x435;&#x431;&#x43D;&#x438;&#x43A;" xPos="226" yPos="203" type="2" detal="false" id="18"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="22">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="6" x="1200" y="600">
+      <dfd_element name="&#x421;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &quot;&#x422;&#x440;&#x435;&#x43D;&#x438;&#x43D;&#x433; &#x441; &#x418;&#x42D;&#x421;&quot;" xPos="235" yPos="386" type="3" detal="false" id="19"/>
+      <elements>
+        <element name="ATDialoger instance" x="0" y="0" type="0" id="23">
+          <interface name="ATDialoger"/>
+        </element>
+        <element name="ATExplainer instance" x="-150" y="90" type="0" id="24">
+          <interface name="ATExplainer"/>
+        </element>
+        <element name="ATSolver instance" x="-150" y="-10" type="0" id="25">
+          <interface name="ATSolver"/>
+        </element>
+        <element name="ATDialogScenario instance" x="-150" y="-60" type="1" id="26">
+          <interface name="ATDialogScenario"/>
+        </element>
+        <element name="ATKnowledgeBase instance" x="-240" y="10" type="1" id="27">
+          <interface name="ATKnowledgeBase"/>
+        </element>
+        <element name="ATExplanations instance" x="-210" y="140" type="1" id="28">
+          <interface name="ATExplanations"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="2" x="1500" y="600">
+      <dfd_element name="&#x411;&#x414; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x438;&#x445; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x439;" xPos="487" yPos="154" type="1" detal="false" id="20"/>
+      <elements>
+        <element name="DataBase instance" x="-60" y="-60" type="1" id="29">
+          <interface name="DataBase"/>
+        </element>
+        <element name="DBDriver instance" x="60" y="60" type="0" id="30">
+          <interface name="DBDriver"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="0" y="900">
+      <dfd_element name="&#x427;&#x438;&#x442;&#x430;&#x442;&#x44C; &#x413;&#x422;-&#x443;&#x447;&#x435;&#x431;&#x43D;&#x438;&#x43A;" xPos="157" yPos="104" type="2" detal="false" id="21"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="31">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="300" y="900">
+      <dfd_element name="&#x420;&#x435;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x435;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x435; &#x442;&#x438;&#x43F;&#x430; &#x423;&#x422;&#x417;" xPos="225" yPos="218" type="2" detal="false" id="22"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="32">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="6" x="600" y="900">
+      <dfd_element name="&#x420;&#x435;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x43E;&#x431;&#x443;&#x447;&#x430;&#x44E;&#x449;&#x435;&#x435; &#x432;&#x43E;&#x437;&#x434;&#x435;&#x439;&#x441;&#x442;&#x432;&#x438;&#x435; &#x442;&#x438;&#x43F;&#x430; &quot;&#x422;&#x440;&#x435;&#x43D;&#x438;&#x43D;&#x433; &#x441; &#x418;&#x42D;&#x421;&quot;" xPos="269" yPos="357" type="3" detal="false" id="23"/>
+      <elements>
+        <element name="ATDialoger instance" x="0" y="0" type="0" id="33">
+          <interface name="ATDialoger"/>
+        </element>
+        <element name="ATExplainer instance" x="-150" y="90" type="0" id="34">
+          <interface name="ATExplainer"/>
+        </element>
+        <element name="ATSolver instance" x="-150" y="-10" type="0" id="35">
+          <interface name="ATSolver"/>
+        </element>
+        <element name="ATDialogScenario instance" x="-150" y="-60" type="1" id="36">
+          <interface name="ATDialogScenario"/>
+        </element>
+        <element name="ATKnowledgeBase instance" x="-240" y="10" type="1" id="37">
+          <interface name="ATKnowledgeBase"/>
+        </element>
+        <element name="ATExplanations instance" x="-210" y="140" type="1" id="38">
+          <interface name="ATExplanations"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="900" y="900">
+      <dfd_element name="&#x421;&#x444;&#x43E;&#x440;&#x43C;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x432;&#x43E;&#x43F;&#x440;&#x43E;&#x441;&#x44B; &#x43A; &#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442;&#x430;&#x43C; &#x43A;&#x443;&#x440;&#x441;&#x430;/&#x434;&#x438;&#x441;&#x446;&#x438;&#x43F;&#x43B;&#x438;&#x43D;&#x44B;" xPos="115" yPos="165" type="2" detal="false" id="24"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="39">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="1200" y="900">
+      <dfd_element name="&#x41F;&#x43E;&#x441;&#x442;&#x440;&#x43E;&#x438;&#x442;&#x44C; &#x441;&#x442;&#x440;&#x443;&#x43A;&#x442;&#x443;&#x440;&#x443; &#x43A;&#x443;&#x440;&#x441;&#x430;/&#x434;&#x438;&#x441;&#x446;&#x438;&#x43F;&#x43B;&#x438;&#x43D;&#x44B;" xPos="82" yPos="325" type="2" detal="false" id="25"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="40">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="1500" y="900">
+      <dfd_element name="&#x420;&#x435;&#x430;&#x43B;&#x438;&#x437;&#x43E;&#x432;&#x430;&#x442;&#x44C; &#x430;&#x434;&#x430;&#x43F;&#x442;&#x438;&#x432;&#x43D;&#x44B;&#x439; &#x43C;&#x435;&#x442;&#x43E;&#x434; &#x440;&#x435;&#x43F;&#x435;&#x440;&#x442;&#x443;&#x430;&#x440;&#x43D;&#x44B;&#x445; &#x440;&#x435;&#x448;&#x435;&#x442;&#x43E;&#x43A;" xPos="270" yPos="31" type="2" detal="false" id="26"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="41">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="0" y="1200">
+      <dfd_element name="&#x41F;&#x43E;&#x441;&#x442;&#x440;&#x43E;&#x438;&#x442;&#x44C; &#x43C;&#x43E;&#x434;&#x435;&#x43B;&#x438; &#x446;&#x435;&#x43B;&#x435;&#x432;&#x44B;&#x445; &#x43A;&#x43E;&#x43C;&#x43F;&#x435;&#x442;&#x435;&#x43D;&#x446;&#x438;&#x439;" xPos="537" yPos="303" type="2" detal="false" id="27"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="42">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+    <group child_count="1" x="300" y="1200">
+      <dfd_element name="&#x41E;&#x43F;&#x440;&#x435;&#x434;&#x435;&#x43B;&#x438;&#x442;&#x44C; &#x441;&#x432;&#x44F;&#x437;&#x438; &#x43C;&#x435;&#x436;&#x434;&#x443; &#x44D;&#x43B;&#x435;&#x43C;&#x435;&#x43D;&#x442;&#x430;&#x43C;&#x438;" xPos="363" yPos="300" type="2" detal="false" id="28"/>
+      <elements>
+        <element name="SimpleOperation instance" x="0" y="0" type="0" id="43">
+          <interface name="SimpleOperation"/>
+        </element>
+      </elements>
+    </group>
+  </groups>
+  <links>
+    <link src_id="0" dest_id="1" slot_name="DataBase"/>
+    <link src_id="2" dest_id="3" slot_name="DataBase"/>
+    <link src_id="4" dest_id="5" slot_name="DataBase"/>
+    <link src_id="9" dest_id="10" slot_name="DataBase"/>
+    <link src_id="12" dest_id="11" slot_name="DataBase"/>
+    <link src_id="17" dest_id="16" slot_name="DataBase"/>
+    <link src_id="19" dest_id="20" slot_name="DataBase"/>
+    <link src_id="25" dest_id="23" slot_name="Solver"/>
+    <link src_id="27" dest_id="25" slot_name="Knowledge Base"/>
+    <link src_id="26" dest_id="23" slot_name="Dialog Scenario"/>
+    <link src_id="24" dest_id="23" slot_name="Explainer"/>
+    <link src_id="28" dest_id="24" slot_name="Explanations"/>
+    <link src_id="29" dest_id="30" slot_name="DataBase"/>
+    <link src_id="35" dest_id="33" slot_name="Solver"/>
+    <link src_id="37" dest_id="35" slot_name="Knowledge Base"/>
+    <link src_id="36" dest_id="33" slot_name="Dialog Scenario"/>
+    <link src_id="34" dest_id="33" slot_name="Explainer"/>
+    <link src_id="38" dest_id="34" slot_name="Explanations"/>
+    <link src_id="1" dest_id="6" slot_name="DB Driver"/>
+    <link src_id="1" dest_id="7" slot_name="DB Driver"/>
+    <link src_id="10" dest_id="8" slot_name="DB Driver"/>
+    <link src_id="11" dest_id="7" slot_name="DB Driver"/>
+    <link src_id="5" dest_id="6" slot_name="DB Driver"/>
+    <link src_id="5" dest_id="7" slot_name="DB Driver"/>
+    <link src_id="5" dest_id="8" slot_name="DB Driver"/>
+    <link src_id="5" dest_id="14" slot_name="DB Driver"/>
+    <link src_id="5" dest_id="13" slot_name="DB Driver"/>
+    <link src_id="5" dest_id="15" slot_name="DB Driver"/>
+    <link src_id="16" dest_id="18" slot_name="DB Driver"/>
+    <link src_id="5" dest_id="18" slot_name="DB Driver"/>
+    <link src_id="20" dest_id="18" slot_name="DB Driver"/>
+    <link src_id="11" dest_id="21" slot_name="DB Driver"/>
+    <link src_id="11" dest_id="22" slot_name="DB Driver"/>
+    <link src_id="11" dest_id="23" slot_name="DB Driver"/>
+    <link src_id="30" dest_id="21" slot_name="DB Driver"/>
+    <link src_id="30" dest_id="22" slot_name="DB Driver"/>
+    <link src_id="30" dest_id="23" slot_name="DB Driver"/>
+    <link src_id="20" dest_id="31" slot_name="DB Driver"/>
+    <link src_id="20" dest_id="32" slot_name="DB Driver"/>
+    <link src_id="20" dest_id="33" slot_name="DB Driver"/>
+    <link src_id="1" dest_id="39" slot_name="DB Driver"/>
+    <link src_id="3" dest_id="41" slot_name="DB Driver"/>
+    <link src_id="3" dest_id="39" slot_name="DB Driver"/>
+    <link src_id="3" dest_id="40" slot_name="DB Driver"/>
+    <link src_id="3" dest_id="42" slot_name="DB Driver"/>
+    <link src_id="3" dest_id="43" slot_name="DB Driver"/>
+  </links>
+</document>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<document>
+  <Elements>
+    <elem name="Read sensor values" xPos="364" yPos="361" type="2" detal="false" id="1"/>
+    <elem name="Pressure sensor" xPos="536" yPos="320" type="0" detal="false" id="2"/>
+    <elem name="Temperature sensor" xPos="536" yPos="432" type="0" detal="false" id="3"/>
+    <elem name="Save measurement" xPos="191" yPos="297" type="2" detal="false" id="4"/>
+    <elem name="Measurements DB" xPos="180" yPos="193" type="1" detal="false" id="5"/>
+    <elem name="Diagnosis of requiered action" xPos="191" yPos="394" type="3" detal="false" id="6"/>
+    <elem name="Generate driver command" xPos="190" yPos="515" type="2" detal="false" id="7"/>
+    <elem name="Water pump driver" xPos="370" yPos="570" type="0" detal="false" id="8"/>
+  </Elements>
+  <Connections>
+    <con name="" dest_id="1" source_id="2">
+      <std name="std" std="true" std1="pressure measurements" std_number="1"/>
+      <dts name="dts" dts="false"/>
+    </con>
+    <con name="" dest_id="1" source_id="3">
+      <std name="std" std="true" std1="temperature measurements" std_number="1"/>
+      <dts name="dts" dts="false"/>
+    </con>
+    <con name="" source_id="1" dest_id="4">
+      <std name="std" std="true" std1="Data packet" std_number="1"/>
+      <dts name="dts" dts="false"/>
+    </con>
+    <con name="queries" source_id="4" dest_id="5">
+      <std name="std" std="true" std1="queries" std_number="1"/>
+      <dts name="dts" dts="false"/>
+    </con>
+    <con name="" source_id="1" dest_id="6">
+      <std name="std" std="true" std1="current pool state" std_number="1"/>
+      <dts name="dts" dts="false"/>
+    </con>
+    <con name="" source_id="6" dest_id="7">
+      <std name="std" std="true" std1="Operation description" std_number="1"/>
+      <dts name="dts" dts="false"/>
+    </con>
+    <con name="" source_id="7" dest_id="8">
+      <std name="std" std="true" std1="command" std_number="1"/>
+      <dts name="dts" dts="false"/>
+    </con>
+  </Connections>
+</document>

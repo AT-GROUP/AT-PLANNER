@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<document>
+  <Elements>
+    <elem name="&#x41D;&#x424;-&#x43E;&#x43F;&#x435;&#x440;&#x430;&#x446;&#x438;&#x44F;" xPos="283" yPos="457" type="3" detal="false" id="1"/>
+    <elem name="&#x411;&#x414; &#x43C;&#x430;&#x442;&#x435;&#x440;&#x438;&#x430;&#x43B;&#x43E;&#x432;" xPos="380" yPos="273" type="1" detal="false" id="2"/>
+  </Elements>
+  <Connections>
+    <con name="&#x41C;&#x430;&#x442;&#x435;&#x440;&#x438;&#x430;&#x43B;&#x44B;" dest_id="1" source_id="2">
+      <std name="std" std="false"/>
+      <dts name="dts" dts="false"/>
+    </con>
+  </Connections>
+</document>
